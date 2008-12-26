@@ -1,0 +1,70 @@
+﻿<Window x:Class="WPFHomeWork.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFHomeWork"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="401.6">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <WrapPanel Orientation="Horizontal"
+                   Grid.ColumnSpan="2">
+            <Button>
+                <TextBlock Foreground="Navy" Text="Navy"/>
+            </Button>
+            <Button>
+                <TextBlock Foreground="Blue" Text="Blue"/>
+            </Button>
+            <Button>
+                <TextBlock Foreground="Aqua" Text="Aqua"/>
+            </Button>
+            <Button>
+                <TextBlock Foreground="Teal" Text="Teal"/>
+            </Button>
+            <Button>
+                <TextBlock Foreground="Olive" Text="Olive"/>
+            </Button>
+            <Button>
+                <TextBlock Foreground="Green" Text="Green"/>
+            </Button>
+            <Button>
+                <TextBlock Foreground="Lime" Text="Lime"/>
+            </Button>
+            <Button>
+                <TextBlock Foreground="Yellow" Text="Yellow"/>
+            </Button>
+            <Button>
+                <TextBlock Foreground="Orange" Text="Orange"/>
+            </Button>
+            <Button>
+                <TextBlock Foreground="Red" Text="Red"/>
+            </Button>
+            <Button>
+                <TextBlock Foreground="Maroon" Text="Maroon"/>
+            </Button>
+            <Button>
+                <TextBlock Foreground="Fuchsia" Text="Fuchsia"/>
+            </Button>
+            <Button>
+                <TextBlock Foreground="Purple" Text="Purple"/>
+            </Button>
+            <Button>
+                <TextBlock Foreground="Black" Text="Black"/>
+            </Button>
+            <Button>
+                <TextBlock Foreground="Silver" Text="Silver"/>
+            </Button>
+            <Button>
+                <TextBlock Foreground="Gray" Text="Gray"/>
+            </Button>
+            <Button>
+                <TextBlock Foreground="White" Text="White"/>
+            </Button>
+        </WrapPanel>
+    </Grid>
+</Window>

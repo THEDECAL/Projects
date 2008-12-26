@@ -6,10 +6,9 @@
         xmlns:local="clr-namespace:wpfPractic"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="15cm" Width="9cm"
-        MinHeight="15cm" MinWidth="9cm"
-        ResizeMode="NoResize"
-        WindowStyle="ToolWindow" BorderBrush="{x:Null}">
+        Height="18cm" Width="9.5cm"
+        MinHeight="18cm" MinWidth="9.5cm"
+        WindowStyle="ThreeDBorderWindow"  BorderBrush="{x:Null}">
     <Grid Background="#025285">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -124,6 +123,9 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Column="0"
                            Foreground="White"
@@ -173,6 +175,8 @@
                 <Button Grid.Column="0"
                         Grid.ColumnSpan="2"
                         Grid.Row="5"
+                        Name="btnSend"
+                        Click="btnSend_Click"
                         Width="100"
                         Height="30"
                         FontSize="11"
@@ -198,18 +202,44 @@
                          FontSize="11"
                          FontFamily="Arial"
                          Background="CornflowerBlue"/>
-                <TextBox Grid.Column="1"
-                         Grid.Row="3"
-                         Margin="0 6 20 6"
-                         FontSize="11"
-                         FontFamily="Arial"
-                         Background="CornflowerBlue"/>
-                <TextBox Grid.Column="1"
-                         Grid.Row="4"
-                         Margin="0 6 20 6"
-                         FontSize="11"
-                         FontFamily="Arial"
-                         Background="CornflowerBlue"/>
+                <ComboBox Grid.Column="1"
+                          Grid.Row="3"
+                          Margin="0 6 20 6"
+                          FontSize="11"
+                          FontFamily="Arial"
+                          Background="CornflowerBlue">
+                    <ComboBoxItem IsSelected="True"
+                                  Background="CornflowerBlue">
+                        <TextBlock Text="Male"
+                                   FontSize="11"
+                                   FontFamily="Arial"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem IsSelected="False"
+                                  Background="CornflowerBlue">
+                        <TextBlock Text="Female"
+                                   FontSize="11"
+                                   FontFamily="Arial"/>
+                    </ComboBoxItem>
+                </ComboBox>
+                <ComboBox Grid.Column="1"
+                          Grid.Row="4"
+                          Margin="0 6 20 6"
+                          FontSize="11"
+                          FontFamily="Arial"
+                          Background="CornflowerBlue">
+                    <ComboBoxItem IsSelected="True"
+                                  Background="CornflowerBlue">
+                        <TextBlock Text="Job"
+                                   FontSize="11"
+                                   FontFamily="Arial"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem IsSelected="False"
+                                  Background="CornflowerBlue">
+                        <TextBlock Text="Girlfrand"
+                                   FontSize="11"
+                                   FontFamily="Arial"/>
+                    </ComboBoxItem>
+                </ComboBox>
                 <TextBlock Grid.Column="0"
                            Grid.ColumnSpan="2"
                            Grid.Row="6"
@@ -267,6 +297,16 @@
                                    Text="Login with Twitter"/>
                     </Grid>
                 </Button>
+                <Grid Grid.Row="9"
+                      Grid.ColumnSpan="2"
+                      Grid.RowSpan="3"
+                      Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

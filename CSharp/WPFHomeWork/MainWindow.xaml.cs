@@ -13,23 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace wpfPractic
+namespace WPFHomeWork
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        public People People { get; set; } = new People();
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void btnSend_Click(object sender, RoutedEventArgs e)
-        {
-
-            People.Clear();
         }
     }
 }
