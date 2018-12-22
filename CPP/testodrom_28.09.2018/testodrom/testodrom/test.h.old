@@ -1,0 +1,69 @@
+#pragma once
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <algorithm>
+#include <string>
+#include <vector>
+#include "fileManager.h"
+using std::string;
+using std::vector;
+using std::cout;
+using std::endl;
+
+namespace tst{
+	const unsigned NAME_SIZE = 32;
+	const unsigned QUESTION_SIZE = 512;
+	const unsigned VARIANT_SIZE = 32;
+	class fileMngr::singletonFileManager;
+
+	struct variant{
+		char _variant[VARIANT_SIZE] = {0};
+		bool correctAnswer = false;
+	};
+	class question{
+		char _question[QUESTION_SIZE] = {0};
+		vector<variant> variants;
+	public:
+		question(){}
+		question(const char* _question){
+			strncpy_s(this->_question,_question,QUESTION_SIZE-1);
+		}
+		void add_variants(const char* _variant,const bool& _correctAnswer =false){
+			variant temp;
+			strncpy_s(temp._variant,_variant,VARIANT_SIZE-1);
+			temp.correctAnswer = _correctAnswer;
+			variants.push_back(temp);
+		}
+		void show(){
+			cout << _question << endl;
+			for(auto i : variants){
+				cout << '\t' << std::boolalpha << i.correctAnswer << ' ' << i._variant << endl;
+			}
+			cout << endl;
+		}
+		bool get_type(){ //Выводит true, если в вопросе несколько правельных ответов и false если только один
+
+		}
+	};
+
+	class test{
+		char name[NAME_SIZE] = {0};
+		vector<question> questions;
+	public:
+		test(){}
+		test(const char* _name){
+			strncpy_s(name,_name,NAME_SIZE-1);
+		}
+		void input(); //Интерактивное добавление теста
+		void run();
+		void add_question(const question& _question){
+			questions.push_back(_question);
+		}
+		void show(){
+			cout << "---" << name << "---" << endl;
+			for(auto i : questions){ i.show(); }
+			cout << endl;
+		}
+		friend fileMngr::singletonFileManager;
+	};
+}

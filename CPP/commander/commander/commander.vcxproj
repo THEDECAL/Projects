@@ -65,7 +65,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\aborigen.h" />
-    <ClInclude Include="..\messages.h" />
+    <ClInclude Include="..\messages.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\aborigen.cpp" />

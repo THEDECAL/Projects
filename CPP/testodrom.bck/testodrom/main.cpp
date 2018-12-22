@@ -14,16 +14,11 @@ void main(){
 	//using namespace fileMngr;
 	//using namespace tst;
 	try{
-		//system("color 9f");
-		//user u1(ADMIN,"admin","123","Никита","Звегинцев");
-		//u1.save();
-		//user u2(USER,"user","123","Иван","Иванов");
-		//u2.save();
-		//user u3(TEACHER, "teacher", "123", "Пётр", "Петров");
-		//u3.save();
+		system("color 9f");
+		//user u(ADMIN,"admin","123","Никита","Звегинцев");
+		//u.save();
 		//user u;
 		//u.load("admin").show();
-		//app::check_folders();
 		app::start();
 
 		//test t("Основы Linux","Комманды Linux");
@@ -50,6 +45,8 @@ void main(){
 		//a->show();
 		//delete a;
 		//test::create();
+
+		system("pause");
 	}
 	catch(const char* message){
 		cout << "\tОшибка. " << message << ".\n";

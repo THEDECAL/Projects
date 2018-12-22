@@ -1,6 +1,7 @@
 ﻿  main.cpp
-d:\documents\visual studio 2015\projects\card\card\main.cpp(65): warning C4476: "printf": неизвестный символ поля типа "@" в описателе формата
-d:\documents\visual studio 2015\projects\card\card\main.cpp(65): warning C4474: "printf" : для строки формата передано слишком много аргументов
-  d:\documents\visual studio 2015\projects\card\card\main.cpp(65): note: заполнители и их параметры ожидают переменное число аргументов в количестве 2, но было предоставлено 3
-  card.vcxproj -> D:\Documents\Visual Studio 2015\Projects\card\Debug\card.exe
-  card.vcxproj -> D:\Documents\Visual Studio 2015\Projects\card\Debug\card.pdb (Partial PDB)
+e:\documents\visual studio 2015\projects\card\card\main.cpp(65): warning C4838: преобразование из "int" в "char" требует сужающего преобразования
+e:\documents\visual studio 2015\projects\card\card\main.cpp(65): warning C4309: инициализация: усечение константного значения
+e:\documents\visual studio 2015\projects\card\card\main.cpp(65): warning C4838: преобразование из "unsigned int" в "char" требует сужающего преобразования
+e:\documents\visual studio 2015\projects\card\card\main.cpp(74): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  card.vcxproj -> E:\Documents\Visual Studio 2015\Projects\card\Debug\card.exe
+  card.vcxproj -> E:\Documents\Visual Studio 2015\Projects\card\Debug\card.pdb (Partial PDB)

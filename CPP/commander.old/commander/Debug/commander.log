@@ -1,19 +1,275 @@
-﻿Сборка начата 27.07.2018 16:23:39.
-     1>Проект "E:\Documents\Visual Studio 2013\Projects\commander\commander\commander.vcxproj" в узле 2 (целевые объекты Build).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\commander.cpp ..\main.cpp
-         commander.cpp
-     1>e:\documents\visual studio 2013\projects\commander\commander.cpp(27): warning C4018: <: несоответствие типов со знаком и без знака
-         Создание кода...
-         Компиляция...
-         main.cpp
-         Создание кода...
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Documents\Visual Studio 2013\Projects\commander\Debug\commander.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\Documents\Visual Studio 2013\Projects\commander\Debug\commander.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Documents\Visual Studio 2013\Projects\commander\Debug\commander.lib" /MACHINE:X86 Debug\commander.obj
-         Debug\main.obj
-         commander.vcxproj -> E:\Documents\Visual Studio 2013\Projects\commander\Debug\commander.exe
-     1>Сборка проекта "E:\Documents\Visual Studio 2013\Projects\commander\commander\commander.vcxproj" завершена (целевые объекты Build).
-
-Сборка успешно завершена.
-
-Затраченное время: 00:00:07.36
+﻿  main.cpp
+e:\documents\visual studio 2015\projects\commander\commander.h(5): error C2143: синтаксическая ошибка: отсутствие ";" перед "*"
+e:\documents\visual studio 2015\projects\commander\commander.h(5): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+e:\documents\visual studio 2015\projects\commander\commander.h(5): error C2825: messages: должен представлять класс или пространство имен с последующим "::"
+e:\documents\visual studio 2015\projects\commander\commander.h(5): error C2510: messages: выражение слева от "::" должно быть классом, структурой или объединением
+e:\documents\visual studio 2015\projects\commander\commander.h(5): error C2061: синтаксическая ошибка: идентификатор "messages"
+e:\documents\visual studio 2015\projects\commander\commander.h(10): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+e:\documents\visual studio 2015\projects\commander\commander.h(10): error C2143: синтаксическая ошибка: отсутствие ";" перед "*"
+e:\documents\visual studio 2015\projects\commander\commander.h(10): error C2825: messages: должен представлять класс или пространство имен с последующим "::"
+e:\documents\visual studio 2015\projects\commander\commander.h(10): error C2510: messages: выражение слева от "::" должно быть классом, структурой или объединением
+e:\documents\visual studio 2015\projects\commander\commander.h(10): error C2238: непредвиденные лексемы перед ";"
+e:\documents\visual studio 2015\projects\commander\main.cpp(31): error C3861: notify: идентификатор не найден
+  commander.cpp
+e:\documents\visual studio 2015\projects\commander\commander.h(5): error C2143: синтаксическая ошибка: отсутствие ";" перед "*"
+e:\documents\visual studio 2015\projects\commander\commander.h(5): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+e:\documents\visual studio 2015\projects\commander\commander.h(5): error C2825: messages: должен представлять класс или пространство имен с последующим "::"
+e:\documents\visual studio 2015\projects\commander\commander.h(5): error C2510: messages: выражение слева от "::" должно быть классом, структурой или объединением
+e:\documents\visual studio 2015\projects\commander\commander.h(5): error C2061: синтаксическая ошибка: идентификатор "messages"
+e:\documents\visual studio 2015\projects\commander\commander.h(10): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+e:\documents\visual studio 2015\projects\commander\commander.h(10): error C2143: синтаксическая ошибка: отсутствие ";" перед "*"
+e:\documents\visual studio 2015\projects\commander\commander.h(10): error C2825: messages: должен представлять класс или пространство имен с последующим "::"
+e:\documents\visual studio 2015\projects\commander\commander.h(10): error C2510: messages: выражение слева от "::" должно быть классом, структурой или объединением
+e:\documents\visual studio 2015\projects\commander\commander.h(10): error C2238: непредвиденные лексемы перед ";"
+e:\documents\visual studio 2015\projects\commander\commander.cpp(3): error C2789: "commander::messages": требуется инициализация объекта типа класса, квалифицированного как const
+  e:\documents\visual studio 2015\projects\commander\commander.h(10): note:  см. объявление "commander::messages"
+e:\documents\visual studio 2015\projects\commander\commander.h(11): error C3861: _getcwd: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(18): error C3861: _getch: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(27): error C2065: HELP_MESS: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(32): error C2065: ARGS_ERR: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(36): error C2065: ARGS_ERR: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(40): error C2065: ARGS_ERR: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(44): error C2065: ARGS_ERR: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(48): error C2065: ARGS_ERR: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(52): error C2065: ARGS_ERR: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(56): error C2065: ARGS_ERR: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(58): error C2065: SLCT_ERR: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(73): error C2065: QUOTES_ERR: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(77): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(453): note:  см. объявление "strtok"
+e:\documents\visual studio 2015\projects\commander\commander.cpp(84): error C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(453): note:  см. объявление "strtok"
+e:\documents\visual studio 2015\projects\commander\commander.cpp(93): error C2065: _finddata_t: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(93): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(93): error C2061: синтаксическая ошибка: идентификатор "_finddata_t"
+e:\documents\visual studio 2015\projects\commander\commander.cpp(94): error C3861: _getcwd: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(96): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(96): error C3861: _findfirst: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(99): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(99): error C3861: _findnext: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(100): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(100): error C2227: выражение слева от "->name" должно указывать на тип класса, структуры или объединения либо на универсальный тип
+  e:\documents\visual studio 2015\projects\commander\commander.cpp(100): note: тип: unknown-type
+e:\documents\visual studio 2015\projects\commander\commander.cpp(104): error C3861: _findclose: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(105): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(105): error C2541: delete: нельзя удалять объекты, не являющиеся указателями
+e:\documents\visual studio 2015\projects\commander\commander.cpp(111): error C3861: _getcwd: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(113): error C3861: _chdir: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(114): error C2678: бинарный "=": не найден оператор, принимающий левый операнд типа "const std::string" (или приемлемое преобразование отсутствует)
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xstring(1038): note: может быть "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(_Elem)"
+          with
+          [
+              _Elem=char
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xstring(1033): note: или       "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(const _Elem *)"
+          with
+          [
+              _Elem=char
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xstring(1017): note: или       "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(const std::basic_string<char,std::char_traits<char>,std::allocator<char>> &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xstring(978): note: или       "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(std::initializer_list<_Elem>)"
+          with
+          [
+              _Elem=char
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xstring(920): note: или       "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&) noexcept(<expr>)"
+  e:\documents\visual studio 2015\projects\commander\commander.cpp(114): note: при попытке сопоставить список аргументов "(const std::string, std::string)"
+e:\documents\visual studio 2015\projects\commander\commander.cpp(117): error C3861: _chdir: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(117): error C2678: бинарный "=": не найден оператор, принимающий левый операнд типа "const std::string" (или приемлемое преобразование отсутствует)
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xstring(1038): note: может быть "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(_Elem)"
+          with
+          [
+              _Elem=char
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xstring(1033): note: или       "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(const _Elem *)"
+          with
+          [
+              _Elem=char
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xstring(1017): note: или       "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(const std::basic_string<char,std::char_traits<char>,std::allocator<char>> &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xstring(978): note: или       "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(std::initializer_list<_Elem>)"
+          with
+          [
+              _Elem=char
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xstring(920): note: или       "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&) noexcept(<expr>)"
+  e:\documents\visual studio 2015\projects\commander\commander.cpp(117): note: при попытке сопоставить список аргументов "(const std::string, std::string)"
+e:\documents\visual studio 2015\projects\commander\commander.cpp(122): error C2065: _finddata_t: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(122): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(122): error C2061: синтаксическая ошибка: идентификатор "_finddata_t"
+e:\documents\visual studio 2015\projects\commander\commander.cpp(123): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(123): error C3861: _findfirst: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(129): error C2662: bool commander::InterAnswerYN(void): невозможно преобразовать указатель "this" из "const commander" в "commander &"
+  e:\documents\visual studio 2015\projects\commander\commander.cpp(129): note: В результате преобразования теряются квалификаторы
+e:\documents\visual studio 2015\projects\commander\commander.cpp(134): error C3861: _mkdir: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(136): error C3861: _findclose: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(137): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(137): error C2541: delete: нельзя удалять объекты, не являющиеся указателями
+e:\documents\visual studio 2015\projects\commander\commander.cpp(140): error C2065: _finddata_t: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(140): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(140): error C2061: синтаксическая ошибка: идентификатор "_finddata_t"
+e:\documents\visual studio 2015\projects\commander\commander.cpp(143): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(143): error C3861: _findfirst: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(147): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(147): error C3861: _findnext: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(148): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(148): error C2227: выражение слева от "->name" должно указывать на тип класса, структуры или объединения либо на универсальный тип
+  e:\documents\visual studio 2015\projects\commander\commander.cpp(148): note: тип: unknown-type
+e:\documents\visual studio 2015\projects\commander\commander.cpp(151): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(151): error C2227: выражение слева от "->name" должно указывать на тип класса, структуры или объединения либо на универсальный тип
+  e:\documents\visual studio 2015\projects\commander\commander.cpp(151): note: тип: unknown-type
+e:\documents\visual studio 2015\projects\commander\commander.cpp(154): error C3861: _rmdir: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(158): error C2039: del: не является членом "std"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\iostream(12): note:  см. объявление "std"
+e:\documents\visual studio 2015\projects\commander\commander.cpp(158): error C2120: "void" недопустимо для всех типов
+e:\documents\visual studio 2015\projects\commander\commander.cpp(162): error C3861: _findclose: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(163): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(163): error C2541: delete: нельзя удалять объекты, не являющиеся указателями
+e:\documents\visual studio 2015\projects\commander\commander.cpp(166): error C2065: _finddata_t: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(166): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(166): error C2061: синтаксическая ошибка: идентификатор "_finddata_t"
+e:\documents\visual studio 2015\projects\commander\commander.cpp(169): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(169): error C3861: _findfirst: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(175): error C2662: std::string commander::filename(const char *): невозможно преобразовать указатель "this" из "const commander" в "commander &"
+  e:\documents\visual studio 2015\projects\commander\commander.cpp(175): note: В результате преобразования теряются квалификаторы
+e:\documents\visual studio 2015\projects\commander\commander.cpp(182): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(182): error C3861: _findnext: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(183): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(183): error C2227: выражение слева от "->name" должно указывать на тип класса, структуры или объединения либо на универсальный тип
+  e:\documents\visual studio 2015\projects\commander\commander.cpp(183): note: тип: unknown-type
+e:\documents\visual studio 2015\projects\commander\commander.cpp(186): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(186): error C2227: выражение слева от "->name" должно указывать на тип класса, структуры или объединения либо на универсальный тип
+  e:\documents\visual studio 2015\projects\commander\commander.cpp(186): note: тип: unknown-type
+e:\documents\visual studio 2015\projects\commander\commander.cpp(189): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(189): error C2227: выражение слева от "->name" должно указывать на тип класса, структуры или объединения либо на универсальный тип
+  e:\documents\visual studio 2015\projects\commander\commander.cpp(189): note: тип: unknown-type
+e:\documents\visual studio 2015\projects\commander\commander.cpp(199): error C2679: бинарный "<<": не найден оператор, принимающий правый операнд типа "std::string" (или приемлемое преобразование отсутствует)
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(495): note: может быть "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::basic_streambuf<char,std::char_traits<char>> *)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(475): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(const void *)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(455): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(long double)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(435): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(double)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(415): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(float)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(395): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned __int64)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(375): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(__int64)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(355): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned long)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(335): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(long)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(315): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned int)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(290): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(int)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(270): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned short)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(236): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(short)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(216): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(bool)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(209): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::ios_base &(__cdecl *)(std::ios_base &))"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(202): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::basic_ios<char,std::char_traits<char>> &(__cdecl *)(std::basic_ios<char,std::char_traits<char>> &))"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(196): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::basic_ostream<char,std::char_traits<char>> &(__cdecl *)(std::basic_ostream<char,std::char_traits<char>> &))"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(1019): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const std::error_code &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(981): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>,std::string>(std::basic_ostream<char,std::char_traits<char>> &&,const _Ty &)"
+          with
+          [
+              _Ty=std::string
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(971): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,unsigned char)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(964): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const unsigned char *)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(957): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,signed char)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(950): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const signed char *)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(824): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,char)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(777): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(739): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,char)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(692): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)"
+  e:\documents\visual studio 2015\projects\commander\commander.cpp(199): note: при попытке сопоставить список аргументов "(std::basic_ostream<char,std::char_traits<char>>, std::string)"
+e:\documents\visual studio 2015\projects\commander\commander.cpp(200): error C2662: bool commander::InterAnswerYN(void): невозможно преобразовать указатель "this" из "const commander" в "commander &"
+  e:\documents\visual studio 2015\projects\commander\commander.cpp(200): note: В результате преобразования теряются квалификаторы
+e:\documents\visual studio 2015\projects\commander\commander.cpp(206): error C3861: _filelength: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(222): error C2679: бинарный "<<": не найден оператор, принимающий правый операнд типа "std::string" (или приемлемое преобразование отсутствует)
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(495): note: может быть "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::basic_streambuf<char,std::char_traits<char>> *)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(475): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(const void *)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(455): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(long double)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(435): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(double)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(415): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(float)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(395): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned __int64)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(375): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(__int64)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(355): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned long)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(335): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(long)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(315): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned int)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(290): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(int)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(270): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned short)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(236): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(short)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(216): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(bool)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(209): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::ios_base &(__cdecl *)(std::ios_base &))"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(202): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::basic_ios<char,std::char_traits<char>> &(__cdecl *)(std::basic_ios<char,std::char_traits<char>> &))"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(196): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::basic_ostream<char,std::char_traits<char>> &(__cdecl *)(std::basic_ostream<char,std::char_traits<char>> &))"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(1019): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const std::error_code &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(981): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>,std::string>(std::basic_ostream<char,std::char_traits<char>> &&,const _Ty &)"
+          with
+          [
+              _Ty=std::string
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(971): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,unsigned char)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(964): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const unsigned char *)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(957): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,signed char)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(950): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const signed char *)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(824): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,char)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(777): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(739): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,char)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(692): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)"
+  e:\documents\visual studio 2015\projects\commander\commander.cpp(222): note: при попытке сопоставить список аргументов "(std::basic_ostream<char,std::char_traits<char>>, std::string)"
+e:\documents\visual studio 2015\projects\commander\commander.cpp(229): error C3861: _findclose: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(230): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(230): error C2541: delete: нельзя удалять объекты, не являющиеся указателями
+e:\documents\visual studio 2015\projects\commander\commander.cpp(195): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note:  см. объявление "fopen"
+e:\documents\visual studio 2015\projects\commander\commander.cpp(198): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note:  см. объявление "fopen"
+e:\documents\visual studio 2015\projects\commander\commander.cpp(204): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note:  см. объявление "fopen"
+e:\documents\visual studio 2015\projects\commander\commander.cpp(233): error C2065: _finddata_t: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(233): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(233): error C2061: синтаксическая ошибка: идентификатор "_finddata_t"
+e:\documents\visual studio 2015\projects\commander\commander.cpp(239): error C2662: std::string commander::filename(const char *): невозможно преобразовать указатель "this" из "const commander" в "commander &"
+  e:\documents\visual studio 2015\projects\commander\commander.cpp(239): note: В результате преобразования теряются квалификаторы
+e:\documents\visual studio 2015\projects\commander\commander.cpp(243): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(243): error C3861: _findfirst: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(248): error C2679: бинарный "<<": не найден оператор, принимающий правый операнд типа "std::string" (или приемлемое преобразование отсутствует)
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(495): note: может быть "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::basic_streambuf<char,std::char_traits<char>> *)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(475): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(const void *)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(455): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(long double)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(435): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(double)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(415): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(float)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(395): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned __int64)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(375): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(__int64)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(355): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned long)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(335): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(long)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(315): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned int)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(290): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(int)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(270): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned short)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(236): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(short)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(216): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(bool)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(209): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::ios_base &(__cdecl *)(std::ios_base &))"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(202): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::basic_ios<char,std::char_traits<char>> &(__cdecl *)(std::basic_ios<char,std::char_traits<char>> &))"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(196): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::basic_ostream<char,std::char_traits<char>> &(__cdecl *)(std::basic_ostream<char,std::char_traits<char>> &))"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(1019): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const std::error_code &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(981): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>,std::string>(std::basic_ostream<char,std::char_traits<char>> &&,const _Ty &)"
+          with
+          [
+              _Ty=std::string
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(971): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,unsigned char)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(964): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const unsigned char *)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(957): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,signed char)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(950): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const signed char *)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(824): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,char)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(777): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(739): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,char)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\ostream(692): note: или       "std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)"
+  e:\documents\visual studio 2015\projects\commander\commander.cpp(248): note: при попытке сопоставить список аргументов "(std::basic_ostream<char,std::char_traits<char>>, std::string)"
+e:\documents\visual studio 2015\projects\commander\commander.cpp(249): error C2662: bool commander::InterAnswerYN(void): невозможно преобразовать указатель "this" из "const commander" в "commander &"
+  e:\documents\visual studio 2015\projects\commander\commander.cpp(249): note: В результате преобразования теряются квалификаторы
+e:\documents\visual studio 2015\projects\commander\commander.cpp(257): error C3861: _findclose: идентификатор не найден
+e:\documents\visual studio 2015\projects\commander\commander.cpp(258): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(258): error C2541: delete: нельзя удалять объекты, не являющиеся указателями
+e:\documents\visual studio 2015\projects\commander\commander.cpp(261): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note:  см. объявление "fopen"
+e:\documents\visual studio 2015\projects\commander\commander.cpp(274): error C2065: _finddata_t: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(274): error C2065: data_found: необъявленный идентификатор
+e:\documents\visual studio 2015\projects\commander\commander.cpp(274): error C2061: синтаксическая ошибка: идентификатор "_finddata_t"
+e:\documents\visual studio 2015\projects\commander\commander.cpp(274): fatal error C1003: число ошибок превышает 100; остановка компиляции
+  Создание кода...

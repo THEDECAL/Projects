@@ -1,0 +1,4 @@
+﻿  main.cpp
+e:\documents\visual studio 2015\projects\lesson_14\_2\_2\main.cpp(8): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  _2.vcxproj -> E:\Documents\Visual Studio 2015\Projects\lesson_14\_2\Debug\_2.exe
+  _2.vcxproj -> E:\Documents\Visual Studio 2015\Projects\lesson_14\_2\Debug\_2.pdb (Partial PDB)

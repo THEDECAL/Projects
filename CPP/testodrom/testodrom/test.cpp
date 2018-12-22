@@ -4,6 +4,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <algorithm>
 #include <fstream>
 #include <conio.h>
 #include <ctime>
@@ -289,13 +290,27 @@ namespace tst{
 			if(stream){
 				fmngr::string_save(stream,category); //записываем категорию теста
 				fmngr::string_save(stream,name); //записываем название теста
+				//unsigned size = category.size() + 1;
+				//stream.write((char*)&size,sizeof(size)); //записываем размер категории теста
+				//stream.write((char*)category.c_str(),size); //записываем категорию теста
+				//size = name.size() + 1;
+				//stream.write((char*)&size,sizeof(size)); //записываем размер названия теста
+				//stream.write((char*)name.c_str(),size); //записываем название теста
 				unsigned size = questions.size();
 				stream.write((char*)&size,sizeof(size)); //записываем кол-во вопросов
 				for(auto i : questions){
 					fmngr::string_save(stream,i._question);
+					//size = i._question.size() + 1;
+					//stream.write((char*)&size,sizeof(size)); //записываем размер вопроса
+					//stream.write((char*)i._question.c_str(),size); //записываем текст вопроса
 					size = i._variants.size();
 					stream.write((char*)&size,sizeof(size)); //записываем кол-во вариантов ответов
-					for(auto j : i._variants){ fmngr::string_save(stream,j); }
+					for(auto j : i._variants){
+						fmngr::string_save(stream,j);
+						//size = j.size() + 1;
+						//stream.write((char*)&size,sizeof(size)); //записываем размер варианта ответа
+						//stream.write((char*)j.c_str(),size); //записываем вариант ответа
+					}
 				}
 				stream.close();
 			}
@@ -312,6 +327,7 @@ namespace tst{
 				for(size_t i = 0; i < amQuestions; i++){
 					question q;
 					q._question = fmngr::string_load(stream); //Записываем вопрос
+
 					unsigned amVariants = 0;
 					stream.read((char*)&amVariants,sizeof(amVariants)); //Считываем кол-во вариантов ответов
 					for(size_t i = 0; i < amVariants; i++){

@@ -1,7 +1,8 @@
 #include <iostream>
+#include <time.h>
 using namespace std;
 
-const enum figures{
+const enum VAL{
 	JOCKER=1,
 	TWO,
 	THREE,
@@ -16,71 +17,83 @@ const enum figures{
 	QUEEN,
 	KING,
 	ACE,
-	FIGURES_SIZE=ACE
+	VAL__AMOUNT = ACE
 };
-const enum suits{
+const enum SUIT{
 	BLACK=1,
 	WHITE,
 	HEARTS,
 	DIAMONDS,
 	SPADES,
 	CLUBS,
-	SUITS_SIZE=CLUBS
-};
-struct card{
-	suits suit;
-	figures figure;
+	SUIT_AMOUNT = CLUBS
 };
 
-void show(const card& _card){
-	cout<<_card.figure<<(char)_card.suit<<endl;
-}
+struct card{
+	SUIT _suit;
+	VAL _val;
+};
+
 void show(const card* _cards,const unsigned& amount){
 	const unsigned height=7;
 	const unsigned width=7;
 	for(size_t i=0; i<height; i++){
 		for(size_t j=0; j<amount; j++){
 			const char zero=48;
-			char suit=_cards[j].suit;
-			unsigned figure=_cards[j].figure;
+			char sui=_cards[j]._suit;
+			unsigned val=_cards[j]._val;
 			
-			if(figure>TEN){
-				if(figure==JACK) figure='J';
-				else if(figure==QUEEN) figure='Q';
-				else if(figure==KING) figure='K';
-				else if(figure==ACE) figure='A';
+			if(val>TEN){
+				if(val == JACK) val='J';
+				else if(val == QUEEN) val ='Q';
+				else if(val == KING) val ='K';
+				else if(val == ACE) val ='A';
 			}
-			else if(figure==JOCKER) figure=_cards[j].suit;
-			else figure=zero+_cards[j].figure;
-			//char CARD[height][width+2]={
-			//	{201,205,205,205,205,205,187,' ','\0'},
-			//	{186,figure,' ',' ',' ',' ',186,' ','\0'},
-			//	{186,' ',' ',' ',' ',' ',186,' ','\0'},
-			//	{186,' ',' ',suit,' ',' ',186,' ','\0'},
-			//	{186,' ',' ',' ',' ',' ',186,' ','\0'},
-			//	{186,' ',' ',' ',' ',figure,186,' ','\0'},
-			//	{200,205,205,205,205,205,188,' ','\0'}
-			//};
-			//cout<<CARD[i];
-			printf("%c%@10c%c",201,205,187);
+			else if(val == JOCKER) val =_cards[j]._suit;
+			else val = zero+_cards[j]._val;
+
+			char card[height][width+2]={
+				{201,205,205,205,205,205,187,' ','\0'},
+				{186,val,' ',' ',' ',' ',186,' ','\0'},
+				{186,' ',' ',' ',' ',' ',186,' ','\0'},
+				{186,' ',' ',sui,' ',' ',186,' ','\0'},
+				{186,' ',' ',' ',' ',' ',186,' ','\0'},
+				{186,' ',' ',' ',' ',val,186,' ','\0'},
+				{200,205,205,205,205,205,188,' ','\0'}
+			};
+
+			printf(card[i]);
 		}
-		cout<<endl;
+		printf("\n");
 	}
 }
 
 void main(){
+	srand(time(0));
+
 	const unsigned AmountCards=54;
 	card deck[AmountCards];
+	const unsigned UsedCard=52;
 
-	for(size_t i=0,s=HEARTS; i<(AmountCards-2); i+=(FIGURES_SIZE-1),s++){
-		for(size_t j=0,f=TWO; j<(FIGURES_SIZE-1); j++,f++){
-			deck[j+i].suit=(suits)s;
-			deck[j+i].figure=(figures)f;
-			//show(deck[j+i]);
+	deck[52]._suit = WHITE;
+	deck[52]._val = JOCKER;
+	deck[53]._suit = BLACK;
+	deck[53]._val = JOCKER;
+	for(size_t i=0,_suit=HEARTS; i<UsedCard; i+=(VAL__AMOUNT-1),_suit++){
+		for(size_t j=0,_val=TWO; j<(VAL__AMOUNT-1); j++,_val++){
+			deck[j+i]._suit=(SUIT)_suit;
+			deck[j+i]._val=(VAL)_val;
 		}
 	}
 
-	show(deck,3);
+	for(size_t i = 0; i < UsedCard; i++){
+		unsigned rnum = rand() % UsedCard;
+		card temp=deck[i];
+		deck[i] = deck[rnum];
+		deck[rnum] = deck[i];
+	}
+
+	show(deck,5);
 
 	system("pause");
 }

@@ -9,7 +9,7 @@
 #include <string>
 #include <string.h>
 #include <time.h>
-#include "messages.h"
+#include "messages.cpp"
 using namespace std;
 
 class aborigen{
@@ -18,7 +18,7 @@ class aborigen{
 	string prevDir;
 	string HistoryFile;
 	//Ìועמהû
-	bool InterAnswerYN();
+	bool yesno();
 	void choice(const string*);
 	void dir(const char* =NULL);
 	void clrScreen();
@@ -36,10 +36,10 @@ class aborigen{
 	aborigen();
 	public:
 	static aborigen *getAborigen();
-	unsigned inputFilter(char*);
+	void inputFilter(char*);
 	void inputHistory(const char*);
 	//void SlctFileHistory(const char*);
 	void initFileHistory();
-	char* DynamicStr();
+	//char* DynamicStr();
 	~aborigen();
 };

@@ -1,3 +1,22 @@
-﻿  main.cpp
-  testodrom.vcxproj -> D:\Documents\visual studio 2015\Projects\testodrom\Debug\testodrom.exe
-  testodrom.vcxproj -> D:\Documents\visual studio 2015\Projects\testodrom\Debug\testodrom.pdb (Partial PDB)
+﻿  tools.cpp
+  main.cpp
+  app.cpp
+  Создание кода...
+main.obj : error LNK2005: "private: __thiscall app::application::application(void)" (??0application@app@@AAE@XZ) уже определен в app.obj
+main.obj : error LNK2005: "public: __thiscall app::application::~application(void)" (??1application@app@@QAE@XZ) уже определен в app.obj
+main.obj : error LNK2005: "public: static class app::application * __cdecl app::application::getRef(void)" (?getRef@application@app@@SAPAV12@XZ) уже определен в app.obj
+main.obj : error LNK2005: "public: void __thiscall app::application::run(void)" (?run@application@app@@QAEXXZ) уже определен в app.obj
+main.obj : error LNK2005: "private: static class app::application * app::application::pApplication" (?pApplication@application@app@@0PAV12@A) уже определен в app.obj
+main.obj : error LNK2005: "class app::application * app::pApp" (?pApp@app@@3PAVapplication@1@A) уже определен в app.obj
+main.obj : error LNK2005: "class app::application app::App" (?App@app@@3Vapplication@1@A) уже определен в app.obj
+app.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: void __thiscall profile::user::menu(void)" (?menu@user@profile@@QAEXXZ) в функции "public: void __thiscall app::application::run(void)" (?run@application@app@@QAEXXZ)
+main.obj : error LNK2001: неразрешенный внешний символ ""public: void __thiscall profile::user::menu(void)" (?menu@user@profile@@QAEXXZ)"
+app.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: void __thiscall profile::user::save(void)" (?save@user@profile@@QAEXXZ) в функции "public: void __thiscall app::application::run(void)" (?run@application@app@@QAEXXZ)
+main.obj : error LNK2001: неразрешенный внешний символ ""public: void __thiscall profile::user::save(void)" (?save@user@profile@@QAEXXZ)"
+app.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: bool __thiscall profile::user::log_in(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?log_in@user@profile@@QAE_NABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z) в функции "public: void __thiscall app::application::run(void)" (?run@application@app@@QAEXXZ)
+main.obj : error LNK2001: неразрешенный внешний символ ""public: bool __thiscall profile::user::log_in(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?log_in@user@profile@@QAE_NABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)"
+app.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: static enum profile::acc_type __cdecl profile::user::load_type(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?load_type@user@profile@@SA?AW4acc_type@2@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) в функции "public: void __thiscall app::application::run(void)" (?run@application@app@@QAEXXZ)
+main.obj : error LNK2001: неразрешенный внешний символ ""public: static enum profile::acc_type __cdecl profile::user::load_type(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?load_type@user@profile@@SA?AW4acc_type@2@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)"
+app.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: __thiscall profile::user::~user(void)" (??1user@profile@@QAE@XZ) в функции "private: __thiscall app::application::application(void)" (??0application@app@@AAE@XZ)
+main.obj : error LNK2001: неразрешенный внешний символ ""public: __thiscall profile::user::~user(void)" (??1user@profile@@QAE@XZ)"
+E:\Documents\Visual Studio 2015\Projects\testodrom\Debug\testodrom.exe : fatal error LNK1120: неразрешенных внешних элементов: 5

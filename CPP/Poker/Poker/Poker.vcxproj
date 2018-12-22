@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{7DFCD367-BF91-44A9-911B-EC941B77F25B}</ProjectGuid>
-    <RootNamespace>Poker</RootNamespace>
+    <ProjectGuid>{FE3058A0-6DA0-45EA-985C-14973AE44D6A}</ProjectGuid>
+    <RootNamespace>poker</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

@@ -1,0 +1,5 @@
+﻿  main.cpp
+e:\documents\visual studio 2015\projects\lesson_13\_5\_5\equation.h(36): warning C4101: x1: неиспользованная локальная переменная
+e:\documents\visual studio 2015\projects\lesson_13\_5\_5\equation.h(36): warning C4101: x2: неиспользованная локальная переменная
+  _5.vcxproj -> E:\Documents\Visual Studio 2015\Projects\lesson_13\_5\Debug\_5.exe
+  _5.vcxproj -> E:\Documents\Visual Studio 2015\Projects\lesson_13\_5\Debug\_5.pdb (Partial PDB)

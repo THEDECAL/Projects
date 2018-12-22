@@ -11,7 +11,7 @@ aborigen::~aborigen(){
 aborigen *aborigen::getAborigen(){
 	return pAborigen;
 }
-bool aborigen::InterAnswerYN(){
+bool aborigen::yesno(){
 	char answer;
 	while(true){
 		cout<<"\tPress: y\\Y - yes, n\\N - no\n";
@@ -24,41 +24,40 @@ void aborigen::choice(const string* arguments){
 	string line=arguments[0];
 
 	if(line=="");
-	else if(line=="help"||line=="?") NotifyKey=HELP_MESS;
+	else if(line=="help"||line=="?") printf(messages[HELP_MESS]);
 	else if(line=="clear") clrScreen();
 	else if(line=="dir") (arguments[1].size())?dir(arguments[1].c_str()):dir();
 	else if(line=="cd"){
 		if(arguments[1].size()) cd(arguments[1].c_str());
-		NotifyKey=ARGS_ERR;
+		else printf(messages[ARGS_ERR]);
 	}
 	else if(line=="mv"){
 		if(arguments[1].size()&&arguments[2].size()) move(arguments[1].c_str(),arguments[2].c_str());
-		NotifyKey=ARGS_ERR;
+		else printf(messages[ARGS_ERR]);
 	}
 	else if(line=="mkdir"){
 		if(arguments[1].size()) mkFolder(arguments[1].c_str());
-		NotifyKey=ARGS_ERR;
+		else printf(messages[ARGS_ERR]);
 	}
 	else if(line=="rm"){
 		if(arguments[1].size()) del(arguments[1].c_str());
-		NotifyKey=ARGS_ERR;
+		else printf(messages[ARGS_ERR]);
 	}
 	else if(line=="cp"){
 		if(arguments[1].size()&&arguments[2].size()) copy(arguments[1].c_str(),arguments[2].c_str());
-		NotifyKey=ARGS_ERR;
+		else printf(messages[ARGS_ERR]);
 	}
 	else if(line=="open"){
 		if(arguments[1].size()) opFile(arguments[1].c_str());
-		NotifyKey=ARGS_ERR;
+		else printf(messages[ARGS_ERR]);
 	}
 	else if(line=="mk"){
 		if(arguments[1].size()) mkFile(arguments[1].c_str());
-		NotifyKey=ARGS_ERR;
+		else printf(messages[ARGS_ERR]);
 	}
-	else NotifyKey=SLCT_ERR;
+	else printf(messages[SLCT_ERR]);
 }
-unsigned aborigen::inputFilter(char* line){
-	NotifyKey=NULL;
+void aborigen::inputFilter(char* line){
 	#define CNT_ARG 5
 	string arguments[CNT_ARG];
 	unsigned amountArg=0;
@@ -69,8 +68,10 @@ unsigned aborigen::inputFilter(char* line){
 	for(size_t i=0; line[i]!=NULL; i++)
 		if(line[i]=='\"') amountQuotes++;
 
-	if(amountQuotes%2)
-		return NotifyKey=QUOTES_ERR;
+	if(amountQuotes % 2){
+		printf(messages[QUOTES_ERR]);
+		return;
+	}
 
 	//Делим введёную строку на лексемы
 	string delimiters=" ";
@@ -88,8 +89,6 @@ unsigned aborigen::inputFilter(char* line){
 
 	//Выбераем функцию
 	choice(arguments);
-
-	return NotifyKey;
 }
 void aborigen::dir(const char* path){
 	_finddata_t* data_found=new _finddata_t;
@@ -104,7 +103,7 @@ void aborigen::dir(const char* path){
 		_findclose(num_find);
 		delete data_found;
 	}
-	else NotifyKey=READ_ERR;
+	else printf(messages[READ_ERR]);
 }
 void aborigen::clrScreen(){
 	system("cls");
@@ -117,7 +116,7 @@ void aborigen::cd(const char* path){
 	}
 	else{
 		if(!_chdir(path)) prevDir=currentFolder;
-		else NotifyKey=READ_ERR;
+		else printf(messages[READ_ERR]);
 	}
 }
 void aborigen::mkFolder(const char* path){
@@ -127,13 +126,13 @@ void aborigen::mkFolder(const char* path){
 	//Проверка на существование такого же имени.
 	bool isAllowReplace=true;
 	if(num_find!=-1){
-		cout<<"\tERROR. A folder: \""<<path<<"\",\n\twith this name already exists.\n\tReplace?\n";
-		isAllowReplace=InterAnswerYN();
+		printf(messages[DIR_REPLACE_MESS],path);
+		isAllowReplace=yesno();
 		if(isAllowReplace) del(path);
 	}
 
 	if(isAllowReplace)
-		if(_mkdir(path)==-1) cout<<"\tERROR. Can not create folder:"<<path<<"\n\tWrong path or not enough rights to the operation.\n";
+		if(_mkdir(path)==-1) printf(messages[MAKE_DIR_ERR],path);
 
 	_findclose(num_find);
 	delete data_found;
@@ -154,11 +153,11 @@ void aborigen::del(const char* path){
 			del(newPath.c_str());
 		}
 		if(_rmdir(path)!=-1);
-		else cout<<"\tERROR. Can not delete folder:"<<path<<"\n\tWrong path or not enough rights to the operation.\n";
+		else printf(messages[DEL_DIR_ERR],path);
 	}
 	else{ //Если это не папка или такой папки нет
 		if(remove(path)==0);
-		else NotifyKey=READ_ERR;
+		else printf(messages[READ_ERR]);
 	}
 
 	_findclose(num_find);
@@ -199,7 +198,7 @@ void aborigen::copy(const char* srcPath,const char* dstPath){
 			bool isAllowReplace=true;
 			if(dst=fopen(dst_path.c_str(),"rb")){
 				cout<<"\tERROR. A file \""<<dst_path<<"\",\n\twith this name already exists.\n\tReplace?\n";
-				isAllowReplace=InterAnswerYN();
+				isAllowReplace=yesno();
 				fclose(dst);
 			}
 			if(isAllowReplace){//Если можно заменять, заменить.
@@ -247,14 +246,14 @@ void aborigen::move(const char* srcPath,const char* dstPath){
 	//Проверка на существование такого же имени.
 	bool isAllowReplace=true;
 	if(num_find!=-1){
-		cout<<"\tERROR. A file or a folder: \""<<mask<<"\",\n\twith this name already exists.\n\tReplace?\n";
-		isAllowReplace=InterAnswerYN();
+		printf(messages[REPLACE_MESS],mask);
+		isAllowReplace=yesno();
 		if(isAllowReplace) del(mask.c_str());
 	}
 
 	//Если можно заменить, заменять.
 	if(isAllowReplace)
-		if(rename(srcPath,mask.c_str())) cout<<"\tERROR. Wrong path or not enough rights to the operation.\n";
+		if(rename(srcPath,mask.c_str())) printf(messages[READ_ERR]);
 
 	_findclose(num_find);
 	delete data_found;
@@ -270,7 +269,7 @@ void aborigen::opFile(const char* path){
 		}
 		fclose(fileDesc);
 	}
-	else cout<<"ERROR. Wrong path \""<<path<<"\"\n\tor not enough rights to the operation.\n";
+	else printf(messages[READ_ERR]);
 }
 void aborigen::mkFile(const char* path){
 	_finddata_t* data_found=new _finddata_t;
@@ -278,15 +277,15 @@ void aborigen::mkFile(const char* path){
 
 	bool isAllowReplace=true;
 	if(num_find!=-1){
-		cout<<"\tERROR. A folder or file: \""<<path<<"\",\n\twith this name already exists.\n\tReplace?\n";
-		isAllowReplace=InterAnswerYN();
+		printf(messages[REPLACE_MESS],path);
+		isAllowReplace=yesno();
 		if(isAllowReplace) del(path);
 	}
 
 	if(isAllowReplace){
 		FILE *fileDesc=fopen(path,"w");
-		if(!fileDesc) cout<<"\tERROR. Can not create file:"<<path<<"\n\tWrong path or not enough rights to the operation.\n";
-		fclose(fileDesc);
+		if(!fileDesc) printf(messages[MAKE_FILE_ERR],path);
+		else fclose(fileDesc);
 	}
 
 	_findclose(num_find);
@@ -294,7 +293,7 @@ void aborigen::mkFile(const char* path){
 }
 string aborigen::filename(const char* path){
 	//Извлекаем имя файла (Всё, что за последним слэшом. Если нет слэша ни чиво не меняем).
-#define SIZE_LINE 260
+	#define SIZE_LINE 260
 	char temp[SIZE_LINE]{};
 	strcpy(temp,path);
 	delLastSlash(temp);
@@ -345,20 +344,20 @@ void aborigen::initFileHistory(){
 
 	if(readHis) readHis.close();
 }
-char* aborigen::DynamicStr(){
-#define ENTER_KEY 13
-	long long size=1;
-	char* text=(char*)calloc(size,sizeof(char));
-	for(char temp=0;;){
-		temp=_getch();
-		if(temp==ENTER_KEY){
-			printf("%c",'\n');
-			return text;
-		}
-		for(size_t i=0; i < size-1; i++) printf("%c",'\b');
-		text=(char*)realloc(text,++size*sizeof(char));
-		text[size-1]='\0';
-		text[size-2]=temp;
-		printf("%s",text);
-	}
-}
+//char* aborigen::DynamicStr(){
+//	#define ENTER_KEY 13
+//	long long size=1;
+//	char* text=(char*)calloc(size,sizeof(char));
+//	for(char temp=0;;){
+//		temp=_getch();
+//		if(temp==ENTER_KEY){
+//			printf("%c",'\n');
+//			return text;
+//		}
+//		for(size_t i=0; i < size-1; i++) printf("\b");
+//		text=(char*)realloc(text,++size*sizeof(char));
+//		text[size-1]='\0';
+//		text[size-2]=temp;
+//		printf("%s",text);
+//	}
+//}

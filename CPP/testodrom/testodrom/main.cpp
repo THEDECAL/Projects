@@ -1,22 +1,23 @@
 #include <windows.h>
+#include <iostream>
 #include "app.cpp"
+using namespace app;
 
 void main(){
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	setlocale(LC_ALL, "rus");
 
-	using namespace app;
 	try{
 		system("color 9f");
-		app::start();
+		App.run();
 	}
 	catch(const char* message){
-		cout << "\tОшибка. " << message << ".\n";
+		std::cout << "\tОшибка. " << message << ".\n";
 		system("pause");
 	}
 	catch(...){
-		cout << "\tНепредвиденная Ошибка.\n";
+		std::cout << "\tНепредвиденная Ошибка.\n";
 		system("pause");
 	}
 }

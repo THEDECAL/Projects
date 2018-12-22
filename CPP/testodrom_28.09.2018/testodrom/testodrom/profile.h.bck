@@ -1,0 +1,274 @@
+#pragma once
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+#include "test.h"
+#include "fileMngr.h"
+using std::string;
+using std::vector;
+
+namespace profile{
+	using tst::answers;
+	using fileMngr::fmngr;
+	using namespace tst;
+	const enum acc_type { ADMIN, TEACHER, USER, UNKNOWN };
+	const enum status{ LOCK, UNLOCK };
+
+	class account{
+	protected:
+		acc_type type;
+		status _status = UNLOCK;
+		string login;
+		string password;
+	public:
+		account(){}
+		account(const acc_type& t,const string& l,const string& p):type(t),login(l),password(p){}
+		void change_status(){ ( _status == UNLOCK )?_status=LOCK:_status=UNLOCK; }
+	};
+
+	class user:public account{
+	protected:
+		string fname;
+		string sname;
+		fstream stream;
+		vector<answers> _answers; //Пройденные тесты
+	public:
+		user(){}
+		user(const acc_type& t,const string& l,const string& p,const string& f,const string& s):account(t,l,p),fname(f),sname(s){}
+		virtual void menu(){
+			const enum MENU{ RUN, SHOW_STAT, EXIT };
+			const vector<string> menu = { "Запустить тест", "Показать статистику", "Выход" };
+
+			MENU select;
+			do{
+				string title = "Меню";
+				select = (MENU)_menu(menu, title, ARROW);
+				switch(select){
+					case RUN:{ run_test(); break; }
+					case SHOW_STAT:{ break; }
+				}
+			} while(select!=EXIT);
+
+			cout<<"This user menu.\n";
+		}
+		user& save(){
+			string path = fileMngr::ACCOUNTS + login + ".dat";
+			stream.open(path,ios::out | ios::binary);
+			if(stream){
+				//Записываем тип аккаунта
+				stream.write((char*)&type,sizeof(unsigned));
+				//Записываем статус аккаунта
+				stream.write((char*)&_status, sizeof(unsigned));
+				//Записываем логин
+				fmngr::string_save(stream,login);
+				//Записываем пароль
+				fmngr::string_save(stream,password);
+				//Записываем имя
+				fmngr::string_save(stream,fname);
+				//Записываем фамилию
+				fmngr::string_save(stream,sname);
+				unsigned size = _answers.size();
+				stream.write((char*)&size,sizeof(unsigned));
+				if(size) for(auto i : _answers){ i.save(stream); } //Записываем ответы на пройденные тесты
+
+				stream.close();
+				return *this;
+			}
+			else throw "Невозможно открыть файл для записи";
+		}
+		bool load(const string& account){
+			string path = fileMngr::ACCOUNTS + account + ".dat";
+			if(fmngr::find(path)){
+				stream.open(path,ios::in | ios::binary);
+				if(stream){
+					stream.read((char*)&type,sizeof(unsigned));
+					stream.read((char*)&_status, sizeof(unsigned));
+					login = fmngr::string_load(stream);
+					password = fmngr::string_load(stream);
+					fname = fmngr::string_load(stream);
+					sname = fmngr::string_load(stream);
+					unsigned size;
+					stream.read((char*)&size,sizeof(unsigned));
+					if(size){
+						answers _answers;
+						_answers.load();
+						this->_answers.push_back(_answers);
+					}
+					stream.close();
+
+					return 1;
+				}
+				else throw "Невозможно открыть файл для чтения";
+			}
+			else return 0;
+		}
+		user& add_answers(const answers& a){
+			_answers.push_back(a);
+			return *this;
+		}
+		user& show(){
+			//cout<<"Статус: "; ( _status==LOCK ) ? cout<<"Заблокирован\n" : cout<<"Активный\n";
+			cout << "Тип: ";
+			if(type == ADMIN) cout << "Администратор\n";
+			else if(type == TEACHER) cout << "Учитель\n";
+			else if(type == USER) cout << "Пользователь\n";
+			cout << endl;
+			cout << "Логин: " << login << endl;
+			cout << "Пароль " << password << endl;
+			cout << "Имя: " << fname << endl;
+			cout << "Фамилия: " << sname << endl << endl;
+
+			return *this;
+		}
+		bool check_password(const string& password) const{
+			return password==this->password;
+		}
+		acc_type get_acc_type() const{ return type; }
+		bool log_in(const string& login,const string& password){
+			if(load(login) && check_password(password)) return 1;
+			return 0;
+		}
+		static acc_type load_type(const string& login){
+			string path = fileMngr::ACCOUNTS+login+".dat";
+			if(fmngr::find(path)){
+				fstream stream(path, ios::in|ios::binary);
+				if(stream){
+					acc_type temp;
+					stream.read((char*)&temp, sizeof(unsigned));
+					return temp;
+				}
+			}
+			return UNKNOWN;
+		}
+		status get_status(){
+			return _status;
+		}
+		string test_navigate(){
+			string mask = fileMngr::TESTS + "*";
+			string title = "Выберите категорию:\n";
+
+			vector<string> menu;
+			_finddata_t* data_found = new _finddata_t;
+			long num_find = _findfirst(mask.c_str(), data_found);
+
+			string search;
+			if(num_find != -1){
+				while(_findnext(num_find, data_found) == 0){
+					search = data_found->name;
+					if(search == ".." || search == ".") continue;
+					menu.push_back(search);
+				}
+
+				_findclose(num_find);
+			}
+			delete data_found;
+
+			unsigned select = _menu(menu, title, ARROW);
+			mask.resize(mask.size() - 1);
+			mask += menu[select] + "\\*";
+			menu.clear();
+
+			data_found = new _finddata_t;
+			num_find = _findfirst(mask.c_str(), data_found);
+
+			if(num_find != -1){
+				while(_findnext(num_find, data_found) == 0){
+					search = data_found->name;
+					if(search == ".." || search == ".") continue;
+					search.resize(search.size() - 4);
+					menu.push_back(search);
+				}
+
+				_findclose(num_find);
+			}
+			delete data_found;
+
+			select = _menu(menu, title, ARROW);
+			mask.resize(mask.size()-1);
+			mask += menu[select] + ".dat";
+
+			return mask;
+		}
+		void run_test(){
+			auto_ptr<test> pTest(new test);
+			pTest->load(test_navigate());
+			pTest->run();
+
+
+			system("pause");
+		}
+		~user(){
+			if(stream) stream.close();
+		}
+	};
+
+	class teacher:public user{
+	public:
+		void menu(){
+			const enum MENU { EDIT, ADD, REMOVE, CHECK, EXIT };
+			const vector<string> menu = { "Добавить тест", "Изменить тест", "Удалить тест", "Проверить тест", "Выход" };
+
+			MENU select;
+			do{
+				string title = "Меню";
+				select = (MENU)_menu(menu, title, ARROW);
+
+			} while(select!=EXIT);
+
+			cout<<"This teacher menu.\n";
+		}
+	};
+	class admin:public teacher{
+	public:
+		void lock(const string& login){
+			if(login != this->login){
+				auto_ptr<user> pUser(new user);
+				if(pUser->load(login)){
+					pUser->change_status();
+					pUser->save();
+				}
+				else cerr << "Такого логина нет.\n";
+			}
+			else cerr << "Невозможно заблокироать самого себя.\n";
+		}
+		void menu(){
+			const enum MENU { EDIT, ADD, REMOVE, BLOCK_UNBLOCK, EXIT };
+			const vector<string> menu = { "Добавить тест", "Изменить тест", "Удалить тест", "Заблокировать/Разблокировать пользователя", "Выход" };
+
+			MENU select;
+			do{
+				string title = "Меню";
+				select = (MENU)_menu(menu, title, ARROW);
+				switch(select){
+					case BLOCK_UNBLOCK:{
+						string mask = fileMngr::ACCOUNTS + "*";
+						_finddata_t* data_found = new _finddata_t;
+						long num_find = _findfirst(mask.c_str(), data_found);
+
+						if(num_find != -1){
+							while(_findnext(num_find, data_found) == 0){
+								string account = data_found->name;
+								if(account == ".." || account == ".") continue;
+								account.resize(account.size()-4);
+								cout << account << endl;
+							}
+
+							_findclose(num_find);
+						}
+						delete data_found;
+
+						string login;
+						cout << "Введите логин пользователя, чтобы заблокировать/разблокировать аккаунт.\n"; getline(cin, login);
+						lock(login);
+						system("pause");
+
+						break;
+					}
+				}
+			} while(select!=EXIT);
+
+			cout<<"This admin menu.\n";
+		}
+	};
+}

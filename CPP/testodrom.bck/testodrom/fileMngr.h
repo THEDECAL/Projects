@@ -12,7 +12,6 @@ using namespace std;
 namespace fileMngr{
 	const string TESTS = ".\\tests\\";
 	const string ACCOUNTS = ".\\accounts\\";
-	const string PASSED_TESTS = ".\\passed_tests\\";
 
 	class fmngr{
 	public:

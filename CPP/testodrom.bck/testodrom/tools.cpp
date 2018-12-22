@@ -7,12 +7,8 @@ using std::string;
 using std::vector;
 using std::cout;
 using std::endl;
-using std::istream;
-using std::cin;
-using std::cerr;
-//using namespace std;
 
-enum KEYS { ENTER = 13, BACKSPACE = 8, S = 83,W = 87,s = 115,w = 119 };
+enum KEYS { ENTER = 13,S = 83,W = 87,s = 115,w = 119 };
 enum MTYPE{ ARROW, NUMBER };
 
 static string enter_password(){
@@ -23,21 +19,10 @@ static string enter_password(){
 		cout << '\r';
 		select = _getch();
 		if(select == ENTER) return password;
-		else if(select > ' ' && select < '~') password += select;
+		password += select;
 	}
 }
-static string enter_text(const string& title =""){
-	string text;
-	for(;;){
-		cout << title;
-		getline(cin, text);
-		if(text.size() && text[0]!=' ') return text;
-		else{
-			cerr << "Поле должно быть заполнено и не иметь пробелов в начале.\n";
-			system("pause");
-		}
-	}
-}
+
 static unsigned _menu(const vector<string> menu,const string& title = "", const MTYPE &type =NUMBER){
 	unsigned select = -1;
 	if(type == NUMBER){
@@ -73,5 +58,4 @@ static unsigned _menu(const vector<string> menu,const string& title = "", const 
 			else if(select == ENTER) return arrow;
 		}
 	}
-	else throw;
 }

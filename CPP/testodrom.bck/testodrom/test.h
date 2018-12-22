@@ -12,71 +12,49 @@ using namespace std;
 
 namespace tst{
 	using fileMngr::fmngr;
-	const unsigned amAttempts = 3;
 
 	//Класс для хранения пройденых тестов
 	class answers{
-		unsigned attempts = 0; //Кол-во использованных попыток
-		unsigned assessment = 0; //Оценка за тест
+		unsigned attempts; //Кол-во использованных попыток
 		string category; //Категория теста
 		string name; //Название теста
-		vector<string> _questions; //Вопрос
-		vector<string> _answers; //Ответ
+		map<string,string> questionAndAnswer; //Вопрос и ответ
 	public:
 		answers(){}
 		answers(const string& category,const string& name):category(category),name(name){}
-		unsigned get_attempts(){
-			return attempts;
+		answers& add(const string& question,const string& answer){
+			questionAndAnswer.insert(pair<string,string>(question,answer));
+			return *this;
 		}
-		string get_name(){
-			return name;
-		}
-		void change_attempts(const unsigned& a =1){
-			if(attempts < amAttempts) attempts+=a;
-		}
-		void add(const string& question,const string& answer){
-			_questions.push_back(question);
-			_answers.push_back(answer);
-		}
-		void show(){
-			if(_questions.size()){
-				cout << "--------------------" << endl;
-				cout << "Категория: " << category << endl << endl;
-				cout << "Название: " << name << endl;
-				cout << "Оценка: "; ( assessment )?cout << assessment:cout << "Нет";
-				cout << "Количество использованных попыток: " << attempts << endl << endl;
-				cout << "--------------------" << endl;
-				for(size_t i = 0; i < _questions.size(); i++){
-					cout << _questions[i] << endl;
-					cout << '\t' << _answers[i] << endl;
-				}
-				cout << "--------------------" << endl;
+		answers& show(){
+			if(questionAndAnswer.size()){
+				cout << category << endl << endl;
+				cout << "</\\/\\\\/--- " << name << " ---\\//\\/\\>" << endl << endl;
+				auto it = questionAndAnswer.end();
+				do{
+					it--;
+					cout << it->first << endl;
+					cout << '\t' << it->second << endl;
+				}while(it != questionAndAnswer.begin());
+				return *this;
 			}
 			else throw "Ответов нет";
 		}
-		void save(fstream& stream){
+		answers& save(fstream& stream){
 			fmngr::string_save(stream,category); //Записываем категорию
-			fmngr::string_save(stream,name); //Записываем название
-			stream.write((char*)&attempts,sizeof(unsigned)); //Записываем кол-во использованных попыток
-			stream.write((char*)&assessment, sizeof(unsigned)); //Записываем оценку
-			unsigned size = _questions.size();
+			fmngr::string_save(stream,name); //Записываем имя
+			stream.write((char*)attempts,sizeof(unsigned)); //Записываем кол-во использованных попыток
+			unsigned size = questionAndAnswer.size();
 			stream.write((char*)&size,sizeof(size)); //Записываем кол-во вопросов с ответами
-			for(size_t i=0;i<_questions.size();i++){
-				fmngr::string_save(stream, _questions[i]); //Записываем вопрос
-				fmngr::string_save(stream, _answers[i]); //Записываем ответ
+			for(auto i : questionAndAnswer){
+				fmngr::string_save(stream,i.first); //Записываем вопрос
+				fmngr::string_save(stream,i.second); //Записываем ответ
 			}
+			return *this;
 		}
-		void load(fstream& stream){
-			category = fmngr::string_load(stream); //Загружаем категорию
-			name = fmngr::string_load(stream); //Загружаем название
-			stream.read((char*)&attempts, sizeof(unsigned)); //Загружаем кол-во использованных попыток
-			stream.read((char*)&assessment, sizeof(unsigned)); //Загружаем оценку
-			unsigned amQuestions;
-			stream.read((char*)&amQuestions, sizeof(unsigned)); //Загружаем кол-во вопросов с ответами
-			for(size_t i = 0; i < amQuestions; i++){
-				_questions.push_back(fmngr::string_load(stream));
-				_answers.push_back(fmngr::string_load(stream));
-			}
+		answers& load(){
+
+			return *this;
 		}
 	};
 
@@ -103,71 +81,75 @@ namespace tst{
 		test(const string& category,const string& name):category(category),name(name){}
 		answers* run(){
 			if(questions.size()){
-				answers* pAnswers = new answers(category, name);
-				unsigned cntQuestions = 1;
-				for(auto i : questions){
+				answers *pAnswers = new answers(category,name);
+				int arrow = 0;
+
+				for(size_t i = 0; i < questions.size();){
+					if (arrow < 0) arrow=questions[i]._variants.size()-1;
+					else if(arrow > questions[i]._variants.size() - 1) arrow = 0;
+
 					system("cls");
-					cout << category << endl << endl;
+					cout << right << category << endl;
 					cout << "</\\/\\\\/--- " << name << " ---\\//\\/\\>" << endl << endl;
+					cout << i+1 << "\\" << questions.size() << ". " << questions[i]._question << endl;
+					unsigned cntVariants = 0;
+					char select = -1;
+					for(auto variant : questions[i]._variants){
+						(arrow == cntVariants)?cout<<"\t-> ":cout<<"\t   ";
+						cout << (char)(cntVariants + 97) << "). " << variant << endl;
+						cntVariants++;
+					}
+					cout << endl << endl;
+					cout << "Помощь: <Enter> выбрать ответ, <W\\w> вверх, <S\\s> вниз\n";
 
-					string question = to_string(cntQuestions) + "/" + to_string(questions.size())+" ";
-					question+=i._question;
-					unsigned answer = _menu(i._variants,question,ARROW);
-					pAnswers->add(i._question, i._variants[answer]);
-
-					cntQuestions++;
+					select = _getch();
+					switch(select){
+						case W:case w:{ arrow--; break; }
+						case S:case s:{ arrow++; break; }
+						case ENTER:{
+							pAnswers->add(questions[i]._question,questions[i]._variants[arrow]);
+							arrow = 0;
+							i++;
+							break;
+						}
+					}
 				}
-				pAnswers->change_attempts(); //Увеличиваем кол-во использованных попыток
 				cout << "Поздравляем вы завершили тест.\n";
 				system("pause");
-				
 				return pAnswers;
 			}
 			else throw "Тест пустой";
 		}
 		static void create(){
 			auto_ptr<test> pTest(new test);
-			string path = fileMngr::TESTS;
+			const string pleaseEnter = "Пожалуйста введите ";
+			string text,path = fileMngr::TESTS;
 
-			pTest->category = enter_text("Введите категорию теста: ");
-			path += pTest->category;
+			cout << pleaseEnter << "категорию теста: "; getline(cin,text);
+			pTest->category = text;
+			path += text;
 			fmngr::mkFolder(path);
-			pTest->name = enter_text("Введите название теста: ");
+			cout << pleaseEnter << "название теста: "; getline(cin,text);
+			pTest->name = text;
 
 			for(size_t i = 1;;i++){
-				string text,title;
 				question q;
 				const string message = " (для завершения ввода введите \"q\")";
-				title = "Введите вопрос №" + to_string(i) + message;text = enter_text(title);
-				if(text == "q"){
-					if(!pTest->questions.size()){
-						cerr << "Нет ни одного вопроса.\n";
-						system("pause");
-						continue;
-					}
-					break;
-				}
+				cout << pleaseEnter << "вопрос №" << i << message << ":\n"; getline(cin,text);
+				if(text == "q") break;
 				q._question=text;
-				cout << "Введите варианты ответов" << message << ":\n";
+				cout << pleaseEnter << "варианты ответов" << message << ":\n";
 				for(;;){
-					text = enter_text();
-					if(text == "q"){
-						if(!q._variants.size()){
-							cerr << "Нет ни одного варианта ответа.\n";
-							system("pause");
-							continue;
-						}
-						break;
-					}
+					getline(cin,text);
+					if(text == "q") break;
 					q._variants.push_back(text);
 				}
 				pTest->add_question(q);
 			}
 			pTest->save();
-			cout << "Вы создали тест.\n";
-			system("pause");
+			cout << "Вы завершили создание, тест сохранён на жестком диске.\n";
 		}
-		void edit(){
+		test& edit(){
 			enum{ CATEGORY, NAME, QUESTION, EXIT};
 			enum{ ADD, REMOVE, EDIT};
 			vector<string> menu = { "Категория", "Навзание", "Вопрос", "Назад" };
@@ -177,6 +159,7 @@ namespace tst{
 			string path = fileMngr::TESTS;
 			path += category;
 			path += "\\"; path += name;
+			path += ".dat";
 
 			for(;;){
 				string title = "Пожалуйста выберите, что хотите изменить:",text;
@@ -244,11 +227,14 @@ namespace tst{
 				}
 			}
 			save();
+
+			return *this;
 		}
-		void add_question(const question& _question){
+		test& add_question(const question& _question){
 			questions.push_back(_question);
+			return *this;
 		}
-		void show(const bool& only_questions =false){
+		test& show(const bool& only_questions =false){
 			if(questions.size()){
 				if(!only_questions){
 					cout << category << endl << endl;
@@ -264,68 +250,84 @@ namespace tst{
 						cntQuestions++;
 					}
 				}
+				return *this;
 			}
 			else throw "Вопросов нет";
 		}
-		void save(){
-			string path = fileMngr::TESTS+category;
+		test& save(){
+			string path = fileMngr::TESTS;
+			path += category;
 			if(fmngr::mkFolder(path)) throw "Невозможно создать папку для категории";
-			path += "\\"+name;
+			path += "\\"; path += name;
+			path += ".dat";
 			stream.open(path,ios::out | ios::binary);
 			if(stream){
-				fmngr::string_save(stream,category); //записываем категорию теста
-				fmngr::string_save(stream,name); //записываем название теста
-				//unsigned size = category.size() + 1;
-				//stream.write((char*)&size,sizeof(size)); //записываем размер категории теста
-				//stream.write((char*)category.c_str(),size); //записываем категорию теста
-				//size = name.size() + 1;
-				//stream.write((char*)&size,sizeof(size)); //записываем размер названия теста
-				//stream.write((char*)name.c_str(),size); //записываем название теста
-				unsigned size = questions.size();
+				unsigned size = category.size() + 1;
+				stream.write((char*)&size,sizeof(size)); //записываем размер категории теста
+				stream.write((char*)category.c_str(),size); //записываем категорию теста
+				size = name.size() + 1;
+				stream.write((char*)&size,sizeof(size)); //записываем размер названия теста
+				stream.write((char*)name.c_str(),size); //записываем название теста
+				size = questions.size();
 				stream.write((char*)&size,sizeof(size)); //записываем кол-во вопросов
 				for(auto i : questions){
-					fmngr::string_save(stream,i._question);
-					//size = i._question.size() + 1;
-					//stream.write((char*)&size,sizeof(size)); //записываем размер вопроса
-					//stream.write((char*)i._question.c_str(),size); //записываем текст вопроса
+					size = i._question.size() + 1;
+					stream.write((char*)&size,sizeof(size)); //записываем размер вопроса
+					stream.write((char*)i._question.c_str(),size); //записываем текст вопроса
 					size = i._variants.size();
 					stream.write((char*)&size,sizeof(size)); //записываем кол-во вариантов ответов
 					for(auto j : i._variants){
-						fmngr::string_save(stream,j);
-						//size = j.size() + 1;
-						//stream.write((char*)&size,sizeof(size)); //записываем размер варианта ответа
-						//stream.write((char*)j.c_str(),size); //записываем вариант ответа
+						size = j.size() + 1;
+						stream.write((char*)&size,sizeof(size)); //записываем размер варианта ответа
+						stream.write((char*)j.c_str(),size); //записываем вариант ответа
 					}
 				}
 				stream.close();
+				return *this;
 			}
 			else throw "Невозможно открыть файл для записи";
 		}
-		void load(const string& path){
+		test& load(const string& path){
 			stream.open(path,ios::in | ios::binary);
 			if(stream){
-				category = fmngr::string_load(stream); //Записываем категорию
-				name = fmngr::string_load(stream); //Записываем название
+				unsigned size;
+				stream.read((char*)&size,sizeof(size)); //Считываем размер категории теста
+				char *buffer = new char[size];
+				stream.read(buffer,size); //Считываем категорию теста
+				this->category = buffer; //Записываем в класс категорию теста
+				delete[]buffer;
+
+				stream.read((char*)&size,sizeof(size)); //Считываем размер названия теста
+				buffer = new char[size];
+				stream.read(buffer,size); //Считываем название теста
+				this->name = buffer; //Записываем в класс название теста
+				delete[]buffer;
 
 				unsigned amQuestions = 0;
-				stream.read((char*)&amQuestions,sizeof(amQuestions)); //Считываем кол-во вопросов
+				stream.read((char*)&amQuestions,sizeof(amQuestions));
 				for(size_t i = 0; i < amQuestions; i++){
 					question q;
-					q._question = fmngr::string_load(stream); //Записываем вопрос
+					stream.read((char*)&size,sizeof(size)); //Считываем размер вопроса
+					buffer = new char[size];
+					stream.read(buffer,size); //Считываем вопрос
+					q._question = buffer; //Записываем вопрос
+					delete[]buffer;
 
 					unsigned amVariants = 0;
 					stream.read((char*)&amVariants,sizeof(amVariants)); //Считываем кол-во вариантов ответов
 					for(size_t i = 0; i < amVariants; i++){
-						q._variants.push_back(fmngr::string_load(stream)); //Записываем вариант ответа
+						stream.read((char*)&size,sizeof(size)); //Считываем размер варианта ответа
+						buffer = new char[size];
+						stream.read(buffer,size);  //Считываем вариант ответа
+						q._variants.push_back(buffer); //Записываем вариант ответа
+						delete[]buffer;
 					}
-					add_question(q); //Записываем вопрос и варианты ответов
+					add_question(q); //Записываем в класс вопрос
 				}
 				stream.close();
+				return *this;
 			}
 			else throw "Невозможно открыть файл для чтения";
-		}
-		string get_name(){
-			return name;
 		}
 		~test(){
 			if(stream) stream.close();
