@@ -1,0 +1,5 @@
+﻿  main.cpp
+d:\documents\visual studio 2015\projects\testodrom\testodrom\tools.cpp(60): warning C4018: >: несоответствие типов со знаком и без знака
+d:\documents\visual studio 2015\projects\testodrom\testodrom\profile.h(278): warning C4715: profile::admin::lock: значение возвращается не при всех путях выполнения
+  testodrom.vcxproj -> D:\Documents\visual studio 2015\Projects\testodrom\Debug\testodrom.exe
+  testodrom.vcxproj -> D:\Documents\visual studio 2015\Projects\testodrom\Debug\testodrom.pdb (Partial PDB)

@@ -1,0 +1,5 @@
+﻿  one_armed_b.cpp
+d:\documents\visual studio 2015\projects\one-armed_bandits\one-armed_bandits\one_armed_b.cpp(6): warning C4018: <: несоответствие типов со знаком и без знака
+d:\documents\visual studio 2015\projects\one-armed_bandits\one-armed_bandits\one_armed_b.cpp(10): warning C4244: =: преобразование "short" в "char", возможна потеря данных
+  one-armed_bandits.vcxproj -> d:\documents\visual studio 2015\Projects\one-armed_bandits\Debug\one-armed_bandits.exe
+  one-armed_bandits.vcxproj -> d:\documents\visual studio 2015\Projects\one-armed_bandits\Debug\one-armed_bandits.pdb (Partial PDB)

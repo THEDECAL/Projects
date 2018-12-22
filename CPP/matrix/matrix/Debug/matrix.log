@@ -1,0 +1,3 @@
+﻿  main.cpp
+d:\documents\visual studio 2013\projects\matrix\matrix\main.cpp(11): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  matrix.vcxproj -> D:\Documents\Visual Studio 2013\Projects\matrix\Debug\matrix.exe

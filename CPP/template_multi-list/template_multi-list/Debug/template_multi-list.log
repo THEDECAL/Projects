@@ -1,0 +1,29 @@
+﻿  main.cpp
+d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\matrix.h(127): warning C4018: <=: несоответствие типов со знаком и без знака
+  d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\matrix.h(120): note: при компиляции функции-члена "<Нет данных>" класса <Нет данных>
+  d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\main.cpp(17): note: см. ссылку на создание экземпляров функции шаблон при компиляции "matrix<unsigned int> matrix<unsigned int>::operator +(const matrix<unsigned int> &)"
+  d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\main.cpp(6): note: см. ссылку на создание экземпляров класса шаблон при компиляции "matrix<unsigned int>"
+d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\matrix.h(160): warning C4018: <=: несоответствие типов со знаком и без знака
+  d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\matrix.h(154): note: при компиляции функции-члена "<Нет данных>" класса <Нет данных>
+  d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\main.cpp(21): note: см. ссылку на создание экземпляров функции шаблон при компиляции "matrix<unsigned int> matrix<unsigned int>::operator *(const matrix<unsigned int> &)"
+d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\matrix.h(161): warning C4018: <=: несоответствие типов со знаком и без знака
+d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\matrix.h(83): warning C4018: <: несоответствие типов со знаком и без знака
+  d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\matrix.h(82): note: при компиляции функции-члена "<Нет данных>" класса <Нет данных>
+  d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\matrix.h(49): note: см. ссылку на создание экземпляров функции шаблон при компиляции "void matrix<unsigned int>::setSize(const unsigned int &,const unsigned int &)"
+  d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\matrix.h(47): note: при компиляции функции-члена "<Нет данных>" класса <Нет данных>
+  d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\main.cpp(6): note: см. ссылку на создание экземпляров функции шаблон при компиляции "matrix<unsigned int>::matrix(const unsigned int &,const unsigned int &)"
+d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\list.h(65): warning C4018: <: несоответствие типов со знаком и без знака
+  d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\list.h(64): note: при компиляции функции-члена "<Нет данных>" класса <Нет данных>
+  d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\matrix.h(53): note: см. ссылку на создание экземпляров функции шаблон при компиляции "void list<TYPE>::setSize(const unsigned int &)"
+          with
+          [
+              TYPE=unsigned int
+          ]
+  d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\matrix.h(51): note: при компиляции функции-члена "<Нет данных>" класса <Нет данных>
+  d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\matrix.h(83): note: см. ссылку на создание экземпляров функции шаблон при компиляции "void matrix<unsigned int>::addToHead(const unsigned int &)"
+  d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\matrix.h(82): note: при компиляции функции-члена "<Нет данных>" класса <Нет данных>
+  d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\matrix.h(49): note: см. ссылку на создание экземпляров функции шаблон при компиляции "void matrix<unsigned int>::setSize(const unsigned int &,const unsigned int &)"
+d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\matrix.h(136): warning C4715: matrix<unsigned int>::operator+: значение возвращается не при всех путях выполнения
+d:\documents\visual studio 2015\projects\template_multi-list\template_multi-list\matrix.h(174): warning C4715: matrix<unsigned int>::operator*: значение возвращается не при всех путях выполнения
+  template_multi-list.vcxproj -> d:\documents\visual studio 2015\Projects\template_multi-list\Debug\template_multi-list.exe
+  template_multi-list.vcxproj -> d:\documents\visual studio 2015\Projects\template_multi-list\Debug\template_multi-list.pdb (Partial PDB)

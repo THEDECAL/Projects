@@ -1,0 +1,11 @@
+?AI1516 Intersection of a double solid line.
+AE3450 Intersection of a double solid line.
+AE1859 Intersection of a double solid line.
+AE1859 Intersection of a double solid line.
+AE1859 Driving is not sober.
+AE3450 Driving is not sober.
+AE1959 Driving is not sober.
+AE3550 Driving is not sober.
+BH7100 Driving is not sober.
+BH7100 Intersection of a double solid line.
+BX1515 Intersection of a double solid line.

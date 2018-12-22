@@ -1,0 +1,5 @@
+﻿  main.cpp
+d:\documents\visual studio 2015\projects\binary_tree_db\binary_tree_db\main.cpp(97): warning C4018: <: несоответствие типов со знаком и без знака
+d:\documents\visual studio 2015\projects\binary_tree_db\binary_tree_db\main.cpp(20): warning C4715: enterYN: значение возвращается не при всех путях выполнения
+  binary_tree_db.vcxproj -> D:\Documents\Visual Studio 2015\Projects\binary_tree_db\Debug\binary_tree_db.exe
+  binary_tree_db.vcxproj -> D:\Documents\Visual Studio 2015\Projects\binary_tree_db\Debug\binary_tree_db.pdb (Partial PDB)

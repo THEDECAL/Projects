@@ -1,0 +1,14 @@
+﻿  player.cpp
+  menu.cpp
+  main.cpp
+d:\documents\visual studio 2015\projects\poker\poker\main.cpp(17): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+d:\documents\visual studio 2015\projects\poker\poker\main.cpp(102): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  game.cpp
+d:\documents\visual studio 2015\projects\poker\poker\game.cpp(83): warning C4800: std::size_t: принудительно задано логическое значение "true" или "false" (предупреждение о производительности)
+  deck.cpp
+d:\documents\visual studio 2015\projects\poker\poker\deck.cpp(34): warning C4309: =: усечение константного значения
+d:\documents\visual studio 2015\projects\poker\poker\deck.cpp(61): warning C4838: преобразование из "int" в "char" требует сужающего преобразования
+d:\documents\visual studio 2015\projects\poker\poker\deck.cpp(61): warning C4309: инициализация: усечение константного значения
+  Создание кода...
+  Poker.vcxproj -> d:\documents\visual studio 2015\Projects\Poker\Poker\Debug\Poker.exe
+  Poker.vcxproj -> d:\documents\visual studio 2015\Projects\Poker\Poker\Debug\Poker.pdb (Partial PDB)

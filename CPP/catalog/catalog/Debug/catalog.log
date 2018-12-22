@@ -1,0 +1,8 @@
+﻿  main.cpp
+  catalog.cpp
+d:\documents\visual studio 2015\projects\catalog\catalog\catalog.cpp(26): warning C4018: <=: несоответствие типов со знаком и без знака
+d:\documents\visual studio 2015\projects\catalog\catalog\catalog.cpp(30): warning C4018: <=: несоответствие типов со знаком и без знака
+  Создание кода...
+d:\documents\visual studio 2015\projects\catalog\catalog\main.cpp(18): warning C4715: enterYN: значение возвращается не при всех путях выполнения
+  catalog.vcxproj -> d:\documents\visual studio 2015\Projects\catalog\Debug\catalog.exe
+  catalog.vcxproj -> d:\documents\visual studio 2015\Projects\catalog\Debug\catalog.pdb (Partial PDB)

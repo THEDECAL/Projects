@@ -1,0 +1,11 @@
+﻿  aborigen.cpp
+d:\documents\visual studio 2015\projects\commander\messages.h(14): warning C4091: static : пропускается слева от "", когда ни одна переменная не объявлена
+d:\documents\visual studio 2015\projects\commander\aborigen.cpp(353): warning C4244: аргумент: преобразование "__int64" в "std::size_t", возможна потеря данных
+d:\documents\visual studio 2015\projects\commander\aborigen.cpp(361): warning C4244: аргумент: преобразование "__int64" в "std::size_t", возможна потеря данных
+  Создание кода...
+  Компиляция...
+  main.cpp
+d:\documents\visual studio 2015\projects\commander\messages.h(14): warning C4091: static : пропускается слева от "", когда ни одна переменная не объявлена
+  Создание кода...
+  commander.vcxproj -> D:\Documents\Visual Studio 2015\Projects\commander\Debug\commander.exe
+  commander.vcxproj -> D:\Documents\Visual Studio 2015\Projects\commander\Debug\commander.pdb (Full PDB)

@@ -1,0 +1,6 @@
+﻿  main.cpp
+d:\documents\visual studio 2015\projects\1-2. singly_linked_list\singly_linked_list\main.cpp(6): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  list.cpp
+  Создание кода...
+  singly_linked_list.vcxproj -> D:\Documents\Visual Studio 2015\Projects\1-2. singly_linked_list\Debug\singly_linked_list.exe
+  singly_linked_list.vcxproj -> D:\Documents\Visual Studio 2015\Projects\1-2. singly_linked_list\Debug\singly_linked_list.pdb (Partial PDB)

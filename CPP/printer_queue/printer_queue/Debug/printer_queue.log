@@ -1,0 +1,4 @@
+﻿  main.cpp
+d:\documents\visual studio 2015\projects\printer_queue\printer_queue\main.cpp(6): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  printer_queue.vcxproj -> d:\documents\visual studio 2015\Projects\printer_queue\Debug\printer_queue.exe
+  printer_queue.vcxproj -> d:\documents\visual studio 2015\Projects\printer_queue\Debug\printer_queue.pdb (Partial PDB)

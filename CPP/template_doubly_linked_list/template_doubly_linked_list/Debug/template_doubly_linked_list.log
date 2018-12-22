@@ -1,0 +1,5 @@
+﻿  main.cpp
+d:\documents\visual studio 2015\projects\template_doubly_linked_list\template_doubly_linked_list\main.cpp(6): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+d:\documents\visual studio 2015\projects\template_doubly_linked_list\template_doubly_linked_list\list.h(157): warning C4715: list<unsigned int>::getAt: значение возвращается не при всех путях выполнения
+  template_doubly_linked_list.vcxproj -> d:\documents\visual studio 2015\Projects\template_doubly_linked_list\Debug\template_doubly_linked_list.exe
+  template_doubly_linked_list.vcxproj -> d:\documents\visual studio 2015\Projects\template_doubly_linked_list\Debug\template_doubly_linked_list.pdb (Partial PDB)

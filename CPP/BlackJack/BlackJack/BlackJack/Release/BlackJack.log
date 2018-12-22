@@ -1,0 +1,9 @@
+﻿  main.cpp
+main.cpp(7): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Создание кода
+  1 of 59 functions ( 1.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    9 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  BlackJack.vcxproj -> D:\Documents\Visual Studio 2015\Projects\BlackJack\BlackJack\Release\BlackJack.exe
+  BlackJack.vcxproj -> D:\Documents\Visual Studio 2015\Projects\BlackJack\BlackJack\Release\BlackJack.pdb (Full PDB)

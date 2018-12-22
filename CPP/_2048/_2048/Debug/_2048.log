@@ -1,0 +1,4 @@
+﻿  main.cpp
+d:\documents\visual studio 2015\projects\_2048\_2048\main.cpp(6): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  _2048.vcxproj -> d:\documents\visual studio 2015\Projects\_2048\Debug\_2048.exe
+  _2048.vcxproj -> d:\documents\visual studio 2015\Projects\_2048\Debug\_2048.pdb (Partial PDB)
