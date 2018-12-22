@@ -3,23 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static DelegatExam1Advanced.Notifer;
 
 namespace DelegatExam1Advanced
 {
-    class Airplane //: SingletonTemplate<Airplane>
+    class Airplane
     {
-        //static public Airplane o;
-        static public Pilot Pilot { get; private set; }
-        static public int Penalty {
+        public static Airplane airplane { get; private set; } = new Airplane(); //Синглтон
+        public Pilot Pilot { get; private set; }
+        public int Penalty {
             get { return ListDispathers.Sum(d => d.Points); }
             private set  {}
         }
-        static public int Speed { get; private set; } //Скорость
-        static public int Height { get; private set; } //Высота
-        static int cntMessages; //Счётчик сообщений
-        static public Queue<string> Messages { get; private set; } //Список сообщений от диспетчеров
-        static public List<Dispather> ListDispathers { get; private set; } //Список диспетчеров
-        static event Func<int, int, string> SendIndicators //Событие
+        public int Speed { get; private set; } //Скорость
+        public int Height { get; private set; } //Высота
+        int cntMessages; //Счётчик сообщений
+        public Queue<string> Messages { get; private set; } //Список сообщений от диспетчеров
+        public List<Dispather> ListDispathers { get; private set; } //Список диспетчеров
+        event Func<int, int, string> SendIndicators //Событие
         {
             add
             {
@@ -30,8 +31,8 @@ namespace DelegatExam1Advanced
                 qEvents.Dequeue();
             }
         }
-        static Queue<Func<int, int, string>> qEvents; //Очередь делегатов
-        static Airplane()
+        Queue<Func<int, int, string>> qEvents; //Очередь делегатов
+        Airplane()
         {
             Pilot = new Pilot();
             Speed = 0;
@@ -41,7 +42,7 @@ namespace DelegatExam1Advanced
             ListDispathers = new List<Dispather>();
             qEvents = new Queue<Func<int, int, string>>();
         }
-        static public void AddDispather(Dispather dispather = null)
+        public void AddDispather(Dispather dispather = null)
         {
             if (dispather == null)
             {
@@ -54,9 +55,8 @@ namespace DelegatExam1Advanced
             ListDispathers.Add(dispather);
             SendIndicators += dispather.Processing;
         }
-        static public void RemoveDispather()
+        public void RemoveDispather()
         {
-
             Console.Write($"Введите имя диспетчера: ");
             string name = Console.ReadLine();
 
@@ -64,7 +64,7 @@ namespace DelegatExam1Advanced
             foreach (var item in ListDispathers)
                 if (item.Name != name) SendIndicators += item.Processing;
         }
-        static public void StartSendIndicators()
+        public void StartSendIndicators()
         {
             int messagesBufferSize = 12;
             if (Speed >= 50)
@@ -79,41 +79,37 @@ namespace DelegatExam1Advanced
                 }
             }
         }
-        static public string ShowMessages(string message = null)
+        public string ShowMessages()
         {
             StringBuilder messages = new StringBuilder();
-            if (message == null)
-            {
-                foreach (string item in Messages)
-                    messages.Append(item + "\n");
-            }
-            else messages.Append(message + "\n");
+            foreach (string item in Messages)
+                messages.Append(item + "\n");
 
             return messages.ToString();
         }
-        static public void SpeedUp(int speed) => Speed += speed;
-        static public void SpeedDown(int speed)
+        public void SpeedUp(int speed) => Speed += speed;
+        public void SpeedDown(int speed)
         {
             if (Speed - speed < 0) Speed = 0; //Не опускать скорость ниже 0
             else Speed -= speed;
         }
-        static public void HeightUp(int height)
+        public void HeightUp(int height)
         {
             if (Speed >= 50) //Если скорость меньше 50, то не добавлять высоту
             {
                 Height += height;
             }
         }
-        static public void HeightDown(int height)
+        public void HeightDown(int height)
         {
             if (Height - height < 0) Height = 0; //Не опускать высоту ниже 0
             else Height -= height;
         }
-        static public bool CheckDispathers()
+        public bool CheckDispathers()
         {
             if (ListDispathers.Count < 2)
             {
-                ShowMessages(Notifer.o[mc.ERR_AM_DISP]);
+                Console.WriteLine((notifer[mc.ERR_AM_DISP]));
                 return false;
             }
             return true;

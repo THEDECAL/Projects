@@ -3,35 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static DelegatExam1Advanced.FileMaster;
+using static DelegatExam1Advanced.Notifer;
+using static DelegatExam1Advanced.Airplane;
 
 namespace DelegatExam1Advanced
 {
     class Program
     {
-        static public readonly Random random = new Random();
-        //static public readonly Notifer notifer;
-        //static public readonly FileMaster fileMaster;
-        static Program()
-        {
-            Notifer.o = Notifer.Reference;
-            FileMaster.FileName = "PilotsDB.bin";
-            FileMaster.ReadFromFile();
-        }
+        public static readonly Random random = new Random();
         static public void Wait()
         {
-            Console.WriteLine(Notifer.o[mc.PRESS_ANY_KEY]);
+            Console.WriteLine(notifer[mc.PRESS_ANY_KEY]);
             Console.ReadKey();
         }
         static void Main()
         {
-            //Airplane airplane = Airplane.airplane;
+            fileMaster.FileName = "PilotsDB.bin";
+            List<Pilot> stat = fileMaster.ReadFromFile();
+            stat.Sort();
+
             int penalty = 0; //Штрафные очки
             bool isThousand = false; //true - если тысяча км/ч уже достигнута
             bool isStart = true; //false - если это уже не начало полёта
             bool isSuccessFinish = false;  //false - если приземлился
 
-            Airplane.AddDispather(new Dispather("first"));
-            Airplane.AddDispather(new Dispather("second"));
+            airplane.AddDispather(new Dispather("first"));
+            airplane.AddDispather(new Dispather("second"));
 
             try
             {
@@ -44,84 +42,79 @@ namespace DelegatExam1Advanced
                     Console.WriteLine("Поднятся выше - \"↑ | W\"");
                     Console.WriteLine("Опустится ниже - \"↓ | S\"");
                     Console.WriteLine("Добавить диспетчера - \"N\", удалить диспетчера - \"R\"");
-                    Console.WriteLine("Изменить имя игрока - \"C\", посмотреть статистику игроков - \"V\"");
+                    Console.WriteLine("Изменить имя пилота - \"C\", посмотреть статистику игроков - \"V\"");
                     Console.WriteLine(new string('=', 30));
-                    Console.WriteLine(Airplane.o);
+                    Console.WriteLine(airplane);
                     Console.WriteLine(new string('-', 30));
                     Console.WriteLine("Рекомендации диспетчеров:");
-                    Console.WriteLine(Airplane.ShowMessages());
+                    Console.WriteLine(airplane.ShowMessages());
                     Console.WriteLine(new string('-', 30));
-
-                    if (Airplane.CheckDispathers() == false) { Wait(); continue; }
-
+                    
                     ConsoleKeyInfo key = Console.ReadKey();
+                    if (!airplane.CheckDispathers() && key.Key != ConsoleKey.N) { Wait(); continue; }
                     switch (key.Key)
                     {
                         case ConsoleKey.C:
-                            Airplane.Pilot.ChangeName();
+                            airplane.Pilot.ChangeName();
                             break;
                         case ConsoleKey.V:
-                            Console.WriteLine(Airplane.Pilot.Flights);
+                            foreach (var item in stat)
+                                Console.WriteLine(item);
+                            Wait();
                             break;
                         case ConsoleKey.N:
-                            Airplane.AddDispather();
+                            airplane.AddDispather();
                             break;
                         case ConsoleKey.R:
-                            Airplane.RemoveDispather();
+                            airplane.RemoveDispather();
                             break;
                         case ConsoleKey.D:
                         case ConsoleKey.RightArrow:
-                            if (key.Modifiers == ConsoleModifiers.Shift) Airplane.SpeedUp(150);
-                            else Airplane.SpeedUp(50);
+                            if (key.Modifiers == ConsoleModifiers.Shift) airplane.SpeedUp(150);
+                            else airplane.SpeedUp(50);
                             break;
                         case ConsoleKey.A:
                         case ConsoleKey.LeftArrow:
-                            if (key.Modifiers == ConsoleModifiers.Shift) Airplane.SpeedDown(150);
-                            else Airplane.SpeedDown(50);
+                            if (key.Modifiers == ConsoleModifiers.Shift) airplane.SpeedDown(150);
+                            else airplane.SpeedDown(50);
                             break;
                         case ConsoleKey.W:
                         case ConsoleKey.UpArrow:
-                            if (key.Modifiers == ConsoleModifiers.Shift) Airplane.HeightUp(500);
-                            else Airplane.HeightUp(250);
+                            if (key.Modifiers == ConsoleModifiers.Shift) airplane.HeightUp(500);
+                            else airplane.HeightUp(250);
                             break;
                         case ConsoleKey.S:
                         case ConsoleKey.DownArrow:
-                            if (key.Modifiers == ConsoleModifiers.Shift) Airplane.HeightDown(500);
-                            else Airplane.HeightDown(250);
+                            if (key.Modifiers == ConsoleModifiers.Shift) airplane.HeightDown(500);
+                            else airplane.HeightDown(250);
                             break;
                     }
-                    if (Airplane.Speed >= 1000) isThousand = true;
-                    if (Airplane.Speed > 0 && Airplane.Height > 0) isStart = false;
+                    if (airplane.Speed >= 1000) isThousand = true;
+                    if (airplane.Speed > 0 && airplane.Height > 0) isStart = false;
 
-                    Airplane.StartSendIndicators();
-                    penalty = Airplane.ListDispathers.Sum(d => d.Points);
+                    airplane.StartSendIndicators();
+                    penalty = airplane.ListDispathers.Sum(d => d.Points);
 
-                    if (penalty >= 1000) throw new InvalidOperationException(Notifer.o[mc.CATH_ERR_UNUS]);
+                    if (penalty >= 1000) throw new InvalidOperationException(notifer[mc.CATH_ERR_UNUS]);
 
-                    if (Airplane.Speed == 0 && Airplane.Height == 0)
+                    if (airplane.Speed == 0 && airplane.Height == 0)
                     {
                         if (isThousand == true) break;
-                        if (isStart == false) throw new InvalidOperationException(Notifer.o[mc.CATH_ERR_AIRDESTR]);
+                        if (isStart == false) throw new InvalidOperationException(notifer[mc.CATH_ERR_AIRDESTR]);
                     }
                 }
                 isSuccessFinish = true;
 
-                Console.WriteLine(Notifer.o[mc.SUCC_LAND]);
+                Console.WriteLine(notifer[mc.SUCC_LAND]);
                 Console.WriteLine($"У вас {penalty} штрафных очков.");
-                Wait();
             }
-            catch (InvalidOperationException text)
-            {
-                Console.WriteLine(text);
-                Wait();
-            }
+            catch (InvalidOperationException e) { Console.WriteLine(e); }
+            catch (Exception e) { Console.WriteLine(e); }
             finally
             {
-                FileMaster.WriteToFile();
-                Airplane.Pilot.AddResultFlights(isSuccessFinish, penalty);
-                Wait();
+                airplane.Pilot.AddResultFlights(new Tuple<bool,int>(isSuccessFinish, penalty));//(isSuccessFinish, penalty);
             }
-            Wait();
+            Console.ReadLine();
         }
     }
 }

@@ -15,12 +15,11 @@ namespace DelegatExam1Advanced
         PRESS_ANY_KEY,
         SUCC_LAND
     };
-    class Notifer// : SingletonTemplate<Notifer>
+    class Notifer
     {
-        static string[] Msg { get; set; }
-
-        static public Notifer o;
-        static Notifer()
+        public static Notifer notifer { get; private set; } = new Notifer();
+        public string[] Msg { get; private set; }
+        Notifer()
         {
             Msg = new string[]
             {

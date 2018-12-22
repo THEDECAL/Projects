@@ -5,40 +5,63 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Formatters.Binary;
+using static DelegatExam1Advanced.Notifer;
 
 namespace DelegatExam1Advanced
 {
-    class FileMaster//: SingletonTemplate<FileMaster>
+    class FileMaster
     {
-        static public string FileName { get; set; }
-        static FileStream fStream;
-        static List<Pilot> ListPilots { get; set; }
-        //static public FileMaster o;
-        //static FileMaster()
-        //{
-        //    ReadFromFile();
-        //}
-        static public void ReadFromFile()
+        public static FileMaster fileMaster { get; private set; } = new FileMaster();
+        public string FileName { get; set; }
+        BinaryFormatter binFormer;
+        FileStream fStream;
+        List<Pilot> listPilots;
+        FileMaster()
         {
-            if((fStream = new FileStream(FileName, FileMode.OpenOrCreate, FileAccess.ReadWrite)) != null)
-            {
-                ListPilots.Add(new BinaryFormatter().Deserialize(fStream) as Pilot);
-                fStream.Close();
-            }
-            else throw new FileNotFoundException(Notifer.o[mc.ERR_READ]);
+            binFormer = new BinaryFormatter();
+            listPilots = new List<Pilot>();
         }
-        static public void WriteToFile()
+        void AddPilot(Pilot pilot)
         {
-            if ((fStream = new FileStream(FileName, FileMode.Truncate, FileAccess.Write)) != null)
+            int index = listPilots.FindIndex(p => p.Name == pilot.Name);
+            if(index < 0) listPilots.Add(pilot);
+            else
             {
-                new BinaryFormatter().Serialize(fStream, ListPilots);
-                fStream.Close();
+                listPilots[(int)index].AddResultFlights(pilot.Flights.Last().Value);
             }
-            else throw new FileNotFoundException(Notifer.o[mc.ERR_WRITE]);
+        }
+        public List<Pilot> ReadFromFile()
+        {
+            try
+            {
+                using (FileStream fStream = new FileStream(FileName, FileMode.OpenOrCreate, FileAccess.Read))
+                {
+                    if (fStream.Length != 0)
+                    {
+                        listPilots = binFormer.Deserialize(fStream) as List<Pilot>;
+                        return listPilots;
+                    }
+                }
+            }
+            catch (Exception) { Console.WriteLine(notifer[mc.ERR_READ]); Program.Wait(); }
+            return null;
+        }
+        void WriteToFile()
+        {
+            AddPilot(Airplane.airplane.Pilot);
+
+            try
+            {
+                using (fStream = new FileStream(FileName, FileMode.Truncate, FileAccess.Write))
+                {
+                    binFormer.Serialize(fStream, listPilots);
+                }
+            }
+            catch (Exception) { Console.WriteLine(notifer[mc.ERR_WRITE]); Program.Wait(); }
         }
         public Pilot this[int index]
         {
-            get { return ListPilots.ElementAtOrDefault(index); }
+            get { return listPilots.ElementAtOrDefault(index); }
         }
         ~FileMaster()
         {
