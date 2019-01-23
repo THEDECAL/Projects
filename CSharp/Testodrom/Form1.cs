@@ -80,18 +80,16 @@ namespace Testodrom
         {
             if (isModeAddOrEdit)
             {
-                Question newQuestion = new Question() { Name = txtBoxQuestion.Text };
-                newQuestion.Variants[0] = txtBoxVar1.Text;
-                newQuestion.Answers[0] = (chkBoxVar1.CheckState == CheckState.Checked) ? true : false;
-                newQuestion.Variants[1] = txtBoxVar2.Text;
-                newQuestion.Answers[1] = (chkBoxVar2.CheckState == CheckState.Checked) ? true : false;
-                newQuestion.Variants[2] = txtBoxVar3.Text;
-                newQuestion.Answers[2] = (chkBoxVar3.CheckState == CheckState.Checked) ? true : false;
-                newQuestion.Variants[3] = txtBoxVar4.Text;
-                newQuestion.Answers[3] = (chkBoxVar4.CheckState == CheckState.Checked) ? true : false;
-                lstBoxTestsList[lstBoxTestsList.Length - 1].Questions.Add(newQuestion);
 
-                //MessageBox.Show("Одно из полей не заполнено.\nЗаполните для продолжения.",ProgramName,MessageBoxButtons.OK,MessageBoxIcon.Error);
+                Question newQuestion = new Question() { Name = txtBoxQuestion.Text };
+                newQuestion.VariantsAnswers.Add(new Variant() { Name = txtBoxVar1.Text, isCorrectAnswer = (chkBoxVar1.CheckState == CheckState.Checked) ? true : false });
+                newQuestion.VariantsAnswers.Add(new Variant() { Name = txtBoxVar2.Text, isCorrectAnswer = (chkBoxVar2.CheckState == CheckState.Checked) ? true : false });
+                newQuestion.VariantsAnswers.Add(new Variant() { Name = txtBoxVar3.Text, isCorrectAnswer = (chkBoxVar3.CheckState == CheckState.Checked) ? true : false });
+                newQuestion.VariantsAnswers.Add(new Variant() { Name = txtBoxVar4.Text, isCorrectAnswer = (chkBoxVar4.CheckState == CheckState.Checked) ? true : false });
+
+                string errors = newQuestion.CheckToValid();
+                if (errors == null) lstBoxTestsList[lstBoxTestsList.Length - 1].Questions.Add(newQuestion);
+                else MessageBox.Show(errors, ProgramName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (isModeRun){ }
         }
