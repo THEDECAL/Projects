@@ -181,6 +181,7 @@
             this.btnFinish.Tag = "640; 320";
             this.btnFinish.Text = "Завершить";
             this.btnFinish.UseVisualStyleBackColor = true;
+            this.btnFinish.Click += new System.EventHandler(this.btnFinish_Click);
             // 
             // btnNextQuestion
             // 
@@ -202,6 +203,7 @@
             this.btnPreviousQuestion.Tag = "640; 320";
             this.btnPreviousQuestion.Text = "<";
             this.btnPreviousQuestion.UseVisualStyleBackColor = true;
+            this.btnPreviousQuestion.Click += new System.EventHandler(this.btnPreviousQuestion_Click);
             // 
             // groupBox1
             // 

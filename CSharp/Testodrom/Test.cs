@@ -9,8 +9,8 @@ namespace Testodrom
 {
     class Test
     {
-        [Required(ErrorMessage = "Название теста не установлено")]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "Название теста должно быть больше 3 символов и не больше 100")]
+        [Required(ErrorMessage = "Название теста не установлено.")]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "Название теста должно быть больше 3 символов и не больше 100.")]
         public string Name { get; set; }
         public List<Question> Questions { get; set; } = new List<Question>();
         public string CheckToValid()
@@ -19,7 +19,8 @@ namespace Testodrom
             var results = new List<ValidationResult>();
             var context = new ValidationContext(this);
 
-            if (!Validator.TryValidateObject(this, context, results, true)) results.ForEach(e => sb.Append(e.ErrorMessage + '\n'));
+            if (!Validator.TryValidateObject(this, context, results, true))
+                results.ForEach(e => sb.Append(e.ErrorMessage + '\n'));
             Questions.ForEach(e => sb.Append(e.CheckToValid()));
 
             return (sb.Length == 0) ? null : sb.ToString();
@@ -28,8 +29,8 @@ namespace Testodrom
     }
     class Question
     {
-        [Required(ErrorMessage = "Вопрос не установлен")]
-        [StringLength(45, MinimumLength = 3, ErrorMessage = "Вопрос должен быть больше 3 символов и не больше 45")]
+        [Required(ErrorMessage = "Вопрос не установлен.")]
+        [StringLength(45, MinimumLength = 3, ErrorMessage = "Вопрос должен быть больше 3 символов и не больше 45.")]
         public string Name { get; set; }
         public List<Variant> VariantsAnswers { get; set; } = new List<Variant>();
         public string CheckToValid()
@@ -38,18 +39,21 @@ namespace Testodrom
             var results = new List<ValidationResult>();
             var context = new ValidationContext(this);
 
-            if (!Validator.TryValidateObject(this, context, results, true)) results.ForEach(e => sb.Append(e.ErrorMessage + '\n'));
+            if (!Validator.TryValidateObject(this, context, results, true))
+                results.ForEach(e => sb.Append(e.ErrorMessage + '\n'));
             if(results.Count == 0) VariantsAnswers.ForEach(e => sb.Append(e.CheckToValid()));
+            //Обнаружение хотябы одного правильного ответа
+            if (!VariantsAnswers.Any(e => e.isCorrectAnswer)) sb.Append("Нет ни одного правильного ответа.");
 
             return (sb.Length == 0) ? null : sb.ToString();
         }
     }
     class Variant
     {
-        [Required(ErrorMessage = "Вариант ответа не установлен")]
-        [StringLength(45, MinimumLength = 3, ErrorMessage = "Вариант ответа должен быть больше 3 символов и не больше 45")]
+        [Required(ErrorMessage = "Вариант ответа не установлен.")]
+        [StringLength(45, MinimumLength = 3, ErrorMessage = "Вариант ответа должен быть больше 3 символов и не больше 45.")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "Корректность ответа не установлена")]
+        [Required(ErrorMessage = "Корректность ответа не установлена.")]
         public bool isCorrectAnswer { get; set; }
         public string CheckToValid()
         {
@@ -57,7 +61,8 @@ namespace Testodrom
             var results = new List<ValidationResult>();
             var context = new ValidationContext(this);
 
-            if (!Validator.TryValidateObject(this, context, results, true)) results.ForEach(e => sb.Append(e.ErrorMessage + '\n'));
+            if (!Validator.TryValidateObject(this, context, results, true))
+                results.ForEach(e => sb.Append(e.ErrorMessage + '\n'));
 
             return (sb.Length == 0) ? null : sb.ToString();
         }
