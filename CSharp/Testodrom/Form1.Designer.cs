@@ -39,7 +39,7 @@
             this.txtBoxQuestion = new System.Windows.Forms.TextBox();
             this.lblTime = new System.Windows.Forms.Label();
             this.lblBarComplete = new System.Windows.Forms.Label();
-            this.btnFinish = new System.Windows.Forms.Button();
+            this.btnFinishTest = new System.Windows.Forms.Button();
             this.btnNextQuestion = new System.Windows.Forms.Button();
             this.btnPreviousQuestion = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -132,7 +132,7 @@
             this.grpAction.Controls.Add(this.txtBoxQuestion);
             this.grpAction.Controls.Add(this.lblTime);
             this.grpAction.Controls.Add(this.lblBarComplete);
-            this.grpAction.Controls.Add(this.btnFinish);
+            this.grpAction.Controls.Add(this.btnFinishTest);
             this.grpAction.Controls.Add(this.btnNextQuestion);
             this.grpAction.Controls.Add(this.btnPreviousQuestion);
             this.grpAction.Controls.Add(this.groupBox1);
@@ -172,16 +172,17 @@
             this.lblBarComplete.TabIndex = 13;
             this.lblBarComplete.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnFinish
+            // btnFinishTest
             // 
-            this.btnFinish.Location = new System.Drawing.Point(289, 145);
-            this.btnFinish.Name = "btnFinish";
-            this.btnFinish.Size = new System.Drawing.Size(85, 34);
-            this.btnFinish.TabIndex = 12;
-            this.btnFinish.Tag = "640; 320";
-            this.btnFinish.Text = "Завершить";
-            this.btnFinish.UseVisualStyleBackColor = true;
-            this.btnFinish.Click += new System.EventHandler(this.btnFinish_Click);
+            this.btnFinishTest.Enabled = false;
+            this.btnFinishTest.Location = new System.Drawing.Point(289, 145);
+            this.btnFinishTest.Name = "btnFinishTest";
+            this.btnFinishTest.Size = new System.Drawing.Size(85, 34);
+            this.btnFinishTest.TabIndex = 12;
+            this.btnFinishTest.Tag = "640; 320";
+            this.btnFinishTest.Text = "Завершить";
+            this.btnFinishTest.UseVisualStyleBackColor = true;
+            this.btnFinishTest.Click += new System.EventHandler(this.btnFinishTest_Click);
             // 
             // btnNextQuestion
             // 
@@ -290,7 +291,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(632, 210);
+            this.ClientSize = new System.Drawing.Size(632, 209);
             this.Controls.Add(this.grpAction);
             this.Controls.Add(this.grpTests);
             this.MaximumSize = new System.Drawing.Size(640, 237);
@@ -319,7 +320,7 @@
         private System.Windows.Forms.CheckBox chkBoxVar3;
         private System.Windows.Forms.CheckBox chkBoxVar2;
         private System.Windows.Forms.CheckBox chkBoxVar1;
-        private System.Windows.Forms.Button btnFinish;
+        private System.Windows.Forms.Button btnFinishTest;
         private System.Windows.Forms.Button btnNextQuestion;
         private System.Windows.Forms.Button btnPreviousQuestion;
         private System.Windows.Forms.Label lblBarComplete;
