@@ -36,13 +36,14 @@
             this.btnAddTest = new System.Windows.Forms.Button();
             this.btnStartTest = new System.Windows.Forms.Button();
             this.grpAction = new System.Windows.Forms.GroupBox();
+            this.btnHelp = new System.Windows.Forms.Button();
             this.txtBoxQuestion = new System.Windows.Forms.TextBox();
             this.lblTime = new System.Windows.Forms.Label();
             this.lblBarComplete = new System.Windows.Forms.Label();
             this.btnFinishTest = new System.Windows.Forms.Button();
             this.btnNextQuestion = new System.Windows.Forms.Button();
             this.btnPreviousQuestion = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grpVariantAnswers = new System.Windows.Forms.GroupBox();
             this.txtBoxVar4 = new System.Windows.Forms.TextBox();
             this.txtBoxVar3 = new System.Windows.Forms.TextBox();
             this.txtBoxVar2 = new System.Windows.Forms.TextBox();
@@ -53,7 +54,7 @@
             this.chkBoxVar1 = new System.Windows.Forms.CheckBox();
             this.grpTests.SuspendLayout();
             this.grpAction.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.grpVariantAnswers.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstBoxTests
@@ -129,18 +130,29 @@
             // 
             // grpAction
             // 
+            this.grpAction.Controls.Add(this.btnHelp);
             this.grpAction.Controls.Add(this.txtBoxQuestion);
             this.grpAction.Controls.Add(this.lblTime);
             this.grpAction.Controls.Add(this.lblBarComplete);
             this.grpAction.Controls.Add(this.btnFinishTest);
             this.grpAction.Controls.Add(this.btnNextQuestion);
             this.grpAction.Controls.Add(this.btnPreviousQuestion);
-            this.grpAction.Controls.Add(this.groupBox1);
+            this.grpAction.Controls.Add(this.grpVariantAnswers);
             this.grpAction.Location = new System.Drawing.Point(240, 12);
             this.grpAction.Name = "grpAction";
             this.grpAction.Size = new System.Drawing.Size(380, 189);
             this.grpAction.TabIndex = 7;
             this.grpAction.TabStop = false;
+            // 
+            // btnHelp
+            // 
+            this.btnHelp.Location = new System.Drawing.Point(290, 111);
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Size = new System.Drawing.Size(84, 33);
+            this.btnHelp.TabIndex = 16;
+            this.btnHelp.Text = "Справка";
+            this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
             // txtBoxQuestion
             // 
@@ -186,7 +198,7 @@
             // 
             // btnNextQuestion
             // 
-            this.btnNextQuestion.Location = new System.Drawing.Point(342, 92);
+            this.btnNextQuestion.Location = new System.Drawing.Point(342, 74);
             this.btnNextQuestion.Name = "btnNextQuestion";
             this.btnNextQuestion.Size = new System.Drawing.Size(32, 34);
             this.btnNextQuestion.TabIndex = 11;
@@ -197,7 +209,7 @@
             // 
             // btnPreviousQuestion
             // 
-            this.btnPreviousQuestion.Location = new System.Drawing.Point(289, 92);
+            this.btnPreviousQuestion.Location = new System.Drawing.Point(289, 74);
             this.btnPreviousQuestion.Name = "btnPreviousQuestion";
             this.btnPreviousQuestion.Size = new System.Drawing.Size(32, 34);
             this.btnPreviousQuestion.TabIndex = 10;
@@ -206,22 +218,22 @@
             this.btnPreviousQuestion.UseVisualStyleBackColor = true;
             this.btnPreviousQuestion.Click += new System.EventHandler(this.btnPreviousQuestion_Click);
             // 
-            // groupBox1
+            // grpVariantAnswers
             // 
-            this.groupBox1.Controls.Add(this.txtBoxVar4);
-            this.groupBox1.Controls.Add(this.txtBoxVar3);
-            this.groupBox1.Controls.Add(this.txtBoxVar2);
-            this.groupBox1.Controls.Add(this.txtBoxVar1);
-            this.groupBox1.Controls.Add(this.chkBoxVar4);
-            this.groupBox1.Controls.Add(this.chkBoxVar3);
-            this.groupBox1.Controls.Add(this.chkBoxVar2);
-            this.groupBox1.Controls.Add(this.chkBoxVar1);
-            this.groupBox1.Location = new System.Drawing.Point(6, 67);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(277, 116);
-            this.groupBox1.TabIndex = 9;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Варианты ответов:";
+            this.grpVariantAnswers.Controls.Add(this.txtBoxVar4);
+            this.grpVariantAnswers.Controls.Add(this.txtBoxVar3);
+            this.grpVariantAnswers.Controls.Add(this.txtBoxVar2);
+            this.grpVariantAnswers.Controls.Add(this.txtBoxVar1);
+            this.grpVariantAnswers.Controls.Add(this.chkBoxVar4);
+            this.grpVariantAnswers.Controls.Add(this.chkBoxVar3);
+            this.grpVariantAnswers.Controls.Add(this.chkBoxVar2);
+            this.grpVariantAnswers.Controls.Add(this.chkBoxVar1);
+            this.grpVariantAnswers.Location = new System.Drawing.Point(6, 67);
+            this.grpVariantAnswers.Name = "grpVariantAnswers";
+            this.grpVariantAnswers.Size = new System.Drawing.Size(277, 116);
+            this.grpVariantAnswers.TabIndex = 9;
+            this.grpVariantAnswers.TabStop = false;
+            this.grpVariantAnswers.Text = "Варианты ответов:";
             // 
             // txtBoxVar4
             // 
@@ -291,7 +303,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(632, 209);
+            this.ClientSize = new System.Drawing.Size(632, 210);
             this.Controls.Add(this.grpAction);
             this.Controls.Add(this.grpTests);
             this.MaximumSize = new System.Drawing.Size(640, 237);
@@ -301,8 +313,8 @@
             this.grpTests.PerformLayout();
             this.grpAction.ResumeLayout(false);
             this.grpAction.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.grpVariantAnswers.ResumeLayout(false);
+            this.grpVariantAnswers.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -315,7 +327,7 @@
         private System.Windows.Forms.GroupBox grpAction;
         private System.Windows.Forms.Button btnChangeTest;
         private System.Windows.Forms.Button btnRemoveTest;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grpVariantAnswers;
         private System.Windows.Forms.CheckBox chkBoxVar4;
         private System.Windows.Forms.CheckBox chkBoxVar3;
         private System.Windows.Forms.CheckBox chkBoxVar2;
@@ -331,6 +343,7 @@
         private System.Windows.Forms.TextBox txtBoxVar2;
         private System.Windows.Forms.TextBox txtBoxVar1;
         private System.Windows.Forms.TextBox txtBoxAddTest;
+        private System.Windows.Forms.Button btnHelp;
     }
 }
 
