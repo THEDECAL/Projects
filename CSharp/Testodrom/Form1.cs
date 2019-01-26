@@ -22,9 +22,9 @@ namespace Testodrom
         /// </summary>
         Test[] lstBoxTestsList = new Test[0];
         /// <summary>
-        /// Тест для хранения ответов
+        /// Тест для промежуточного хранения
         /// </summary>
-        Test testAnswers;
+        Test tempTest;
         /// <summary>
         /// Поле режима добавления
         /// </summary>
@@ -33,6 +33,10 @@ namespace Testodrom
         /// Поле режима прохождения теста
         /// </summary>
         bool isModeRun = false;
+        /// <summary>
+        /// Поле режима редактирования
+        /// </summary>
+        bool isModeEdit = false;
         /// <summary>
         /// Поле номера текущего вопроса (счёт начинается с 1)
         /// </summary>
@@ -44,14 +48,14 @@ namespace Testodrom
         /// <summary>
         /// Таймер для времени прохождения теста
         /// </summary>
-        Timer timer = new Timer() { Interval = 1000};
+        Timer timer;
         public Form1()
         {
             InitializeComponent();
 
             //Добавление автономного теста
             Array.Resize(ref lstBoxTestsList, lstBoxTestsList.Length + 1);
-            lstBoxTestsList[lstBoxTestsList.Length - 1] = (new Test(){ Name = "Комманды linux"});
+            lstBoxTestsList[lstBoxTestsList.Length - 1] = (new Test() { Name = "Комманды linux" });
             Question newQuestion = new Question() { Name = "Комманда для отображения процессов системы" };
             newQuestion.VariantsAnswers.Add(new Variant() { Name = "top", isCorrectAnswer = true });
             newQuestion.VariantsAnswers.Add(new Variant() { Name = "proc", isCorrectAnswer = false });
@@ -73,7 +77,7 @@ namespace Testodrom
 
             lstBoxTests.DataSource = lstBoxTestsList;
             LockUnlockTestButtons(false);
-            
+
         }
         /// <summary>
         /// Блокировка/Разблокировка элементов взаимодействия с тестом
@@ -96,7 +100,7 @@ namespace Testodrom
             btnHelp.Enabled = @switch;
         }
         /// <summary>
-        /// Блокировка/Разблокировка элементов управления тестом
+        /// Метод блокировки/разблокировки элементов управления тестом
         /// </summary>
         /// <param name="switch">Принимает true, чтобы включить элементы, false выключить</param>
         private void LockUnlockChangeButtons(bool @switch)
@@ -127,26 +131,36 @@ namespace Testodrom
             txtBoxVar2.Text = "";
             txtBoxVar3.Text = "";
             txtBoxVar4.Text = "";
+            lblBarComplete.Text = "";
+            lblTime.Text = "";
+        }
+        /// <summary>
+        /// Метод включения чтения/записи для текстовых полей
+        /// </summary>
+        /// <param name="switch">Принимает true, чтобы включить только чтение полей, false включить запись</param>
+        private void setReadTxtBox(bool @switch)
+        {
+            txtBoxQuestion.ReadOnly = @switch;
+            txtBoxVar1.ReadOnly = @switch;
+            txtBoxVar2.ReadOnly = @switch;
+            txtBoxVar3.ReadOnly = @switch;
+            txtBoxVar4.ReadOnly = @switch;
         }
         /// <summary>
         /// Метод отображения вопроса
         /// </summary>
         private void showQuestion()
         {
-            Test t = lstBoxTestsList[lstBoxTests.SelectedIndex]; //Текущий тест
-            Question q = t.Questions[questionPosition - 1]; //Текущий вопрос
-            Question currQ = testAnswers.Questions[questionPosition - 1]; //Текущий вопрос в хранилище ответов
-
-            Text = t.Name;
-            txtBoxQuestion.Text = q.Name;
-            txtBoxVar1.Text = q.VariantsAnswers[0].Name;
-            txtBoxVar2.Text = q.VariantsAnswers[1].Name;
-            txtBoxVar3.Text = q.VariantsAnswers[2].Name;
-            txtBoxVar4.Text = q.VariantsAnswers[3].Name;
-
+            Question currQ = tempTest.Questions[questionPosition - 1];
+            Text = tempTest.Name;
+            txtBoxQuestion.Text = currQ.Name;
+            txtBoxVar1.Text = currQ.VariantsAnswers[0].Name;
             chkBoxVar1.CheckState = (currQ.VariantsAnswers[0].isCorrectAnswer) ? CheckState.Checked : CheckState.Unchecked;
+            txtBoxVar2.Text = currQ.VariantsAnswers[1].Name;
             chkBoxVar2.CheckState = (currQ.VariantsAnswers[1].isCorrectAnswer) ? CheckState.Checked : CheckState.Unchecked;
+            txtBoxVar3.Text = currQ.VariantsAnswers[2].Name;
             chkBoxVar3.CheckState = (currQ.VariantsAnswers[2].isCorrectAnswer) ? CheckState.Checked : CheckState.Unchecked;
+            txtBoxVar4.Text = currQ.VariantsAnswers[3].Name;
             chkBoxVar4.CheckState = (currQ.VariantsAnswers[3].isCorrectAnswer) ? CheckState.Checked : CheckState.Unchecked;
         }
         /// <summary>
@@ -154,10 +168,21 @@ namespace Testodrom
         /// </summary>
         private void saveAnswer()
         {
-            Question currQ = testAnswers.Questions[questionPosition - 1]; //Текущий вопрос в хранилище ответов
+            if (isModeAdd)
+            {
+                tempTest.Questions.Add(new Question());
+                for (int i = 0; i < 4; i++)
+                    tempTest.Questions[questionPosition - 1].VariantsAnswers.Add(new Variant());
+            }
+            Question currQ = tempTest.Questions[questionPosition - 1];
+            currQ.Name = txtBoxQuestion.Text;
+            currQ.VariantsAnswers[0].Name = txtBoxVar1.Text;
             currQ.VariantsAnswers[0].isCorrectAnswer = (chkBoxVar1.CheckState == CheckState.Checked) ? true : false;
+            currQ.VariantsAnswers[1].Name = txtBoxVar2.Text;
             currQ.VariantsAnswers[1].isCorrectAnswer = (chkBoxVar2.CheckState == CheckState.Checked) ? true : false;
+            currQ.VariantsAnswers[2].Name = txtBoxVar3.Text;
             currQ.VariantsAnswers[2].isCorrectAnswer = (chkBoxVar3.CheckState == CheckState.Checked) ? true : false;
+            currQ.VariantsAnswers[3].Name = txtBoxVar4.Text;
             currQ.VariantsAnswers[3].isCorrectAnswer = (chkBoxVar4.CheckState == CheckState.Checked) ? true : false;
         }
         /// <summary>
@@ -188,20 +213,9 @@ namespace Testodrom
                     Name = txtBoxVar4.Text,
                     isCorrectAnswer = (chkBoxVar4.CheckState == CheckState.Checked) ? true : false
                 });
-
-                string errors = newQuestion.CheckToValid();
-                if (errors == null)
-                {
-                    lstBoxTestsList[lstBoxTestsList.Length - 1].Questions.Add(newQuestion);
-
-                    clearTxtBox();
-                    clearCheckBox();
-
-                    lblBarComplete.Text = $"{lstBoxTestsList[lstBoxTestsList.Length - 1].Questions.Count}";
-                }
-                else MessageBox.Show(errors, ProgramName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                tempTest.Questions.Add(newQuestion);
             }
-            else if (isModeRun)
+            else if (isModeRun || isModeEdit)
             {
                 saveAnswer();
                 questionPosition++;
@@ -215,7 +229,7 @@ namespace Testodrom
         /// </summary>
         private void btnPreviousQuestion_Click(object sender, EventArgs e)
         {
-            if (isModeRun)
+            if (isModeRun || isModeEdit)
             {
                 saveAnswer();
                 questionPosition--;
@@ -231,20 +245,16 @@ namespace Testodrom
         {
             if (lstBoxTests.SelectedIndex != -1)
             {
+                timer = new Timer() { Interval = 1000 };
                 time = new DateTime();
                 timer.Tick += (object ss, EventArgs ee) => { time = time.AddSeconds(1); lblTime.Text = time.ToString("mm:ss"); };
                 timer.Start();
 
-                testAnswers = Test.CloneTestWithoutCorrectAnswers(lstBoxTestsList[lstBoxTests.SelectedIndex]);
+                tempTest = Test.Clone(lstBoxTestsList[lstBoxTests.SelectedIndex], true);
                 isModeRun = true;
                 LockUnlockChangeButtons(false);
                 LockUnlockTestButtons(true);
-
-                txtBoxQuestion.ReadOnly = true;
-                txtBoxVar1.ReadOnly = true;
-                txtBoxVar2.ReadOnly = true;
-                txtBoxVar3.ReadOnly = true;
-                txtBoxVar4.ReadOnly = true;
+                setReadTxtBox(true);
 
                 lblBarComplete.Text = $"{questionPosition}/{lstBoxTestsList[lstBoxTestsList.Length - 1].Questions.Count}";
 
@@ -259,16 +269,15 @@ namespace Testodrom
             //Проверяем, чтобы поле ввода не было пусто и значения не дублировались
             if (txtBoxAddTest.Text.Length != 0 && !lstBoxTestsList.Any(line => line.Name == txtBoxAddTest.Text))
             {
-                Array.Resize(ref lstBoxTestsList, lstBoxTestsList.Length + 1);
-                lstBoxTestsList[lstBoxTestsList.Length - 1] = new Test() { Name = txtBoxAddTest.Text };
-                lstBoxTests.DataSource = lstBoxTestsList;
+                tempTest = new Test() { Name = txtBoxAddTest.Text};
                 txtBoxAddTest.Text = "";
-
+                clearTxtBox();
                 LockUnlockTestButtons(true);
                 LockUnlockChangeButtons(false);
+                setReadTxtBox(false);
                 btnPreviousQuestion.Enabled = false;
                 isModeAdd = true;
-                lblBarComplete.Text = $"{lstBoxTestsList[lstBoxTestsList.Length - 1].Questions.Count}";
+                lblBarComplete.Text = $"{tempTest.Questions.Count}";
             }
         }
         /// <summary>
@@ -276,29 +285,52 @@ namespace Testodrom
         /// </summary>
         private void btnFinishTest_Click(object sender, EventArgs e)
         {
-            if (isModeAdd)
+            bool isEnd = true;
+            saveAnswer();
+
+            if (isModeAdd || isModeEdit)
             {
-                isModeAdd = false;
+                string errors = tempTest.CheckToValid();
+                if (errors != null)
+                {
+                    var result = MessageBox.Show(errors + "\nВсе равно завершить?", ProgramName, MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                    if (result == DialogResult.Yes) isEnd = false;
+                    else return;
+                }
+
+                if (isEnd)
+                {
+                    if (isModeAdd)
+                    {
+                        Array.Resize(ref lstBoxTestsList, lstBoxTestsList.Length + 1);
+                        lstBoxTestsList[lstBoxTestsList.Length - 1] = tempTest;
+                        lstBoxTests.DataSource = lstBoxTestsList;
+                    }
+                    else if (isModeEdit)
+                        lstBoxTestsList[lstBoxTestsList.ToList().FindIndex(o => o.Name == tempTest.Name)] = tempTest;
+                }
+                if (isModeAdd) isModeAdd = false;
+                else if (isModeEdit) isModeEdit = false;
+                LockUnlockChangeButtons(true);
+                LockUnlockTestButtons(false);
             }
             else if (isModeRun)
             {
                 Test t = lstBoxTestsList[lstBoxTests.SelectedIndex]; //Текущий тест
                 Question q = t.Questions[questionPosition - 1]; //Текущий вопрос
-                Question currQ = testAnswers.Questions[questionPosition - 1]; //Текущий вопрос в хранилище ответов
-                bool isContinue = true;
-
-                saveAnswer();
+                Question currQ = tempTest.Questions[questionPosition - 1]; //Текущий вопрос в хранилище ответов
 
                 //Проверка, чтобы все вопросы имели ответы
-                if (!testAnswers.Questions.All(o => o.CheckCorrectAnswers()) || testAnswers.Questions.Count == 0)
+                if (!tempTest.Questions.All(o => o.CheckCorrectAnswers()) || tempTest.Questions.Count == 0)
                 {
                     DialogResult result = MessageBox.Show("Есть вопросы без ответов\nВсе равно завершить тест?", ProgramName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    isContinue = (result == DialogResult.No) ? false : true;
+                    if (result == DialogResult.No) { isEnd = false; }
                 }
-                if(isContinue)
+
+                if (isEnd)
                 {
-                    timer.Stop();
                     isModeRun = false;
+                    timer.Stop();
                     clearCheckBox();
                     clearTxtBox();
                     lblBarComplete.Text = "";
@@ -312,7 +344,7 @@ namespace Testodrom
                         int amCurrentCorrectAnswers = 0;
                         double result = 0;
                         Question tmpQ = t.Questions[i];
-                        Question tmpCurrQ = testAnswers.Questions[i];
+                        Question tmpCurrQ = tempTest.Questions[i];
                         ;
                         for (int j = 0; j < tmpQ.VariantsAnswers.Count; j++)
                         {
@@ -327,12 +359,12 @@ namespace Testodrom
                     }
 
                     txtBoxQuestion.Text = $"Результат: {(genericResult < 0 ? 0 : Math.Round(genericResult, 1))}/100%";
-                    testAnswers = null;
+                    tempTest = null;
                     questionPosition = 1;
+                    LockUnlockChangeButtons(true);
+                    LockUnlockTestButtons(false);
                 }
             }
-            LockUnlockChangeButtons(true);
-            LockUnlockTestButtons(false);
         }
         /// <summary>
         /// Событие справки
@@ -342,7 +374,37 @@ namespace Testodrom
             if (isModeAdd)
                 MessageBox.Show("Вводите вопросы, варианты ответов и отмечайте правильные ответы переключаясь с помощью стрелок между вопросами.\nПо окончании нажмите \"Завершить\".", ProgramName, MessageBoxButtons.OK, MessageBoxIcon.Information);
             else if (isModeRun) ;
-                MessageBox.Show("Отвечайте на вопросы отмечая галками ответы, ответов может быть один и более\nПо окончании нажмите \"Завершить\".", ProgramName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Отвечайте на вопросы отмечая галками ответы, ответов может быть один и более\nПо окончании нажмите \"Завершить\".", ProgramName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        /// <summary>
+        /// Событие удаления теста
+        /// </summary>
+        private void btnRemoveTest_Click(object sender, EventArgs e)
+        {
+            if (lstBoxTests.SelectedIndex != -1)
+            {
+                for (int i = lstBoxTests.SelectedIndex; i < lstBoxTestsList.Length - 1; i++)
+                    lstBoxTestsList[i] = lstBoxTestsList[i + 1];
+
+                Array.Resize(ref lstBoxTestsList, lstBoxTestsList.Length - 1);
+                lstBoxTests.DataSource = lstBoxTestsList;
+            }
+        }
+        /// <summary>
+        /// Событие редактирования теста
+        /// </summary>
+        private void btnChangeTest_Click(object sender, EventArgs e)
+        {
+            if (lstBoxTests.SelectedIndex != -1)
+            {
+                tempTest = Test.Clone(lstBoxTestsList[lstBoxTests.SelectedIndex]);
+                LockUnlockTestButtons(true);
+                LockUnlockChangeButtons(false);
+                setReadTxtBox(false);
+                isModeEdit = true;
+                showQuestion();
+                lblBarComplete.Text = $"{questionPosition}/{lstBoxTestsList[lstBoxTestsList.Length - 1].Questions.Count}";
+            }
         }
     }
 }

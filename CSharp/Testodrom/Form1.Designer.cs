@@ -96,6 +96,7 @@
             this.btnRemoveTest.Tag = "640; 320";
             this.btnRemoveTest.Text = "Удалить";
             this.btnRemoveTest.UseVisualStyleBackColor = true;
+            this.btnRemoveTest.Click += new System.EventHandler(this.btnRemoveTest_Click);
             // 
             // btnChangeTest
             // 
@@ -106,6 +107,7 @@
             this.btnChangeTest.Tag = "640; 320";
             this.btnChangeTest.Text = "Изменить";
             this.btnChangeTest.UseVisualStyleBackColor = true;
+            this.btnChangeTest.Click += new System.EventHandler(this.btnChangeTest_Click);
             // 
             // btnAddTest
             // 
@@ -303,7 +305,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(632, 210);
+            this.ClientSize = new System.Drawing.Size(632, 209);
             this.Controls.Add(this.grpAction);
             this.Controls.Add(this.grpTests);
             this.MaximumSize = new System.Drawing.Size(640, 237);

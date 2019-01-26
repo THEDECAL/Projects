@@ -25,16 +25,27 @@ namespace Testodrom
 
             if (!Validator.TryValidateObject(this, context, results, true))
                 results.ForEach(e => sb.Append(e.ErrorMessage + '\n'));
-            Questions.ForEach(e => sb.Append(e.CheckToValid()));
+
+            if (results.Count == 0)
+            {
+                foreach (var item in Questions)
+                {
+                    sb.Append(item.CheckToValid());
+                    if (sb.Length != 0) break;
+                }
+            }
 
             return (sb.Length == 0) ? null : sb.ToString();
         }
         /// <summary>
-        /// Метод клонирования объекта без корректных ответов
+        /// Метод клонирования теста
         /// </summary>
-        /// <returns>Возвращает клон теста</returns>
-        static public Test CloneTestWithoutCorrectAnswers(Test o)
+        /// <param name="o">Принимает тест для клонирования</param>
+        /// <param name="withoutCorrectAnswers">true - клонировать без корректных вопросов, false(По умолчанию) - клонировать полностью</param>
+        /// <returns>Возвращает склонированный тест</returns>
+        static public Test Clone(Test o, bool withoutCorrectAnswers = false)
         {
+
             Test @new = new Test() { Name = o.Name };
             foreach (var item in o.Questions)
             {
@@ -44,7 +55,7 @@ namespace Testodrom
                     @new.Questions[@new.Questions.Count - 1].VariantsAnswers.Add(new Variant()
                     {
                         Name = item2.Name,
-                        isCorrectAnswer = false
+                        isCorrectAnswer = (!withoutCorrectAnswers) ? item2.isCorrectAnswer : false
                     });
                 }
             }
@@ -56,7 +67,7 @@ namespace Testodrom
     class Question
     {
         [Required(ErrorMessage = "Вопрос не установлен")]
-        [StringLength(45, MinimumLength = 3, ErrorMessage = "Вопрос должен быть больше 3 символов и не больше 45")]
+        [StringLength(100, MinimumLength = 10, ErrorMessage = "Вопрос должен быть больше 3 символов и не больше 100")]
         public string Name { get; set; }
         public List<Variant> VariantsAnswers { get; set; } = new List<Variant>();
         /// <summary>
@@ -71,7 +82,15 @@ namespace Testodrom
 
             if (!Validator.TryValidateObject(this, context, results, true))
                 results.ForEach(e => sb.Append(e.ErrorMessage + '\n'));
-            if(results.Count == 0) VariantsAnswers.ForEach(e => sb.Append(e.CheckToValid()));
+
+            if (results.Count == 0)
+            {
+                foreach (var item in VariantsAnswers)
+                {
+                    sb.Append(item.CheckToValid());
+                    if (sb.Length != 0) break;
+                }
+            }
             //Обнаружение хотябы одного правильного ответа
 
             if (!CheckCorrectAnswers()) sb.Append("Нет ни одного ответа");
@@ -88,7 +107,7 @@ namespace Testodrom
     class Variant
     {
         [Required(ErrorMessage = "Вариант ответа не установлен")]
-        [StringLength(45, MinimumLength = 3, ErrorMessage = "Вариант ответа должен быть больше 3 символов и не больше 45")]
+        [StringLength(45, MinimumLength = 2, ErrorMessage = "Вариант ответа должен быть больше 3 символов и не больше 45")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Ответ не установлен")]
         public bool isCorrectAnswer { get; set; }
