@@ -1,6 +1,6 @@
-﻿--
+﻿--------------
 -- Создание БД
---
+--------------
 create database exchange_db
 go
 
@@ -36,9 +36,8 @@ create table products(
 );
 go
 
-create table requests(
-	req_id int primary key identity,
-	type nchar(7) not null check(type in('Продажа', 'Покупка')),
+create table sales(
+	sale_id int primary key identity,
 	quantity int not null,
 	usr_id int not null,
 	prod_id int not null,
@@ -46,40 +45,49 @@ create table requests(
 );
 go
 
-alter table requests add
-constraint fk_requests_users_acc_id
+alter table sales add
+constraint fk_sales_users_acc_id
 foreign key (usr_id) references users(usr_id),
-constraint fk_requests_products_prod_id
+constraint fk_sales_products_prod_id
+foreign key (prod_id) references products(prod_id)
+go
+
+create table purchases(
+	pur_id int primary key identity,
+	quantity int not null,
+	usr_id int not null,
+	prod_id int not null,
+	date datetime not null default getdate()
+);
+go
+
+alter table purchases add
+constraint fk_purchases_users_acc_id
+foreign key (usr_id) references users(usr_id),
+constraint fk_purchases_products_prod_id
 foreign key (prod_id) references products(prod_id)
 go
 
 create table deals(
 	deal_id int primary key identity,
-	result nvarchar(10) not null check(result in('@Успешно', '@Не успешно')),
-	src_req_id int not null,
-	dst_req_id int,
+	sale_id int not null,
+	pur_id int not null,
 	date datetime not null default getdate()
 );
 go
 
 alter table deals add
 constraint fk_deals_requests_src_req_id
-foreign key (src_req_id) references requests(req_id),
+foreign key (sale_id) references sales(sale_id),
 constraint fk_deals_reuqests_dst_req_id
-foreign key (dst_req_id) references requests(req_id)
+foreign key (pur_id) references purchases(pur_id)
 go
---
+--------------------
 -- Конец создания БД
---
-
-
-
---
+--------------------
+--------------------
 -- Создание процедур
---
-
-
-
+--------------------
 --
 -- Процедура регистрации пользователя
 --
@@ -90,55 +98,55 @@ create proc sp_CreateUser
 	@fname nvarchar(45),
 	@lname nvarchar(45)
 as
-begin
 	begin try
-		begin tran;
-		declare @id int = -1;
+		begin tran
+			--Проверка наличия символовов
+			if (@login != '' and @password != '' and @email != '' and
+				@fname != '' and @lname != '')
+			begin
+				declare @id int = -1
 
-		select @id = acc_id from accounts where login = @login;
-		if @id = -1
-		begin
-			insert into accounts
-			values (@login, @password, @email);
+				select @id = acc_id from accounts where login = @login
+				if @id = -1
+				begin
+					insert into accounts
+					values (@login, @password, @email)
 
-			select @id = acc_id from accounts where login = @login;
+					select @id = acc_id from accounts where login = @login
 
-			insert into users
-			values (@fname, @lname, @id);
-		end
-		else print 'Такой пользователь уже есть'
-
-		commit tran;
+					insert into users
+					values (@fname, @lname, @id)
+				end
+				else print 'Такой пользователь уже есть.'
+			end
+			else print 'Одно из полей пусто.'
+		commit tran
 	end try
 	begin catch
-		print 'Не предвиденная ошибка'
-		rollback tran;
+		print 'Непредвиденная ошибка.'
+		rollback tran
 	end catch
-end
 go
 
---declare
---	@login nvarchar(45) = 'the-decal',
---	@password nvarchar(45) = 'booblik',
---	@email nvarchar(100) = 'thedecal1@gmail.com',
---	@fname nvarchar(45) = 'Никита',
---	@lname nvarchar(45) = 'Звегинцев';
---exec sp_CreateUser @login, @password, @email, @fname, @lname
+declare
+	@login nvarchar(45) = 'the-decal',
+	@password nvarchar(45) = 'booblik',
+	@email nvarchar(100) = 'thedecal1@gmail.com',
+	@fname nvarchar(45) = 'Никита',
+	@lname nvarchar(45) = 'Звегинцев';
+exec sp_CreateUser @login, @password, @email, @fname, @lname
 
---set @login = 'broker'
---set @password = 'smachno'
---set @email = 'bro@megashop.com'
---set @fname = 'Дуглас'
---set @lname = 'Бочински'
+set @login = 'broker'
+set @password = 'smachno'
+set @email = 'bro@megashop.com'
+set @fname = 'Дуглас'
+set @lname = 'Бочински'
 
---exec sp_CreateUser @login, @password, @email, @fname, @lname
+exec sp_CreateUser @login, @password, @email, @fname, @lname
 
---select * from accounts, users
---where accounts.acc_id = users.acc_id
---go
-
-
-
+select * from accounts, users
+where accounts.acc_id = users.acc_id
+go
 --
 -- Процедура добавления продукта
 --
@@ -147,159 +155,191 @@ create proc sp_CreateProduct
 	@price money,
 	@quality int
 as
-begin
 	begin try
 		begin tran;
-		declare @id int = -1;
+			--Проверка наличия символов и корректности ввода
+			if @name != '' and @price > 0 and @quality > 0 and @quality < 11
+			begin
+				declare @id int = -1
 
-		select @id = prod_id from products
-		where name = @name and price = @price and quality = @quality;
+				select @id = prod_id from products
+				where name = @name and price = @price and quality = @quality
 
-		if @id = -1
-		begin
-			insert into products
-			values (@name, @price, @quality);
-		end
-		else print 'Такой продукт уже есть'
-
-		commit tran;
+				if @id = -1
+				begin
+					insert into products
+					values (@name, @price, @quality)
+				end
+				else print 'Такой продукт уже есть.'
+			end
+			else print 'Не корректный формат ввода.'
+		commit tran
 	end try
 	begin catch
-		print 'Не предвиденная ошибка'
-		rollback tran;
+		print 'Не предвиденная ошибка.'
+		rollback tran
 	end catch
-end
 go
 
---declare
---	@name nvarchar(45) = 'Картофель',
---	@price money = '30',
---	@quality int = 10;
+declare
+	@name nvarchar(45) = 'Картофель',
+	@price money = '30',
+	@quality int = 10;
 
---exec sp_CreateProduct @name, @price, @quality
+exec sp_CreateProduct @name, @price, @quality
 
---set	@name = 'Картофель'
---set	@price = '30'
---set	@quality = 9
+set	@name = 'Картофель'
+set	@price = '28'
+set	@quality = 9
 
---exec sp_CreateProduct @name, @price, @quality
+exec sp_CreateProduct @name, @price, @quality
 
---set	@name = 'Картофель'
---set	@price = '22'
---set	@quality = 8
+set	@name = 'Картофель'
+set	@price = '26'
+set	@quality = 8
 
---exec sp_CreateProduct @name, @price, @quality
+exec sp_CreateProduct @name, @price, @quality
 
---set	@name = 'Макароны'
---set	@price = '30'
---set	@quality = 8
+set	@name = 'Макароны'
+set	@price = '30'
+set	@quality = 8
 
---exec sp_CreateProduct @name, @price, @quality
+exec sp_CreateProduct @name, @price, @quality
 
---select * from products
---go
-
-
-
+select * from products
+go
 --
 -- Процедура создания заявки
 --
 create proc sp_CreateRequest
-	@type nchar(7), -- 'Продажа' или 'Покупка'
+	@type varchar(7),
 	@quantity int, 
 	@usr_id int,
 	@prod_id int
 as
-begin
 	begin try
-		begin tran;
-		declare @id int = -1;
+		begin tran
+			declare @id int = -1;
 
-		select @id = usr_id from users
-		where usr_id = @usr_id;
-
-		if @id != -1
-		begin
-			select @id = prod_id from products
-			where prod_id = @prod_id;
+			select @id = usr_id from users where usr_id = @usr_id
 
 			if @id != -1
 			begin
-				if @type = 'Продажа' or @type = 'Покупка'
+				select @id = prod_id from products
+				where prod_id = @prod_id;
+
+				if @id != -1
 				begin
 					if @quantity > 0
 					begin
-						insert into requests (type, quantity, usr_id, prod_id)
-						values (@type, @quantity, @usr_id, @prod_id)
+						if @type = 'Продажа'
+							insert into sales (quantity, usr_id, prod_id)
+							values (@quantity, @usr_id, @prod_id)
+						else if @type = 'Покупка'
+							insert into purchases (quantity, usr_id, prod_id)
+							values (@quantity, @usr_id, @prod_id)
+						else print 'Неизвестный тип заявки.'
 					end
-					else print 'Кол-во должно быть больше ноля'
+					else print 'Кол-во должно быть больше 0.'
 				end
-				else print 'Такого типа заявки нет'
+				else print 'Такого продукта нет.'
 			end
-			else print 'Такого продукта нет'
-		end
-		else print 'Такого пользователя нет'
-		
-		commit tran;
+			else print 'Такого пользователя нет.'
+		commit tran
 	end try
 	begin catch
-		print 'Не предвиденная ошибка'
-		rollback tran;
+		print 'Непредвиденная ошибка'
+		rollback tran
 	end catch
-end
 go
 
---declare
---	@type nchar(7) = 'Покупка',
---	@quantity int = 500, 
---	@usr_id int = 1,
---	@prod_id int = 2;
+declare
+	@type nchar(7) = 'Покупка',
+	@quantity int = 500, 
+	@usr_id int = 3,
+	@prod_id int = 2;
 
---exec sp_CreateRequest @type, @quantity, @usr_id, @prod_id
+exec sp_CreateRequest @type, @quantity, @usr_id, @prod_id
 
---set	@type = 'Продажа'
---set	@quantity = 5000 
---set	@usr_id = 2
---set	@prod_id = 2
+set	@type = 'Продажа'
+set	@quantity = 5000 
+set	@usr_id = 4
+set	@prod_id = 2
 
---exec sp_CreateRequest @type, @quantity, @usr_id, @prod_id
+exec sp_CreateRequest @type, @quantity, @usr_id, @prod_id
 
---set	@type = 'Покупка'
---set	@quantity = 100 
---set	@usr_id = 1
---set	@prod_id = 4
+set	@type = 'Покупка'
+set	@quantity = 100 
+set	@usr_id = 3
+set	@prod_id = 4
 
---exec sp_CreateRequest @type, @quantity, @usr_id, @prod_id
+exec sp_CreateRequest @type, @quantity, @usr_id, @prod_id
 
---select * from requests
---go
-
-
-
+select * from sales
+select * from purchases
+go
 --
 -- Процедура создания сделок
 --
+drop proc sp_CommitDeals
 create proc sp_CommitDeals
 as
-	with Sales as (select * from requests where type = 'Покупка')
-	with Purchases as (select * from requests where type = 'Продажа')
+	begin try
+		begin tran
+			declare @cnt int = (select count(*) from sales, purchases
+								where
+								sales.prod_id = purchases.prod_id and
+								sales.quantity >= purchases.quantity)
+						
+			while @cnt > 0
+				begin
+				declare @saleId int, @purchaseId int, @quantitySale int
 
+				--Выборка строки с циклическим смещением
+				select
+					@saleId = sales.sale_id,
+					@purchaseId = purchases.pur_id,
+					@quantitySale = sales.quantity
+				from sales, purchases, products
+				where
+					sales.prod_id = purchases.prod_id and
+					products.prod_id = sales.prod_id and
+					sales.quantity >= purchases.quantity
+				order by price desc
+				offset @cnt - 1 rows fetch first 1 row only
+				print @saleId
+				print @purchaseId
+				print @quantitySale
 
-	--declare @saleCnt int = (select count(*) from requests where type = 'Покупка')
-	
-	--if(@saleCnt > 0)
-	--begin
-	--	while @salceCnt > 0
-	--	begin
-			
-			
-	--		set @saleCnt -= 1
-	--	end
-	--end
+				--Вставка сделки в таблицу
+				insert into deals (sale_id, pur_id)
+				values (@saleId, @purchaseId)
+
+				--Изменение кол-ва наличия продуктов у продавца
+				update sales set quantity -= @quantitySale
+				where sale_id = @saleId
+				
+				print '->'
+				--Удаление заявки на покупку
+				delete from purchases where pur_id = @purchaseId
+				print '<-'
+				
+				save tran @cnt
+				set @cnt -= 1
+			end
+		commit tran
+	end try
+	begin catch
+		print 'Непредвиденная ошибка'
+		rollback tran
+	end catch
 go
 
-
-
+exec sp_CommitDeals
+select * from purchases
+select * from sales
+select * from deals
+go
 --
 -- Конец создания процедур
 --

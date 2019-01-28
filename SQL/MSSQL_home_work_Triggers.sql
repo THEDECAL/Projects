@@ -6,7 +6,6 @@ go
 --(Примечание Добавить в таблице Books необходимое поле
 --количества имеющихся книг QuantityBooks).
 
-drop trigger SaleOfBooks
 create trigger SaleOfBooks on Sales for insert
 as
 begin
