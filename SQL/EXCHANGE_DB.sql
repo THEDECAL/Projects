@@ -41,7 +41,8 @@ create table sales(
 	quantity int not null,
 	usr_id int not null,
 	prod_id int not null,
-	date datetime not null default getdate()
+	date datetime not null default getdate(),
+	removed int not null default 0
 );
 go
 
@@ -57,7 +58,8 @@ create table purchases(
 	quantity int not null,
 	usr_id int not null,
 	prod_id int not null,
-	date datetime not null default getdate()
+	date datetime not null default getdate(),
+	removed int not null default 0
 );
 go
 
@@ -82,6 +84,23 @@ foreign key (sale_id) references sales(sale_id),
 constraint fk_deals_reuqests_dst_req_id
 foreign key (pur_id) references purchases(pur_id)
 go
+
+--
+-- Представление возможных сделок
+--
+create view viewPossibleDeals as
+select
+	sales.sale_id,
+	purchases.pur_id,
+	sales.quantity as 'sale_quantity',
+	purchases.quantity as 'pur_quantity',
+	price
+from sales, purchases, products
+where
+	sales.prod_id = purchases.prod_id and
+	products.prod_id = sales.prod_id and
+	sales.quantity >= purchases.quantity and
+	sales.removed != 1 and purchases.removed != 1
 --------------------
 -- Конец создания БД
 --------------------
@@ -256,21 +275,21 @@ go
 declare
 	@type nchar(7) = 'Покупка',
 	@quantity int = 500, 
-	@usr_id int = 3,
+	@usr_id int = 1,
 	@prod_id int = 2;
 
 exec sp_CreateRequest @type, @quantity, @usr_id, @prod_id
 
 set	@type = 'Продажа'
 set	@quantity = 5000 
-set	@usr_id = 4
+set	@usr_id = 2
 set	@prod_id = 2
 
 exec sp_CreateRequest @type, @quantity, @usr_id, @prod_id
 
 set	@type = 'Покупка'
 set	@quantity = 100 
-set	@usr_id = 3
+set	@usr_id = 1
 set	@prod_id = 4
 
 exec sp_CreateRequest @type, @quantity, @usr_id, @prod_id
@@ -281,50 +300,45 @@ go
 --
 -- Процедура создания сделок
 --
-drop proc sp_CommitDeals
+--drop proc sp_CommitDeals
 create proc sp_CommitDeals
 as
 	begin try
 		begin tran
-			declare @cnt int = (select count(*) from sales, purchases
-								where
-								sales.prod_id = purchases.prod_id and
-								sales.quantity >= purchases.quantity)
-						
+			declare @cnt int = (select count(*) from viewPossibleDeals)
+
 			while @cnt > 0
 				begin
-				declare @saleId int, @purchaseId int, @quantitySale int
+				declare
+					@saleId int,
+					@purId int,
+					@quantityPur int,
+					@tranName nvarchar(10)
 
 				--Выборка строки с циклическим смещением
 				select
-					@saleId = sales.sale_id,
-					@purchaseId = purchases.pur_id,
-					@quantitySale = sales.quantity
-				from sales, purchases, products
-				where
-					sales.prod_id = purchases.prod_id and
-					products.prod_id = sales.prod_id and
-					sales.quantity >= purchases.quantity
+					@saleId = sale_id,
+					@purId = pur_id,
+					@quantityPur = pur_quantity
+				from viewPossibleDeals
 				order by price desc
 				offset @cnt - 1 rows fetch first 1 row only
-				print @saleId
-				print @purchaseId
-				print @quantitySale
 
 				--Вставка сделки в таблицу
 				insert into deals (sale_id, pur_id)
-				values (@saleId, @purchaseId)
+				values (@saleId, @purId)
 
 				--Изменение кол-ва наличия продуктов у продавца
-				update sales set quantity -= @quantitySale
+				update sales set quantity -= @quantityPur
 				where sale_id = @saleId
 				
-				print '->'
 				--Удаление заявки на покупку
-				delete from purchases where pur_id = @purchaseId
-				print '<-'
+				update purchases set removed = 1
+				where pur_id = @purId
 				
-				save tran @cnt
+				--Каждую итерацию сохраняем состояние транзакции
+				set @tranName = convert(nvarchar(10), @cnt)
+				save tran @tranName
 				set @cnt -= 1
 			end
 		commit tran
