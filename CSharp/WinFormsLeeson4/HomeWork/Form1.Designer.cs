@@ -30,7 +30,7 @@
         {
             this.tvTree = new System.Windows.Forms.TreeView();
             this.cbSelectDisk = new System.Windows.Forms.ComboBox();
-            this.lvSelectFiles = new System.Windows.Forms.ListView();
+            this.lvList = new System.Windows.Forms.ListView();
             this.gbPlace = new System.Windows.Forms.GroupBox();
             this.chkSelectOnlyFolder = new System.Windows.Forms.CheckBox();
             this.lbSelectDisk = new System.Windows.Forms.Label();
@@ -49,8 +49,6 @@
             this.tvTree.TabIndex = 0;
             this.tvTree.BeforeCollapse += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvTree_BeforeCollapse);
             this.tvTree.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvTree_BeforeExpand);
-            this.tvTree.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.tvTree_AfterExpand);
-            this.tvTree.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvTree_BeforeSelect);
             this.tvTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvTree_AfterSelect);
             // 
             // cbSelectDisk
@@ -64,13 +62,14 @@
             this.cbSelectDisk.DropDown += new System.EventHandler(this.cbSelectDisk_DropDown);
             this.cbSelectDisk.SelectionChangeCommitted += new System.EventHandler(this.cbSelectDisk_SelectionChangeCommitted);
             // 
-            // lvSelectFiles
+            // lvList
             // 
-            this.lvSelectFiles.Location = new System.Drawing.Point(6, 46);
-            this.lvSelectFiles.Name = "lvSelectFiles";
-            this.lvSelectFiles.Size = new System.Drawing.Size(414, 283);
-            this.lvSelectFiles.TabIndex = 2;
-            this.lvSelectFiles.UseCompatibleStateImageBehavior = false;
+            this.lvList.Location = new System.Drawing.Point(6, 46);
+            this.lvList.Name = "lvList";
+            this.lvList.Size = new System.Drawing.Size(414, 283);
+            this.lvList.TabIndex = 2;
+            this.lvList.UseCompatibleStateImageBehavior = false;
+            this.lvList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvList_MouseDoubleClick);
             // 
             // gbPlace
             // 
@@ -83,10 +82,13 @@
             this.gbPlace.Size = new System.Drawing.Size(226, 335);
             this.gbPlace.TabIndex = 3;
             this.gbPlace.TabStop = false;
+            this.gbPlace.Text = "Выбор папки и диска:";
             // 
             // chkSelectOnlyFolder
             // 
             this.chkSelectOnlyFolder.AutoSize = true;
+            this.chkSelectOnlyFolder.Checked = true;
+            this.chkSelectOnlyFolder.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSelectOnlyFolder.Location = new System.Drawing.Point(19, 17);
             this.chkSelectOnlyFolder.Name = "chkSelectOnlyFolder";
             this.chkSelectOnlyFolder.Size = new System.Drawing.Size(96, 17);
@@ -108,12 +110,13 @@
             // 
             this.gbView.Controls.Add(this.lbView);
             this.gbView.Controls.Add(this.cbSelectView);
-            this.gbView.Controls.Add(this.lvSelectFiles);
+            this.gbView.Controls.Add(this.lvList);
             this.gbView.Location = new System.Drawing.Point(244, 12);
             this.gbView.Name = "gbView";
             this.gbView.Size = new System.Drawing.Size(426, 335);
             this.gbView.TabIndex = 4;
             this.gbView.TabStop = false;
+            this.gbView.Text = "Выбор файла:";
             // 
             // lbView
             // 
@@ -132,7 +135,7 @@
             this.cbSelectView.Name = "cbSelectView";
             this.cbSelectView.Size = new System.Drawing.Size(89, 21);
             this.cbSelectView.TabIndex = 3;
-            this.cbSelectView.SelectedIndexChanged += new System.EventHandler(this.cbSelectView_SelectedIndexChanged);
+            this.cbSelectView.SelectionChangeCommitted += new System.EventHandler(this.cbSelectView_SelectionChangeCommitted);
             // 
             // Form1
             // 
@@ -158,7 +161,7 @@
 
         private System.Windows.Forms.TreeView tvTree;
         private System.Windows.Forms.ComboBox cbSelectDisk;
-        private System.Windows.Forms.ListView lvSelectFiles;
+        private System.Windows.Forms.ListView lvList;
         private System.Windows.Forms.GroupBox gbPlace;
         private System.Windows.Forms.GroupBox gbView;
         private System.Windows.Forms.Label lbSelectDisk;
