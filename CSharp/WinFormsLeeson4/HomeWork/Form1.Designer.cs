@@ -45,15 +45,19 @@
             // 
             this.tvTree.Location = new System.Drawing.Point(6, 46);
             this.tvTree.Name = "tvTree";
-            this.tvTree.Size = new System.Drawing.Size(188, 283);
+            this.tvTree.Size = new System.Drawing.Size(214, 283);
             this.tvTree.TabIndex = 0;
+            this.tvTree.BeforeCollapse += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvTree_BeforeCollapse);
             this.tvTree.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvTree_BeforeExpand);
+            this.tvTree.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.tvTree_AfterExpand);
+            this.tvTree.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvTree_BeforeSelect);
+            this.tvTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvTree_AfterSelect);
             // 
             // cbSelectDisk
             // 
             this.cbSelectDisk.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSelectDisk.FormattingEnabled = true;
-            this.cbSelectDisk.Location = new System.Drawing.Point(153, 15);
+            this.cbSelectDisk.Location = new System.Drawing.Point(179, 17);
             this.cbSelectDisk.Name = "cbSelectDisk";
             this.cbSelectDisk.Size = new System.Drawing.Size(41, 21);
             this.cbSelectDisk.TabIndex = 1;
@@ -64,7 +68,7 @@
             // 
             this.lvSelectFiles.Location = new System.Drawing.Point(6, 46);
             this.lvSelectFiles.Name = "lvSelectFiles";
-            this.lvSelectFiles.Size = new System.Drawing.Size(440, 283);
+            this.lvSelectFiles.Size = new System.Drawing.Size(414, 283);
             this.lvSelectFiles.TabIndex = 2;
             this.lvSelectFiles.UseCompatibleStateImageBehavior = false;
             // 
@@ -76,14 +80,14 @@
             this.gbPlace.Controls.Add(this.cbSelectDisk);
             this.gbPlace.Location = new System.Drawing.Point(12, 12);
             this.gbPlace.Name = "gbPlace";
-            this.gbPlace.Size = new System.Drawing.Size(200, 335);
+            this.gbPlace.Size = new System.Drawing.Size(226, 335);
             this.gbPlace.TabIndex = 3;
             this.gbPlace.TabStop = false;
             // 
             // chkSelectOnlyFolder
             // 
             this.chkSelectOnlyFolder.AutoSize = true;
-            this.chkSelectOnlyFolder.Location = new System.Drawing.Point(6, 19);
+            this.chkSelectOnlyFolder.Location = new System.Drawing.Point(19, 17);
             this.chkSelectOnlyFolder.Name = "chkSelectOnlyFolder";
             this.chkSelectOnlyFolder.Size = new System.Drawing.Size(96, 17);
             this.chkSelectOnlyFolder.TabIndex = 3;
@@ -94,7 +98,7 @@
             // lbSelectDisk
             // 
             this.lbSelectDisk.AutoSize = true;
-            this.lbSelectDisk.Location = new System.Drawing.Point(110, 20);
+            this.lbSelectDisk.Location = new System.Drawing.Point(136, 19);
             this.lbSelectDisk.Name = "lbSelectDisk";
             this.lbSelectDisk.Size = new System.Drawing.Size(37, 13);
             this.lbSelectDisk.TabIndex = 2;
@@ -105,16 +109,16 @@
             this.gbView.Controls.Add(this.lbView);
             this.gbView.Controls.Add(this.cbSelectView);
             this.gbView.Controls.Add(this.lvSelectFiles);
-            this.gbView.Location = new System.Drawing.Point(218, 12);
+            this.gbView.Location = new System.Drawing.Point(244, 12);
             this.gbView.Name = "gbView";
-            this.gbView.Size = new System.Drawing.Size(452, 335);
+            this.gbView.Size = new System.Drawing.Size(426, 335);
             this.gbView.TabIndex = 4;
             this.gbView.TabStop = false;
             // 
             // lbView
             // 
             this.lbView.AutoSize = true;
-            this.lbView.Location = new System.Drawing.Point(316, 22);
+            this.lbView.Location = new System.Drawing.Point(296, 18);
             this.lbView.Name = "lbView";
             this.lbView.Size = new System.Drawing.Size(29, 13);
             this.lbView.TabIndex = 3;
@@ -124,16 +128,17 @@
             // 
             this.cbSelectView.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSelectView.FormattingEnabled = true;
-            this.cbSelectView.Location = new System.Drawing.Point(357, 19);
+            this.cbSelectView.Location = new System.Drawing.Point(331, 16);
             this.cbSelectView.Name = "cbSelectView";
             this.cbSelectView.Size = new System.Drawing.Size(89, 21);
             this.cbSelectView.TabIndex = 3;
+            this.cbSelectView.SelectedIndexChanged += new System.EventHandler(this.cbSelectView_SelectedIndexChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(682, 359);
+            this.ClientSize = new System.Drawing.Size(682, 358);
             this.Controls.Add(this.gbView);
             this.Controls.Add(this.gbPlace);
             this.MaximumSize = new System.Drawing.Size(690, 386);
