@@ -20,9 +20,29 @@ namespace MyEditor
         {
             InitializeComponent();
 
+            InitEncodingList();
+            InitSyntaxList();
             AllowDrop = true;
             DragDrop += Form1_DragDrop;
             DragEnter += Form1_DragEnter;
+            MdiChildActivate += ChildActivate;
+        }
+        private void InitEncodingList()
+        {
+            var list = Encoding.GetEncodings().OrderBy(o => o.DisplayName).ToArray();
+            tscbEncodingLIst.ComboBox.DataSource = list;
+            tscbEncodingLIst.ComboBox.DisplayMember = "DisplayName";
+            tscbEncodingLIst.ComboBox.SelectedIndex = -1;
+        }
+        private void InitSyntaxList()
+        {
+            var list = Directory.GetFiles(".",".*.txt").Select( o => 
+            {
+                var fi = new FileInfo(o);
+                return fi.Name;
+            }).ToArray();
+
+            tscbSelectSyntax.Items.AddRange(list);
         }
 
         private void Form1_DragEnter(object sender, DragEventArgs e)
@@ -38,17 +58,25 @@ namespace MyEditor
             foreach (var path in files)
                 if(File.Exists(path)) LoadFile(path);
         }
-
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e) => this.Close();
-
-        private void создатьToolStripMenuItem_Click(object sender, EventArgs e) => new EditorWindow(this) { MdiParent = this, Font = fontEditorWindow }.Show();
-
-        private void закрытьВсёToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ChildActivate(object sender, EventArgs e)
         {
-            foreach (var child in MdiChildren)
-                child.Close();
+            EditorWindow ew = ActiveMdiChild as EditorWindow;
+            if (ew != null)
+            {
+                string name = ew.CodePage.EncodingName;
+                tscbEncodingLIst.ComboBox.SelectedItem =
+                    (tscbEncodingLIst.ComboBox.DataSource as EncodingInfo[]).First(o => o.DisplayName == name);
+            }
         }
 
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e) => Close();
+
+        private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new EditorWindow(this) { MdiParent = this, Font = fontEditorWindow }.Show();
+            EnableDisableFileOperations(true);
+        }
+        
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e) => LoadFile();
         public void LoadFile(string path = null)
         {
@@ -62,16 +90,21 @@ namespace MyEditor
                 else
                 {
                     ew.Show();
-                    EnableDisableFileOperations();
+                    EnableDisableFileOperations(true);
                 }
             }
         }
-        public void EnableDisableFileOperations()
+        public void EnableDisableFileOperations(bool @switch)
         {
-            закрытьToolStripMenuItem.Enabled = !закрытьToolStripMenuItem.Enabled;
-            закрытьВсёToolStripMenuItem.Enabled = !закрытьВсёToolStripMenuItem.Enabled;
-            сохранитьToolStripMenuItem.Enabled = !сохранитьToolStripMenuItem.Enabled;
-            сохранитьКакToolStripMenuItem.Enabled = !сохранитьКакToolStripMenuItem.Enabled;
+            правкаToolStripMenuItem.Enabled = @switch;
+            видToolStripMenuItem.Enabled = @switch;
+            tscbEncodingLIst.Enabled = @switch;
+            закрытьToolStripMenuItem.Enabled = @switch;
+            закрытьВсёToolStripMenuItem.Enabled = @switch;
+            сохранитьToolStripMenuItem.Enabled = @switch;
+            сохранитьКакToolStripMenuItem.Enabled = @switch;
+            //if (!@switch) tscbEncodingLIst.ComboBox.SelectedItem = null; //tscbEncodingLIst.ComboBox.SelectedIndex = -1;
+            //if (!@switch) tscbSelectSyntax.SelectedIndex = -1;
         }
         public void Error(string text) => MessageBox.Show(text, typeof(Form1).Namespace, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -117,29 +150,49 @@ namespace MyEditor
             if (ActiveMdiChild != null)
                 ActiveMdiChild.Close();
         }
+        private void закрытьВсёToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (var child in MdiChildren)
+                child.Close();
+        }
 
-        //private void поискToolStripMenuItem_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    try
-        //    {
-        //        if (ActiveMdiChild != null && e.KeyData == Keys.Enter && поискToolStripMenuItem.Text != "")
-        //        {
-        //            EditorWindow ew = ActiveMdiChild as EditorWindow;
-        //            Regex re = new Regex($"\\b{поискToolStripMenuItem.Text}\\b");
-        //            var matches = re.Matches(ew.rtbEditor.Text);
-        //            int position = ew.rtbEditor.SelectionStart;
+        private void толькоЧтениеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditorWindow ew = ActiveMdiChild as EditorWindow;
+            if (ew != null)
+            {
+                ew.rtbEditor.ReadOnly = !ew.rtbEditor.ReadOnly;
+                толькоЧтениеToolStripMenuItem.Checked = !толькоЧтениеToolStripMenuItem.Checked;
+            }
+        }
 
-        //            foreach (Match item in matches)
-        //            {
-        //                ew.rtbEditor.Select(item.Index, item.Length);
-        //                ew.rtbEditor.SelectionBackColor = Color.Yellow;
-        //            }
+        private void выделитьВсёToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditorWindow ew = ActiveMdiChild as EditorWindow;
+            if (ew != null)
+                ew.rtbEditor.Select(0, ew.rtbEditor.Text.Length);
+        }
 
-        //            ew.rtbEditor.Select(position, 0);
-        //            ew.rtbEditor.SelectionColor = Color.Gainsboro;
-        //        }
-        //    }
-        //    catch (Exception) { }
-        //}
+        private void tscbEncodingLIst_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            EditorWindow ew = ActiveMdiChild as EditorWindow;
+            if (ew != null && tscbEncodingLIst.ComboBox.SelectedIndex != -1)
+            {
+                if (!ew.IsSave) ew.SaveFile();
+                EncodingInfo ei = tscbEncodingLIst.ComboBox.SelectedItem as EncodingInfo;
+                ew.CodePage = ei.GetEncoding();
+                ew.LoadFile(ew.CurrentFile.FullName);
+            }
+        }
+
+        private void tscbSelectSyntax_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            EditorWindow ew = ActiveMdiChild as EditorWindow;
+            if (ew != null && tscbSelectSyntax.SelectedIndex != -1)
+            {
+                string pathToKeyWords = tscbSelectSyntax.SelectedItem as string;
+                if (!ew.LoadKeyWords(".\\" + pathToKeyWords)) Error("Ошибка при чтении файла ключевых слов.");
+            }
+        }
     }
 }

@@ -15,9 +15,10 @@ namespace MyEditor
     partial class EditorWindow : Form
     {
         List<string> keyWords = new List<string>();
-        FileInfo currFile;
-        bool isSave = true;
+        public FileInfo CurrentFile { get; private set; }
+        public bool IsSave { get; private set; } = true;
         Form1 parentForm;
+        public Encoding CodePage { get; set; } = Encoding.UTF8;
         private EditorWindow()
         {
             InitializeComponent();
@@ -36,14 +37,12 @@ namespace MyEditor
             вставитьToolStripMenuItem.Click += (s, e) => { rtbEditor.Paste(); };
             вырезатьToolStripMenuItem.Click += (s, e) => { rtbEditor.Cut(); };
         }
-        private bool LoadKeyWords(string path)
+        public bool LoadKeyWords(string path = null)
         {
             try
             {
-                FileInfo file = new FileInfo(path);
-                ;
-                keyWords = new List<string>();
-                keyWords.AddRange(File.ReadAllLines(file.Extension + ".txt"));
+                path = (path == null) ? CurrentFile.Extension + ".txt" : path;
+                keyWords.AddRange(File.ReadAllLines(path, Encoding.UTF8));
                 keyWords.Select(o => o != "").ToList();
             }
             catch (Exception) { return false; }
@@ -53,34 +52,39 @@ namespace MyEditor
         {
             try
             {
-                currFile = new FileInfo(path);
-                Text = currFile.Name;
-                rtbEditor.Lines = File.ReadAllLines(path);
+                CurrentFile = new FileInfo(path);
+                Text = CurrentFile.Name;
+                rtbEditor.Lines = File.ReadAllLines(path, CodePage);
                 rtbEditor.SelectionColor = Color.Gainsboro;
                 UpdateInfo();
             }
             catch (Exception) { return false; }
 
+            //Сброс подсветки
+            rtbEditor.Select(0, rtbEditor.Text.Length);
+            rtbEditor.SelectionColor = Color.Gainsboro;
+
             //Если найден список ключевых слов для текущего формата файла, то подсвечиваем их
-            if (LoadKeyWords(path)) HighlightingWords();
-            isSave = true;
+            if (LoadKeyWords()) HighlightingWords();
+            IsSave = true;
 
             return true;
         }
         public bool SaveFile(string path = null)
         {
+            //Если это новый файл, то перенаправляем запрос на "сохранить как..."
             try
             {
-                if (path == null && currFile == null) //Если это новый файл
+                if (path == null && CurrentFile == null) //Если это новый файл
                     parentForm.сохранитьКакToolStripMenuItem_Click(null, null);
                 else //Если это перезапись
                 {
-                    if (path == null) path = currFile.FullName;
-                    else currFile = new FileInfo(path);
+                    if (path == null) path = CurrentFile.FullName;
+                    else CurrentFile = new FileInfo(path);
 
-                    Text = currFile.Name;
-                    File.WriteAllLines(path, rtbEditor.Lines);
-                    isSave = true;
+                    Text = CurrentFile.Name;
+                    File.WriteAllLines(path, rtbEditor.Lines, CodePage);
+                    IsSave = true;
                 }
             }
             catch (Exception) { return false; }
@@ -124,19 +128,19 @@ namespace MyEditor
         private void rtbEditor_TextChanged(object sender, EventArgs e)
         {
             HighlightingWords(GetCurrentCaretPossition());
-            isSave = false;
+            IsSave = false;
         }
 
         private void rtbEditor_SelectionChanged(object sender, EventArgs e) => UpdateInfo();
 
         private void EditorWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!isSave &&
-                MessageBox.Show($"Файл{(currFile == null ? " " : " " + currFile.Name)}не сохранён, сохранить?", typeof(Form1).Namespace, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (!IsSave &&
+                MessageBox.Show($"Файл{(CurrentFile == null ? " " : " " + CurrentFile.Name)}не сохранён, сохранить?", typeof(Form1).Namespace, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 SaveFile();
 
             if (parentForm.MdiChildren.Length == 1)
-                parentForm.EnableDisableFileOperations();
+                parentForm.EnableDisableFileOperations(false);
         }
     }
 }

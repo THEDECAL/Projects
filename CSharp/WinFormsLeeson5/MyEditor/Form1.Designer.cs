@@ -36,11 +36,18 @@
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьКакToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.закрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.закрытьВсёToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.правкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.толькоЧтениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.выделитьВсёToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.видToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.шрифтToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.закрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tscbEncodingLIst = new System.Windows.Forms.ToolStripComboBox();
+            this.кодировкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.синтаксисToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tscbSelectSyntax = new System.Windows.Forms.ToolStripComboBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,10 +55,13 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem,
-            this.видToolStripMenuItem});
+            this.правкаToolStripMenuItem,
+            this.видToolStripMenuItem,
+            this.tscbEncodingLIst,
+            this.кодировкаToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(590, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(590, 27);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -68,7 +78,7 @@
             this.закрытьВсёToolStripMenuItem,
             this.выходToolStripMenuItem});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
-            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 23);
             this.файлToolStripMenuItem.Text = "Файл";
             // 
             // создатьToolStripMenuItem
@@ -111,6 +121,14 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(159, 6);
             // 
+            // закрытьToolStripMenuItem
+            // 
+            this.закрытьToolStripMenuItem.Enabled = false;
+            this.закрытьToolStripMenuItem.Name = "закрытьToolStripMenuItem";
+            this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.закрытьToolStripMenuItem.Text = "Закрыть";
+            this.закрытьToolStripMenuItem.Click += new System.EventHandler(this.закрытьToolStripMenuItem_Click);
+            // 
             // закрытьВсёToolStripMenuItem
             // 
             this.закрытьВсёToolStripMenuItem.Enabled = false;
@@ -126,41 +144,89 @@
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
+            // правкаToolStripMenuItem
+            // 
+            this.правкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.толькоЧтениеToolStripMenuItem,
+            this.выделитьВсёToolStripMenuItem});
+            this.правкаToolStripMenuItem.Enabled = false;
+            this.правкаToolStripMenuItem.Name = "правкаToolStripMenuItem";
+            this.правкаToolStripMenuItem.Size = new System.Drawing.Size(59, 23);
+            this.правкаToolStripMenuItem.Text = "Правка";
+            // 
+            // толькоЧтениеToolStripMenuItem
+            // 
+            this.толькоЧтениеToolStripMenuItem.Name = "толькоЧтениеToolStripMenuItem";
+            this.толькоЧтениеToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.толькоЧтениеToolStripMenuItem.Text = "Только чтение";
+            this.толькоЧтениеToolStripMenuItem.Click += new System.EventHandler(this.толькоЧтениеToolStripMenuItem_Click);
+            // 
+            // выделитьВсёToolStripMenuItem
+            // 
+            this.выделитьВсёToolStripMenuItem.Name = "выделитьВсёToolStripMenuItem";
+            this.выделитьВсёToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.выделитьВсёToolStripMenuItem.Text = "Выделить всё";
+            this.выделитьВсёToolStripMenuItem.Click += new System.EventHandler(this.выделитьВсёToolStripMenuItem_Click);
+            // 
             // видToolStripMenuItem
             // 
             this.видToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.шрифтToolStripMenuItem});
+            this.шрифтToolStripMenuItem,
+            this.синтаксисToolStripMenuItem,
+            this.tscbSelectSyntax});
+            this.видToolStripMenuItem.Enabled = false;
             this.видToolStripMenuItem.Name = "видToolStripMenuItem";
-            this.видToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.видToolStripMenuItem.Size = new System.Drawing.Size(39, 23);
             this.видToolStripMenuItem.Text = "Вид";
             // 
             // шрифтToolStripMenuItem
             // 
             this.шрифтToolStripMenuItem.Name = "шрифтToolStripMenuItem";
-            this.шрифтToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.шрифтToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.шрифтToolStripMenuItem.Text = "Шрифт";
             this.шрифтToolStripMenuItem.Click += new System.EventHandler(this.шрифтToolStripMenuItem_Click);
             // 
-            // закрытьToolStripMenuItem
+            // tscbEncodingLIst
             // 
-            this.закрытьToolStripMenuItem.Enabled = false;
-            this.закрытьToolStripMenuItem.Name = "закрытьToolStripMenuItem";
-            this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.закрытьToolStripMenuItem.Text = "Закрыть";
-            this.закрытьToolStripMenuItem.Click += new System.EventHandler(this.закрытьToolStripMenuItem_Click);
+            this.tscbEncodingLIst.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tscbEncodingLIst.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tscbEncodingLIst.Enabled = false;
+            this.tscbEncodingLIst.Name = "tscbEncodingLIst";
+            this.tscbEncodingLIst.Size = new System.Drawing.Size(250, 23);
+            this.tscbEncodingLIst.SelectedIndexChanged += new System.EventHandler(this.tscbEncodingLIst_SelectedIndexChanged);
+            // 
+            // кодировкаToolStripMenuItem
+            // 
+            this.кодировкаToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.кодировкаToolStripMenuItem.Enabled = false;
+            this.кодировкаToolStripMenuItem.Name = "кодировкаToolStripMenuItem";
+            this.кодировкаToolStripMenuItem.Size = new System.Drawing.Size(81, 23);
+            this.кодировкаToolStripMenuItem.Text = "Кодировка:";
+            // 
+            // синтаксисToolStripMenuItem
+            // 
+            this.синтаксисToolStripMenuItem.Enabled = false;
+            this.синтаксисToolStripMenuItem.Name = "синтаксисToolStripMenuItem";
+            this.синтаксисToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.синтаксисToolStripMenuItem.Text = "Синтаксис:";
+            // 
+            // tscbSelectSyntax
+            // 
+            this.tscbSelectSyntax.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tscbSelectSyntax.Name = "tscbSelectSyntax";
+            this.tscbSelectSyntax.Size = new System.Drawing.Size(121, 23);
+            this.tscbSelectSyntax.SelectedIndexChanged += new System.EventHandler(this.tscbSelectSyntax_SelectedIndexChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(590, 571);
+            this.ClientSize = new System.Drawing.Size(590, 550);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.ShowIcon = false;
             this.Text = "MyEdtor";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -184,6 +250,13 @@
         private System.Windows.Forms.ToolStripMenuItem видToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem шрифтToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem закрытьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem правкаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem толькоЧтениеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem выделитьВсёToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem кодировкаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox tscbEncodingLIst;
+        private System.Windows.Forms.ToolStripMenuItem синтаксисToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox tscbSelectSyntax;
     }
 }
 

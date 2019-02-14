@@ -55,7 +55,7 @@
             this.rtbEditor.ForeColor = System.Drawing.Color.Gainsboro;
             this.rtbEditor.Location = new System.Drawing.Point(0, 0);
             this.rtbEditor.Name = "rtbEditor";
-            this.rtbEditor.Size = new System.Drawing.Size(600, 444);
+            this.rtbEditor.Size = new System.Drawing.Size(518, 444);
             this.rtbEditor.TabIndex = 0;
             this.rtbEditor.Text = "";
             this.rtbEditor.SelectionChanged += new System.EventHandler(this.rtbEditor_SelectionChanged);
@@ -118,7 +118,7 @@
             this.slLines});
             this.statusStrip1.Location = new System.Drawing.Point(0, 444);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(600, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(518, 22);
             this.statusStrip1.TabIndex = 8;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -148,7 +148,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 466);
+            this.ClientSize = new System.Drawing.Size(518, 466);
             this.Controls.Add(this.rtbEditor);
             this.Controls.Add(this.statusStrip1);
             this.Name = "EditorWindow";
