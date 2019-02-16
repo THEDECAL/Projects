@@ -35,21 +35,28 @@
             this.chkSelectOnlyFolder = new System.Windows.Forms.CheckBox();
             this.lbSelectDisk = new System.Windows.Forms.Label();
             this.gbView = new System.Windows.Forms.GroupBox();
+            this.btnBack = new System.Windows.Forms.Button();
             this.lbView = new System.Windows.Forms.Label();
             this.cbSelectView = new System.Windows.Forms.ComboBox();
+            this.grpCurrentPath = new System.Windows.Forms.GroupBox();
+            this.tbCurrentPath = new System.Windows.Forms.TextBox();
             this.gbPlace.SuspendLayout();
             this.gbView.SuspendLayout();
+            this.grpCurrentPath.SuspendLayout();
             this.SuspendLayout();
             // 
             // tvTree
             // 
+            this.tvTree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tvTree.Location = new System.Drawing.Point(6, 46);
             this.tvTree.Name = "tvTree";
-            this.tvTree.Size = new System.Drawing.Size(214, 283);
+            this.tvTree.Size = new System.Drawing.Size(214, 282);
             this.tvTree.TabIndex = 0;
             this.tvTree.BeforeCollapse += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvTree_BeforeCollapse);
             this.tvTree.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvTree_BeforeExpand);
-            this.tvTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvTree_AfterSelect);
+            this.tvTree.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tvTree_MouseDoubleClick);
             // 
             // cbSelectDisk
             // 
@@ -64,32 +71,37 @@
             // 
             // lvList
             // 
+            this.lvList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvList.Location = new System.Drawing.Point(6, 46);
             this.lvList.Name = "lvList";
-            this.lvList.Size = new System.Drawing.Size(414, 283);
+            this.lvList.Size = new System.Drawing.Size(414, 282);
             this.lvList.TabIndex = 2;
             this.lvList.UseCompatibleStateImageBehavior = false;
             this.lvList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvList_MouseDoubleClick);
             // 
             // gbPlace
             // 
+            this.gbPlace.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbPlace.Controls.Add(this.chkSelectOnlyFolder);
             this.gbPlace.Controls.Add(this.lbSelectDisk);
             this.gbPlace.Controls.Add(this.tvTree);
             this.gbPlace.Controls.Add(this.cbSelectDisk);
             this.gbPlace.Location = new System.Drawing.Point(12, 12);
             this.gbPlace.Name = "gbPlace";
-            this.gbPlace.Size = new System.Drawing.Size(226, 335);
+            this.gbPlace.Size = new System.Drawing.Size(226, 334);
             this.gbPlace.TabIndex = 3;
             this.gbPlace.TabStop = false;
-            this.gbPlace.Text = "Выбор папки и диска:";
             // 
             // chkSelectOnlyFolder
             // 
             this.chkSelectOnlyFolder.AutoSize = true;
             this.chkSelectOnlyFolder.Checked = true;
             this.chkSelectOnlyFolder.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSelectOnlyFolder.Location = new System.Drawing.Point(19, 17);
+            this.chkSelectOnlyFolder.Location = new System.Drawing.Point(6, 20);
             this.chkSelectOnlyFolder.Name = "chkSelectOnlyFolder";
             this.chkSelectOnlyFolder.Size = new System.Drawing.Size(96, 17);
             this.chkSelectOnlyFolder.TabIndex = 3;
@@ -100,7 +112,7 @@
             // lbSelectDisk
             // 
             this.lbSelectDisk.AutoSize = true;
-            this.lbSelectDisk.Location = new System.Drawing.Point(136, 19);
+            this.lbSelectDisk.Location = new System.Drawing.Point(136, 21);
             this.lbSelectDisk.Name = "lbSelectDisk";
             this.lbSelectDisk.Size = new System.Drawing.Size(37, 13);
             this.lbSelectDisk.TabIndex = 2;
@@ -108,18 +120,32 @@
             // 
             // gbView
             // 
+            this.gbView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbView.Controls.Add(this.btnBack);
             this.gbView.Controls.Add(this.lbView);
             this.gbView.Controls.Add(this.cbSelectView);
             this.gbView.Controls.Add(this.lvList);
             this.gbView.Location = new System.Drawing.Point(244, 12);
             this.gbView.Name = "gbView";
-            this.gbView.Size = new System.Drawing.Size(426, 335);
+            this.gbView.Size = new System.Drawing.Size(426, 334);
             this.gbView.TabIndex = 4;
             this.gbView.TabStop = false;
-            this.gbView.Text = "Выбор файла:";
+            // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(6, 18);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(75, 21);
+            this.btnBack.TabIndex = 4;
+            this.btnBack.Text = "< Назад";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // lbView
             // 
+            this.lbView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbView.AutoSize = true;
             this.lbView.Location = new System.Drawing.Point(296, 18);
             this.lbView.Name = "lbView";
@@ -129,6 +155,7 @@
             // 
             // cbSelectView
             // 
+            this.cbSelectView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbSelectView.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSelectView.FormattingEnabled = true;
             this.cbSelectView.Location = new System.Drawing.Point(331, 16);
@@ -137,15 +164,36 @@
             this.cbSelectView.TabIndex = 3;
             this.cbSelectView.SelectionChangeCommitted += new System.EventHandler(this.cbSelectView_SelectionChangeCommitted);
             // 
+            // grpCurrentPath
+            // 
+            this.grpCurrentPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpCurrentPath.Controls.Add(this.tbCurrentPath);
+            this.grpCurrentPath.Location = new System.Drawing.Point(13, 347);
+            this.grpCurrentPath.Name = "grpCurrentPath";
+            this.grpCurrentPath.Size = new System.Drawing.Size(657, 52);
+            this.grpCurrentPath.TabIndex = 5;
+            this.grpCurrentPath.TabStop = false;
+            this.grpCurrentPath.Text = "Текущий путь:";
+            // 
+            // tbCurrentPath
+            // 
+            this.tbCurrentPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbCurrentPath.Location = new System.Drawing.Point(5, 19);
+            this.tbCurrentPath.Name = "tbCurrentPath";
+            this.tbCurrentPath.ReadOnly = true;
+            this.tbCurrentPath.Size = new System.Drawing.Size(646, 20);
+            this.tbCurrentPath.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(682, 358);
+            this.ClientSize = new System.Drawing.Size(682, 409);
+            this.Controls.Add(this.grpCurrentPath);
             this.Controls.Add(this.gbView);
             this.Controls.Add(this.gbPlace);
-            this.MaximumSize = new System.Drawing.Size(690, 386);
-            this.MinimumSize = new System.Drawing.Size(690, 386);
             this.Name = "Form1";
             this.ShowIcon = false;
             this.Text = "Файловый менедежер";
@@ -153,6 +201,8 @@
             this.gbPlace.PerformLayout();
             this.gbView.ResumeLayout(false);
             this.gbView.PerformLayout();
+            this.grpCurrentPath.ResumeLayout(false);
+            this.grpCurrentPath.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -168,6 +218,9 @@
         private System.Windows.Forms.Label lbView;
         private System.Windows.Forms.ComboBox cbSelectView;
         private System.Windows.Forms.CheckBox chkSelectOnlyFolder;
+        private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.GroupBox grpCurrentPath;
+        private System.Windows.Forms.TextBox tbCurrentPath;
     }
 }
 
