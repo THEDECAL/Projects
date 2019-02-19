@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using static WindowsFormsExam.Checker;
 
 namespace WindowsFormsExam
 {
-    public partial class Form1 : Form
+    partial class Form1 : Form
     {
         /// <summary>
         /// Игрок текущего хода
         /// </summary>
-        Color currGamer = Color.White;
+        //Color currGamer = Color.White;
         /// <summary>
         /// Размер одной клетки
         /// </summary>
@@ -38,6 +42,7 @@ namespace WindowsFormsExam
         public Form1()
         {
             InitializeComponent();
+
             InitImages();
             InitWindows();
             InitButtons();
@@ -65,43 +70,31 @@ namespace WindowsFormsExam
             this.Size = new Size(btnSize.Width * rows + rows, btnSize.Height * rows + rows * 3 + statusStrip1.Size.Height + 4);
             this.MinimumSize = btnSize;
             this.BackgroundImage = images.Images[4];
+            this.BackgroundImageLayout = ImageLayout.Tile;
+            this.FormBorderStyle = FormBorderStyle.Fixed3D;
 
             statusStrip1.Items.AddRange(new ToolStripItem[]
             {
-                new ToolStripLabel { TextAlign = ContentAlignment.MiddleLeft },
+                new ToolStripLabel { TextAlign = ContentAlignment.MiddleLeft, Text = "Счёт:" },
                 new ToolStripLabel { TextAlign = ContentAlignment.MiddleCenter },
                 new ToolStripLabel { TextAlign = ContentAlignment.MiddleRight }
             });
 
             UpdateStat(null, null);
         }
-        /// <summary>
-        /// Метод обновления статистики на статус-панели
-        /// </summary>
-        private void UpdateStat(object sender, EventArgs e)
-        {
-            string currStep = $"Ход {(currGamer == Color.White ? "Белых" : "Чёрных")}";
-            this.Text = currStep;
-            statusStrip1.Items[0].Text = currStep;
-            statusStrip1.Items[1].Text = score[0].ToString();
-            statusStrip1.Items[2].Text = score[1].ToString();
-        }
-        /// <summary>
-        /// Метод иницмализации клеток/кнопок
-        /// </summary>
         private void InitButtons()
         {
             int x = 0, y = 0;
             bool shift = true;
 
-            prevBtn = new Button { Tag = (Checker.GetEmptyChecker())};
+            //prevBtn = new Button { Tag = new Checker(CType.Empty) };
 
             for (int i = 0; i < rows; i++, x = 0, y += btnSize.Height, shift = !shift)
             {
 
                 for (int j = 0; j < cols; j++, x += btnSize.Width, shift = !shift)
                 {
-                    Checker checker = new Checker(new Point(i, j));
+                    Checker checker = new Checker(CType.Empty, pnt:(new Point(i, j)));// CheckerRef[CType.Empty] { _Point = new Point(i, j) };
                     Color black = Color.FromArgb(160, Color.Black);
                     Color white = Color.FromArgb(160, Color.White);
                     
@@ -119,12 +112,12 @@ namespace WindowsFormsExam
                         if (i < 3)
                         {
                             image = images.Images[0];
-                            checker.Color = Color.White;
+                            checker._Color = Color.White;
                         }
                         else if (i > 4)
                         {
                             image = images.Images[1];
-                            checker.Color = Color.Black;
+                            checker._Color = Color.Black;
                         }
                         
                         tmp.Image = image;
@@ -145,6 +138,18 @@ namespace WindowsFormsExam
                 }
             }
         }
+
+        private void UpdateStat(object sender, EventArgs e)
+        {
+            if (sender != null)
+            {
+                var currChk = (sender as Button).Tag as Checker;
+                Text = $"Ход {(currChk._Color == Color.White ? "Белых" : "Чёрных")}";
+                statusStrip1.Items[1].Text = $"Белые{score[0]}";
+                statusStrip1.Items[1].Text = $"Чёрные{score[1]}";
+            }
+        }
+
         /// <summary>
         /// Метод поиска шашек противника на момент боя
         /// </summary>
@@ -160,19 +165,19 @@ namespace WindowsFormsExam
 
                 if (prevBtn != null)
                 {
-                    int amCheckersToTake = Math.Abs(currP.X - prevChk.Position.X);
+                    int amCheckersToTake = Math.Abs(currP.X - prevChk._Point.X);
 
                     if (amCheckersToTake > 1 && amCheckersToTake < 8)
                     {
                         for (int i = 0; i < amCheckersToTake - 1; i++)
                         {
-                            int tmpX = (currP.X > prevChk.Position.X) ? currP.X - 1 : currP.X + 1;
-                            int tmpY = (currP.Y > prevChk.Position.Y) ? currP.Y - 1 : currP.Y + 1;
+                            int tmpX = (currP.X > prevChk._Point.X) ? currP.X - 1 : currP.X + 1;
+                            int tmpY = (currP.Y > prevChk._Point.Y) ? currP.Y - 1 : currP.Y + 1;
 
                             var btn = this.Controls[(tmpX * rows + tmpY) + 1] as Button;
                             var chk = btn?.Tag as Checker;
 
-                            if (prevChk.Color != chk.Color) blacklist.Add(currP = chk.Position);
+                            if (prevChk._Color != chk._Color) blacklist.Add(currP = chk._Point);
                             else throw new Exception();
                         }
                     }
@@ -187,11 +192,11 @@ namespace WindowsFormsExam
             return blacklist;
         }
         /// <summary>
-        /// Метод показа сообщений
+        /// Метод покаа сообщений
         /// </summary>
         /// <param name="text">Текст сообщения</param>
         /// <param name="icon">Иконка сообщения</param>
-        private void Msg(string text, MessageBoxIcon icon) { }// => MessageBox.Show(text, "", MessageBoxButtons.OK, icon);
+        private void Msg(string text, MessageBoxIcon icon)  => MessageBox.Show(text, "", MessageBoxButtons.OK, icon);
         /// <summary>
         /// Метод передвижения шашек
         /// </summary>
@@ -202,67 +207,62 @@ namespace WindowsFormsExam
                 var currBtn = s as Button; //Кнопка получатель
                 var currChk = currBtn?.Tag as Checker; //Шашка получатель
                 var prevChk = prevBtn?.Tag as Checker; //Шашка отправитель
-                ;
+                Text = currChk?.ToString() + ' ' + prevChk?.ToString();
+
+                //Выдеяем шашку
+                currBtn.ForeColor = (currBtn.ForeColor != Color.Red) ? Color.Red : Color.Empty;
+
                 //Если это шашки текущего игрока
-                if (currGamer == prevChk.Color)
+                if (prevBtn != null && currChk.IsEmpty && !prevChk.IsEmpty)
                 {
-                    //Выдеяем шашку
-                    currBtn.ForeColor = (currBtn.ForeColor != Color.Red) ? Color.Red : Color.Empty;
+                    //Проверяем, наличие шашек под бой
+                    var blacklist = TakeCheckers(currChk._Point);
+                    bool isAvail = (blacklist.Count > 0) ? true : false;
 
-                    if (prevBtn != null && currChk.IsEmpty)
+                    if (prevChk.CheckerType > CType.WhiteKing ||
+                        (prevChk._Color == Color.White && currChk._Point.X == prevChk._Point.X + (isAvail ? 2 : 1)) ||
+                        (prevChk._Color == Color.Black && currChk._Point.X + (isAvail ? 2 : 1) == prevChk._Point.X))
                     {
-                        //Проверяем, наличие шашек под бой
-                        var blacklist = TakeCheckers(currChk.Position);
-                        bool isAvail = (blacklist.Count > 0) ? true : false;
+                        #region
+                        //Меняем координаты и делаем ротацию
+                        Point tmp = currChk._Point;
+                        currBtn.Image = prevBtn.Image;
+                        prevBtn.Image = null;
+                        currChk._Point = prevChk._Point;
+                        prevChk._Point = tmp;
+                        currBtn.Tag = prevBtn?.Tag;
+                        prevBtn.Tag = currChk;
 
-                        if (prevChk.Type == Checker.CType.King ||
-                            (prevChk.Color == Color.White && currChk.Position.X == prevChk.Position.X + (isAvail ? 2 : 1)) ||
-                            (prevChk.Color == Color.Black && currChk.Position.X + (isAvail ? 2 : 1) == prevChk.Position.X))
+                        //Захват шашек противника
+                        blacklist.ForEach(o =>
                         {
-                            //Меняем координаты и делаем ротацию
-                            Point tmp = currChk.Position;
-                            currBtn.Image = prevBtn.Image;
-                            prevBtn.Image = null;
-                            currChk.Position = prevChk.Position;
-                            prevChk.Position = tmp;
-                            currBtn.Tag = prevBtn?.Tag;
-                            prevBtn.Tag = currChk;
+                            var btn = this.Controls[(o.X * rows + o.Y) + 1] as Button;
+                            var chk = btn?.Tag as Checker;
 
-                            //Захват шашек противника
-                            blacklist.ForEach(o =>
-                            {
-                                var btn = this.Controls[(o.X * rows + o.Y) + 1] as Button;
-                                var chk = btn?.Tag as Checker;
+                            btn.Image = null;
+                            chk._Color = Color.Empty;
+                            chk.IsEmpty = true;
 
-                                btn.Image = null;
-                                chk.Color = Color.Empty;
-                                chk.IsEmpty = true;
+                            if (prevChk._Color == Color.White) score[0]++;
+                            else score[1]++;
+                        });
 
-                                if (prevChk.Color == Color.White) score[0]++;
-                                else score[1]++;
-                            });
-
-                            //Меняем значок дамки
-                            if (prevChk.Type == Checker.CType.Easy &&
-                                (prevChk.Color == Color.White && prevChk.Position.X == 7) ||
-                                (prevChk.Color == Color.Black && prevChk.Position.X == 0))
-                            {
-                                currBtn.Image = (prevChk.Color == Color.White) ? images.Images[2] : images.Images[3];
-                                prevChk.Type = Checker.CType.King;
-                            }
-
-                            //Снимаем выделение с последних клеток
-                            currBtn.ForeColor = prevBtn.ForeColor = Color.Empty;
-                            currBtn = null;
-
-                            //После хода обновляем статистику и меняем игрока
-                            currGamer = (currGamer == Color.White) ? Color.Black : Color.White;
-
-                            stepCount++;
+                        //Меняем значок дамки
+                        if ((prevChk.CheckerType == CType.WhiteEasy && prevChk._Point.X == 7) ||
+                            (prevChk.CheckerType == CType.BlackEasy && prevChk._Point.X == 0))
+                        {
+                            currBtn.Image = (prevChk.CheckerType < CType.BlackEasy) ? images.Images[2] : images.Images[3];
+                            prevChk.CheckerType = (prevChk.CheckerType < CType.BlackEasy) ? CType.BlackKing : CType.WhiteKing;
                         }
+                        #endregion
+                        ;
+                        prevBtn = null;
+                        stepCount++;
                     }
-                    prevBtn = currBtn;
                 }
+                //Снимаем выделение с последних клеток
+                currBtn.ForeColor = prevBtn.ForeColor = Color.Empty;
+                prevBtn = currBtn;
             }
             catch (Exception ex) { Msg(ex.ToString(), MessageBoxIcon.Error); }
         }
