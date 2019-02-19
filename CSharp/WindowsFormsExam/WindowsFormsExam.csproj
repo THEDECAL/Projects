@@ -66,6 +66,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -79,6 +80,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Image1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Images\black_checker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Images\king_black_checker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Images\king_white_checker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Images\white_checker.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
