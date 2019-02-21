@@ -36,7 +36,7 @@ namespace WindowsFormsExam
         /// <summary>
         /// Счётчик ходов
         /// </summary>
-        int stepCount = 1;
+        int stepCount;
         public Form1()
         {
             InitializeComponent();
@@ -65,8 +65,7 @@ namespace WindowsFormsExam
         /// </summary>
         private void InitWindows()
         {
-            this.Size = new Size(btnSize.Width * rows + rows, btnSize.Height * rows + rows * 3 + statusStrip1.Size.Height + 4);
-            this.MinimumSize = btnSize;
+            ClientSize = new Size(btnSize.Width * rows, btnSize.Height * rows + statusStrip1.Size.Height);
             this.BackgroundImage = images.Images[4];
             this.BackgroundImageLayout = ImageLayout.Tile;
             this.FormBorderStyle = FormBorderStyle.Fixed3D;
@@ -81,19 +80,20 @@ namespace WindowsFormsExam
 
             UpdateStat(null, null);
         }
+        /// <summary>
+        /// Метод инициализации кнопок
+        /// </summary>
         private void InitButtons()
         {
             int x = 0, y = 0;
             bool shift = true;
-
-            //prevBtn = new Button { Tag = new Checker(CType.Empty) };
 
             for (int i = 0; i < rows; i++, x = 0, y += btnSize.Height, shift = !shift)
             {
 
                 for (int j = 0; j < cols; j++, x += btnSize.Width, shift = !shift)
                 {
-                    Checker checker = new Checker(CType.Empty, pnt:(new Point(i, j)));// CheckerRef[CType.Empty] { _Point = new Point(i, j) };
+                    Checker checker = new Checker(CType.Empty, pnt:(new Point(i, j)));
                     Color black = Color.FromArgb(160, Color.Black);
                     Color white = Color.FromArgb(160, Color.White);
                     
@@ -104,25 +104,34 @@ namespace WindowsFormsExam
                         Location = new Point(x, y),
                         BackColor = (!shift) ? black : white
                     };
+                    //Для отладки
+                    tmp.MouseDown += (s, e) =>
+                    {
+                        Checker chk = (s as Button)?.Tag as Checker;
+
+                        if (e.Button == MouseButtons.Right && chk != null)
+                            Msg($"{chk}");
+                    };
 
                     if (tmp.BackColor == black && (i < 3 || i > 4))
                     {
                         Image image = null;
                         if (i < 3)
                         {
-                            image = images.Images[0];
-                            checker._Color = Color.White;
-                        }
-                        else if (i > 4)
-                        {
                             image = images.Images[1];
                             checker._Color = Color.Black;
                         }
-                        
+                        else if (i > 4)
+                        {
+                            image = images.Images[0];
+                            checker._Color = Color.White;
+                        }
+
+                        checker.CheckerType = CType.Easy;
                         tmp.Image = image;
                         tmp.Tag = checker;
                         tmp.Click += Movement;
-                        //tmp.Click += UpdateStat;
+                        tmp.Click += UpdateStat;
                     }
                     else if (tmp.BackColor == white) tmp.Enabled = false;
                     else
@@ -137,15 +146,40 @@ namespace WindowsFormsExam
                 }
             }
         }
+        /// <summary>
+        /// Метод обновления хода текущего игрока (Чёрный или Белый)
+        /// </summary>
         private void UpdateQueueGamer() => CurrentGamer = (CurrentGamer == Color.White) ? Color.Black : Color.White;
+        /// <summary>
+        /// Метод переинициализации игры
+        /// </summary>
+        private void ReInit()
+        {
+            Controls.Clear();
+            InitializeComponent();
+            InitWindows();
+            InitButtons();
+        }
+        /// <summary>
+        /// Метод обновления статистики и проверки окончания игры
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateStat(object sender, EventArgs e)
         {
             var chk = (prevBtn as Button)?.Tag as Checker;
 
-            Text = $"Ход {(chk == null || chk._Color == Color.White ? "Белых" : "Чёрных")}";
+            Text = $"Ход {(CurrentGamer == Color.White ? "Белых" : "Чёрных")}";
             statusStrip1.Items[1].Text = $"Чёрные: {score[0].ToString()}";
             statusStrip1.Items[2].Text = $"Белые: {score[1].ToString()}";
             statusStrip1.Items[3].Text = $"Ход № {(stepCount + 1).ToString()}";
+
+            const int amCheckers = rows / 2 * 3;
+            if (score[0] == amCheckers || score[1] == amCheckers)
+            {
+                Msg($"Победили {(score[1] == amCheckers ? "Белые" : "Чёрные")}", MessageBoxIcon.Information);
+                ReInit();
+            }
         }
         /// <summary>
         /// Метод поиска шашек противника на момент боя
@@ -173,17 +207,21 @@ namespace WindowsFormsExam
 
                             var btn = this.Controls[(tmpX * rows + tmpY) + 1] as Button;
                             var chk = btn?.Tag as Checker;
-
-                            if (prevChk._Color != chk._Color) blacklist.Add(currP = chk._Point);
-                            else throw new Exception();
+                            
+                            currP = chk._Point;
+                            if (!chk.IsEmpty)
+                            {
+                                if (prevChk._Color != chk._Color) blacklist.Add(currP);
+                                else throw new Exception();
+                            }
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Msg(ex.ToString(), MessageBoxIcon.Error);
-                return null;
+                //Msg(ex.ToString(), MessageBoxIcon.Error);
+                return new List<Point>();
             }
 
             return blacklist;
@@ -193,7 +231,7 @@ namespace WindowsFormsExam
         /// </summary>
         /// <param name="text">Текст сообщения</param>
         /// <param name="icon">Иконка сообщения</param>
-        private void Msg(string text, MessageBoxIcon icon)  => MessageBox.Show(text, "", MessageBoxButtons.OK, icon);
+        private void Msg(string text, MessageBoxIcon icon = MessageBoxIcon.None)  => MessageBox.Show(text, "", MessageBoxButtons.OK, icon);
         /// <summary>
         /// Метод передвижения шашек
         /// </summary>
@@ -214,14 +252,25 @@ namespace WindowsFormsExam
                     if (!prevChk.IsEmpty && currChk.IsEmpty)
                     {
                         //Проверяем, наличие шашек под бой
-                        var blacklist = TakeCheckers(currChk._Point);
-                        bool isAvail = (blacklist.Count > 0) ? true : false;
+                        List<Point> blacklist = TakeCheckers(currChk._Point);
+                        int step = (blacklist.Count > 0) ? 2 : 1; //Допустимы шаг во время хода для обычной шашки во время хода - 1, во время боя - 2
 
-                        if (prevChk.CheckerType > CType.WhiteKing ||
-                            (prevChk._Color == Color.White && currChk._Point.X == prevChk._Point.X + (isAvail ? 2 : 1)) ||
-                            (prevChk._Color == Color.Black && currChk._Point.X + (isAvail ? 2 : 1) == prevChk._Point.X))
+                        if (prevChk.CheckerType == CType.King ||
+                                (prevChk._Color == Color.Black &&
+                                    (
+                                        currChk._Point.X == prevChk._Point.X + step ||
+                                        (step == 2 && currChk._Point.X + step == prevChk._Point.X)
+                                    )
+                                ) ||
+                                (prevChk._Color == Color.White &&
+                                    (
+                                        currChk._Point.X + step == prevChk._Point.X ||
+                                        (step == 2 && currChk._Point.X == prevChk._Point.X + step)
+                                    )
+                                )
+                             )
+                        #region 
                         {
-                            #region
                             //Меняем координаты и делаем ротацию
                             Point tmp = currChk._Point;
                             currBtn.Image = prevBtn.Image;
@@ -241,24 +290,25 @@ namespace WindowsFormsExam
                                 chk._Color = Color.Empty;
                                 chk.IsEmpty = true;
 
-                                if (prevChk._Color == Color.White) score[0]++;
-                                else score[1]++;
+                                if (CurrentGamer == Color.White) score[1]++;
+                                else score[0]++;
                             });
 
                             //Меняем значок дамки
-                            if ((prevChk.CheckerType == CType.WhiteEasy && prevChk._Point.X == 7) ||
-                                (prevChk.CheckerType == CType.BlackEasy && prevChk._Point.X == 0))
+                            if ((prevChk.CheckerType == CType.Easy &&
+                                (prevChk._Color == Color.Black && prevChk._Point.X == 7) ||
+                                (prevChk._Color == Color.White && prevChk._Point.X == 0)))
                             {
-                                currBtn.Image = (prevChk.CheckerType < CType.BlackEasy) ? images.Images[2] : images.Images[3];
-                                prevChk.CheckerType = (prevChk.CheckerType < CType.BlackEasy) ? CType.BlackKing : CType.WhiteKing;
+                                currBtn.Image = (CurrentGamer == Color.White) ? images.Images[2] : images.Images[3];
+                                prevChk.CheckerType = CType.King;
                             }
-                            #endregion
                             stepCount++;
+                            UpdateQueueGamer();
                         }
-                        currBtn.ForeColor = prevBtn.ForeColor = Color.Empty;
-                        prevBtn = null;
-                        UpdateQueueGamer();
+                        #endregion
                     }
+                    currBtn.ForeColor = prevBtn.ForeColor = Color.Empty;
+                    prevBtn = null;
                 }
                 else prevBtn = currBtn;
             }
