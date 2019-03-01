@@ -34,7 +34,7 @@ namespace smartfon_shop
                 foreach (var item in phoneNodes)
                 {
                     Smartfone tmp = new Smartfone();
-                    string imageRef = 
+                    //string imageRef = 
                     //string href = item.ChildNodes[3].ChildNodes[1].Element("a").Attributes[1].Value;
                     //Sleep(1500);
                     //HtmlNode phonePageAll = Downloader.GetPage(href).DocumentNode;
