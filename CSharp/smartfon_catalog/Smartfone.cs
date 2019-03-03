@@ -1,40 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Linq.Mapping;
+using System.Text.RegularExpressions;
 
 namespace smartfon_catalog
 {
+    [Table(Name = "smartfones")]
     class Smartfone
     {
-        public string Name { get; set; }
-        public Image Image { get; set; }
-        public decimal Price { get; set; }
+        [Column(Name = "Id", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id { get; set; }
+        [Column(Name = "Brand")]
+        public string Brand { get; private set; }
+        string name;
+        [Column(Name = "Name")]
+        public string Name
+        {
+            get => name;
+            set
+            {
+                if (value != null && value.Length > 0)
+                {
+                    var val = Regex.Match(value, @"(\w*)\ (.*)").Groups;
+                    Brand = val[1].Value;
+                    name = val[2].Value;
+                }
+            }
+        }
+        [Column(Name = "Image")]
+        public byte[] Image { get; set; }
+        [Column(Name = "CommStd")]
         public string CommStd { get; set; }
-        public decimal ScrDiag { get; set; }
+        [Column(Name = "ScrDiag")]
+        public string ScrDiag { get; set; }
+        [Column(Name = "ScrResol")]
         public string ScrResol { get; set; }
+        [Column(Name = "MatrixType")]
         public string MatrixType { get; set; }
-        public int CntTouchPoint { get; set; }
-        public string ScrMaterial { get; set; }
-        public int CntSIMCards { get; set; }
+        [Column(Name = "CntSIMCards")]
+        public string CntSIMCards { get; set; }
+        [Column(Name = "SIMType")]
         public string SIMType { get; set; }
-        public int RAM { get; set; }
-        public int BMEM { get; set; }
+        [Column(Name = "RAM")]
+        public string RAM { get; set; }
+        [Column(Name = "BMEM")]
+        public string BMEM { get; set; }
+        [Column(Name = "MemCardsType")]
         public string MemCardsType { get; set; }
-        public int MaxMem { get; set; }
+        [Column(Name = "OS")]
         public string OS { get; set; }
+        [Column(Name = "QualityFrontalCamera")]
         public string QualityFrontalCamera { get; set; }
-        public string QualityFrontalVideo { get; set; }
+        [Column(Name = "QualityGeneralCamera")]
         public string QualityGeneralCamera { get; set; }
-        public string QualityGeneralVideo { get; set; }
-        public string Flash { get; set; }
-        public int BatteryCapp { get; set; }
-        public string ChargerConn { get; set; }
-        public string AudioConn { get; set; }
-        public int Weight { get; set; }
-        public string WirelessTech { get; set; }
+        [Column(Name = "BatteryCapp")]
+        public string BatteryCapp { get; set; }
+        [Column(Name = "Color")]
         public string Color { get; set; }
+        public override string ToString() => $"Brand: {Brand}, Model: {Name}";
     }
 }
