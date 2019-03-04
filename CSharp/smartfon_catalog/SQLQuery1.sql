@@ -1,27 +1,47 @@
 CREATE DATABASE smartfone_catalog
+GO
+
 USE smartfone_catalog
 GO
 
 CREATE TABLE smartfones(
 	Id int primary key identity,
-	Brand nvarchar(100),
-    Name nvarchar(100),
-    [Image] image,
-    CommStd nvarchar(100),
-    ScrDiag nvarchar(100),
-    ScrResol nvarchar(100),
-    MatrixType nvarchar(100),
-    CntSIMCards nvarchar(100),
-    SIMType nvarchar(100),
-    RAM nvarchar(100),
-    BMEM nvarchar(100),
-    MemCardsType nvarchar(100),
-    OS nvarchar(100),
-    QualityFrontalCamera nvarchar(100),
-    QualityGeneralCamera nvarchar(100),
-    BatteryCapp nvarchar(100),
-    Color nvarchar(100)
+	Brand nvarchar(MAX),
+    Name nvarchar(MAX),
+    [Image] varbinary(MAX),
+    CommStd nvarchar(MAX),
+    ScrDiag nvarchar(MAX),
+    ScrResol nvarchar(MAX),
+    MatrixType nvarchar(MAX),
+    CntSIMCards nvarchar(MAX),
+    SIMType nvarchar(MAX),
+    RAM nvarchar(MAX),
+    BMEM nvarchar(MAX),
+    MemCardsType nvarchar(MAX),
+    OS nvarchar(MAX),
+    QualityFrontalCamera nvarchar(MAX),
+    QualityGeneralCamera nvarchar(MAX),
+    BatteryCapp nvarchar(MAX),
+    Color nvarchar(MAX)
 )
 GO
 
-SELECT * FROM smartfones;
+--CREATE TRIGGER DuplicateExclusion ON smartfones for insert
+--AS
+--BEGIN
+--	DECLARE @DUPLICATE_COUNT INT, @INSERTED_NAME NVARCHAR(MAX)
+
+--	SELECT TOP 1 @INSERTED_NAME = inserted.Name FROM inserted
+--	SET @DUPLICATE_COUNT = (SELECT COUNT(*) FROM smartfones WHERE @INSERTED_NAME = smartfones.Name)
+
+--	if(@DUPLICATE_COUNT > 1) rollback tran
+--END
+--GO
+
+TRUNCATE TABLE smartfones
+GO
+
+SELECT * FROM smartfones ORDER BY Brand,Name
+SELECT * FROM smartfones where Name='P smart+ Black' and Brand='Huawei'
+select count(*) from smartfones
+GO

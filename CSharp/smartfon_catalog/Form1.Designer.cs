@@ -28,64 +28,85 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.tssProgressBar = new System.Windows.Forms.ToolStripProgressBar();
-            this.tssLoad = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusStrip1.SuspendLayout();
+            this.gbMenu = new System.Windows.Forms.GroupBox();
+            this.lbPage = new System.Windows.Forms.Label();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.btnPrev = new System.Windows.Forms.Button();
+            this.gbCatalog = new System.Windows.Forms.GroupBox();
+            this.gbMenu.SuspendLayout();
             this.SuspendLayout();
             // 
-            // imageList1
+            // gbMenu
             // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.gbMenu.Controls.Add(this.lbPage);
+            this.gbMenu.Controls.Add(this.btnNext);
+            this.gbMenu.Controls.Add(this.btnPrev);
+            this.gbMenu.Location = new System.Drawing.Point(4, -2);
+            this.gbMenu.Name = "gbMenu";
+            this.gbMenu.Size = new System.Drawing.Size(200, 451);
+            this.gbMenu.TabIndex = 0;
+            this.gbMenu.TabStop = false;
+            this.gbMenu.Text = "Меню:";
             // 
-            // statusStrip1
+            // lbPage
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tssLoad,
-            this.tssProgressBar});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
-            this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
+            this.lbPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbPage.Location = new System.Drawing.Point(47, 19);
+            this.lbPage.Name = "lbPage";
+            this.lbPage.Size = new System.Drawing.Size(108, 23);
+            this.lbPage.TabIndex = 2;
+            this.lbPage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tssProgressBar
+            // btnNext
             // 
-            this.tssProgressBar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tssProgressBar.Name = "tssProgressBar";
-            this.tssProgressBar.Size = new System.Drawing.Size(100, 16);
+            this.btnNext.Location = new System.Drawing.Point(161, 19);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(33, 23);
+            this.btnNext.TabIndex = 1;
+            this.btnNext.Text = ">>";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
-            // tssLoad
+            // btnPrev
             // 
-            this.tssLoad.Name = "tssLoad";
-            this.tssLoad.Size = new System.Drawing.Size(144, 17);
-            this.tssLoad.Text = "Идёт загрузка контента...";
+            this.btnPrev.Location = new System.Drawing.Point(8, 19);
+            this.btnPrev.Name = "btnPrev";
+            this.btnPrev.Size = new System.Drawing.Size(33, 23);
+            this.btnPrev.TabIndex = 0;
+            this.btnPrev.Text = "<<";
+            this.btnPrev.UseVisualStyleBackColor = true;
+            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
+            // 
+            // gbCatalog
+            // 
+            this.gbCatalog.Location = new System.Drawing.Point(204, 2);
+            this.gbCatalog.Name = "gbCatalog";
+            this.gbCatalog.Size = new System.Drawing.Size(200, 100);
+            this.gbCatalog.TabIndex = 1;
+            this.gbCatalog.TabStop = false;
+            this.gbCatalog.Text = "Каталог:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.gbCatalog);
+            this.Controls.Add(this.gbMenu);
             this.Name = "Form1";
-            this.Text = "Form1";
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.Text = "Каталог смартфонов";
+            this.gbMenu.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel tssLoad;
-        private System.Windows.Forms.ToolStripProgressBar tssProgressBar;
+        private System.Windows.Forms.GroupBox gbMenu;
+        private System.Windows.Forms.Label lbPage;
+        private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.Button btnPrev;
+        private System.Windows.Forms.GroupBox gbCatalog;
     }
 }
 

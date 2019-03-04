@@ -9,22 +9,9 @@ namespace smartfon_catalog
         [Column(Name = "Id", IsPrimaryKey = true, IsDbGenerated = true)]
         public int Id { get; set; }
         [Column(Name = "Brand")]
-        public string Brand { get; private set; }
-        string name;
+        public string Brand { get; set; }
         [Column(Name = "Name")]
-        public string Name
-        {
-            get => name;
-            set
-            {
-                if (value != null && value.Length > 0)
-                {
-                    var val = Regex.Match(value, @"(\w*)\ (.*)").Groups;
-                    Brand = val[1].Value;
-                    name = val[2].Value;
-                }
-            }
-        }
+        public string Name { get; set; }
         [Column(Name = "Image")]
         public byte[] Image { get; set; }
         [Column(Name = "CommStd")]
