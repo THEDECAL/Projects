@@ -33,11 +33,13 @@
             this.btnNext = new System.Windows.Forms.Button();
             this.btnPrev = new System.Windows.Forms.Button();
             this.gbCatalog = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.gbMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbMenu
             // 
+            this.gbMenu.Controls.Add(this.groupBox1);
             this.gbMenu.Controls.Add(this.lbPage);
             this.gbMenu.Controls.Add(this.btnNext);
             this.gbMenu.Controls.Add(this.btnPrev);
@@ -86,6 +88,15 @@
             this.gbCatalog.TabStop = false;
             this.gbCatalog.Text = "Каталог:";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(8, 45);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(186, 79);
+            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -107,6 +118,7 @@
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Button btnPrev;
         private System.Windows.Forms.GroupBox gbCatalog;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

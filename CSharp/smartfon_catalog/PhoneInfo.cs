@@ -23,6 +23,7 @@ namespace smartfon_catalog
             pbImage.BackgroundImage = Downloader.BytesToImage(smartfone.Image);
             pbImage.BackgroundImageLayout = ImageLayout.Zoom;
             lbName.Text = smartfone.Brand + '\n' + smartfone.Name;
+            Text = lbName.Text;
 
             Type t = typeof(Smartfone);
             foreach (var item in t.GetProperties())
@@ -31,8 +32,8 @@ namespace smartfon_catalog
                 {
                     if (item.Name != "Brand" && item.Name != "Name")
                     {
-                        var tmp = gbDesc.Controls.Find("lb" + item.Name, true).First();
-                        ;
+                        string val = item.GetValue(smartfone) as string;
+                        gbDesc.Controls[gbDesc.Controls.IndexOfKey("lb" + item.Name)].Text = val;
                     }
                 }
             }

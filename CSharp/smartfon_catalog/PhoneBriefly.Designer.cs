@@ -37,6 +37,7 @@
             // 
             // gbGeneric
             // 
+            this.gbGeneric.BackColor = System.Drawing.SystemColors.Control;
             this.gbGeneric.Controls.Add(this.btPhoneInfo);
             this.gbGeneric.Controls.Add(this.lbName);
             this.gbGeneric.Controls.Add(this.lbBrand);
@@ -48,16 +49,18 @@
             // 
             // btPhoneInfo
             // 
+            this.btPhoneInfo.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btPhoneInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btPhoneInfo.Location = new System.Drawing.Point(6, 10);
             this.btPhoneInfo.Name = "btPhoneInfo";
             this.btPhoneInfo.Size = new System.Drawing.Size(166, 180);
             this.btPhoneInfo.TabIndex = 3;
-            this.btPhoneInfo.UseVisualStyleBackColor = true;
+            this.btPhoneInfo.UseVisualStyleBackColor = false;
             this.btPhoneInfo.Click += new System.EventHandler(this.btPhoneInfo_Click);
             // 
             // lbName
             // 
+            this.lbName.BackColor = System.Drawing.SystemColors.Control;
             this.lbName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lbName.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lbName.Location = new System.Drawing.Point(6, 216);
@@ -68,6 +71,7 @@
             // 
             // lbBrand
             // 
+            this.lbBrand.BackColor = System.Drawing.SystemColors.Control;
             this.lbBrand.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lbBrand.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lbBrand.ForeColor = System.Drawing.SystemColors.HotTrack;

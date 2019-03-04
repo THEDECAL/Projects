@@ -32,8 +32,8 @@
             this.lbOS = new System.Windows.Forms.Label();
             this.lbBatteryCapp = new System.Windows.Forms.Label();
             this.lbQualityGeneralCamera = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
             this.lbQualityFrontalCamera = new System.Windows.Forms.Label();
+            this.lbMemCardsType = new System.Windows.Forms.Label();
             this.lbBMEM = new System.Windows.Forms.Label();
             this.lbRAM = new System.Windows.Forms.Label();
             this.lbSIMType = new System.Windows.Forms.Label();
@@ -43,6 +43,7 @@
             this.lbScrDiag = new System.Windows.Forms.Label();
             this.lbCommStd = new System.Windows.Forms.Label();
             this.gbGeneric = new System.Windows.Forms.GroupBox();
+            this.pbImage = new System.Windows.Forms.PictureBox();
             this.gbDesc = new System.Windows.Forms.GroupBox();
             this.lbName = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -59,10 +60,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.pbImage = new System.Windows.Forms.PictureBox();
             this.gbGeneric.SuspendLayout();
-            this.gbDesc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
+            this.gbDesc.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbColor
@@ -113,29 +113,29 @@
             this.lbQualityGeneralCamera.TabIndex = 43;
             this.lbQualityGeneralCamera.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label25
-            // 
-            this.label25.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.label25.Location = new System.Drawing.Point(107, 267);
-            this.label25.Name = "label25";
-            this.label25.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label25.Size = new System.Drawing.Size(135, 18);
-            this.label25.TabIndex = 42;
-            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // lbQualityFrontalCamera
             // 
             this.lbQualityFrontalCamera.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lbQualityFrontalCamera.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lbQualityFrontalCamera.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.lbQualityFrontalCamera.Location = new System.Drawing.Point(107, 246);
+            this.lbQualityFrontalCamera.Location = new System.Drawing.Point(107, 267);
             this.lbQualityFrontalCamera.Name = "lbQualityFrontalCamera";
             this.lbQualityFrontalCamera.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lbQualityFrontalCamera.Size = new System.Drawing.Size(135, 18);
-            this.lbQualityFrontalCamera.TabIndex = 41;
+            this.lbQualityFrontalCamera.TabIndex = 42;
             this.lbQualityFrontalCamera.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbMemCardsType
+            // 
+            this.lbMemCardsType.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lbMemCardsType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbMemCardsType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.lbMemCardsType.Location = new System.Drawing.Point(107, 246);
+            this.lbMemCardsType.Name = "lbMemCardsType";
+            this.lbMemCardsType.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lbMemCardsType.Size = new System.Drawing.Size(135, 18);
+            this.lbMemCardsType.TabIndex = 41;
+            this.lbMemCardsType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbBMEM
             // 
@@ -224,7 +224,7 @@
             // lbCommStd
             // 
             this.lbCommStd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbCommStd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbCommStd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lbCommStd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.lbCommStd.Location = new System.Drawing.Point(107, 81);
             this.lbCommStd.Name = "lbCommStd";
@@ -235,6 +235,7 @@
             // 
             // gbGeneric
             // 
+            this.gbGeneric.BackColor = System.Drawing.SystemColors.Control;
             this.gbGeneric.Controls.Add(this.pbImage);
             this.gbGeneric.Controls.Add(this.gbDesc);
             this.gbGeneric.Location = new System.Drawing.Point(1, 0);
@@ -243,14 +244,24 @@
             this.gbGeneric.TabIndex = 1;
             this.gbGeneric.TabStop = false;
             // 
+            // pbImage
+            // 
+            this.pbImage.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.pbImage.Location = new System.Drawing.Point(6, 12);
+            this.pbImage.Name = "pbImage";
+            this.pbImage.Size = new System.Drawing.Size(271, 376);
+            this.pbImage.TabIndex = 48;
+            this.pbImage.TabStop = false;
+            // 
             // gbDesc
             // 
+            this.gbDesc.BackColor = System.Drawing.SystemColors.Control;
             this.gbDesc.Controls.Add(this.lbColor);
             this.gbDesc.Controls.Add(this.lbOS);
             this.gbDesc.Controls.Add(this.lbBatteryCapp);
             this.gbDesc.Controls.Add(this.lbQualityGeneralCamera);
-            this.gbDesc.Controls.Add(this.label25);
             this.gbDesc.Controls.Add(this.lbQualityFrontalCamera);
+            this.gbDesc.Controls.Add(this.lbMemCardsType);
             this.gbDesc.Controls.Add(this.lbBMEM);
             this.gbDesc.Controls.Add(this.lbRAM);
             this.gbDesc.Controls.Add(this.lbSIMType);
@@ -419,14 +430,6 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Стандарт связи:";
             // 
-            // pbImage
-            // 
-            this.pbImage.Location = new System.Drawing.Point(6, 12);
-            this.pbImage.Name = "pbImage";
-            this.pbImage.Size = new System.Drawing.Size(271, 376);
-            this.pbImage.TabIndex = 48;
-            this.pbImage.TabStop = false;
-            // 
             // PhoneInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -436,9 +439,9 @@
             this.Name = "PhoneInfo";
             this.Text = "Подробности";
             this.gbGeneric.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.gbDesc.ResumeLayout(false);
             this.gbDesc.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -448,8 +451,8 @@
         private System.Windows.Forms.Label lbOS;
         private System.Windows.Forms.Label lbBatteryCapp;
         private System.Windows.Forms.Label lbQualityGeneralCamera;
-        private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label lbQualityFrontalCamera;
+        private System.Windows.Forms.Label lbMemCardsType;
         private System.Windows.Forms.Label lbBMEM;
         private System.Windows.Forms.Label lbRAM;
         private System.Windows.Forms.Label lbSIMType;

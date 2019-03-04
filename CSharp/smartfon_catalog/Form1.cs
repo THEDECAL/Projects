@@ -15,7 +15,8 @@ namespace smartfon_catalog
     {
         int page = 0;
         int amPages = 0;
-        string cs = System.Configuration.ConfigurationManager.ConnectionStrings["geekpc"].ConnectionString;
+        string cs = System.Configuration.ConfigurationManager.ConnectionStrings["default"].ConnectionString;
+        //string cs = System.Configuration.ConfigurationManager.ConnectionStrings["geekpc"].ConnectionString;
         public Form1()
         {
             InitializeComponent();
@@ -51,6 +52,7 @@ namespace smartfon_catalog
         {
             DataContext dc = new DataContext(cs);
             amPages = dc.GetTable<Smartfone>().Count() / 8;
+
             if (amPages > 0) UpdatePagePanel();
         }
 

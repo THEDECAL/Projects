@@ -39,17 +39,17 @@ namespace smartfon_catalog
         }
         static public void GetPhones()
         {
-            //string cs = System.Configuration.ConfigurationManager.ConnectionStrings["default"].ConnectionString;
-            string cs = System.Configuration.ConfigurationManager.ConnectionStrings["geekpc"].ConnectionString;
+            string cs = System.Configuration.ConfigurationManager.ConnectionStrings["default"].ConnectionString;
+            //string cs = System.Configuration.ConfigurationManager.ConnectionStrings["geekpc"].ConnectionString;
             string siteRef = "https://rozetka.com.ua/mobile-phones/c80003/preset=smartfon;seller=rozetka;view=tile";
             ;
             try
             {
                 HtmlNode root = Downloader.GetPage(siteRef).DocumentNode;
-                //int pageCount = Convert.ToInt32(root.SelectNodes("//*[@id='navigation_block']/ul/li").Last().Id.Replace("page", ""));
+                int pageCount = Convert.ToInt32(root.SelectNodes("//*[@id='navigation_block']/ul/li").Last().Id.Replace("page", ""));
             
-                //for (int i = 1; i <= pageCount; i++)
-                for (int i = 1; i <= 2; i++)
+                for (int i = 1; i <= pageCount; i++)
+                //for (int i = 1; i <= 2; i++)
                 {
                     DataContext dc = new DataContext(cs);
                     var listPhones = new List<Smartfone>();
