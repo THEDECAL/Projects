@@ -22,21 +22,9 @@ CREATE TABLE smartfones(
     QualityFrontalCamera nvarchar(MAX),
     QualityGeneralCamera nvarchar(MAX),
     BatteryCapp nvarchar(MAX),
-    Color nvarchar(MAX)
+    Color nvarchar(100)
 )
 GO
-
---CREATE TRIGGER DuplicateExclusion ON smartfones for insert
---AS
---BEGIN
---	DECLARE @DUPLICATE_COUNT INT, @INSERTED_NAME NVARCHAR(MAX)
-
---	SELECT TOP 1 @INSERTED_NAME = inserted.Name FROM inserted
---	SET @DUPLICATE_COUNT = (SELECT COUNT(*) FROM smartfones WHERE @INSERTED_NAME = smartfones.Name)
-
---	if(@DUPLICATE_COUNT > 1) rollback tran
---END
---GO
 
 TRUNCATE TABLE smartfones
 GO

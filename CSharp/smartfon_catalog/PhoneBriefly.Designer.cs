@@ -49,8 +49,9 @@
             // 
             // btPhoneInfo
             // 
-            this.btPhoneInfo.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btPhoneInfo.BackColor = System.Drawing.SystemColors.Window;
             this.btPhoneInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btPhoneInfo.ForeColor = System.Drawing.SystemColors.Window;
             this.btPhoneInfo.Location = new System.Drawing.Point(6, 10);
             this.btPhoneInfo.Name = "btPhoneInfo";
             this.btPhoneInfo.Size = new System.Drawing.Size(166, 180);

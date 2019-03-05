@@ -246,7 +246,7 @@
             // 
             // pbImage
             // 
-            this.pbImage.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.pbImage.BackColor = System.Drawing.SystemColors.Window;
             this.pbImage.Location = new System.Drawing.Point(6, 12);
             this.pbImage.Name = "pbImage";
             this.pbImage.Size = new System.Drawing.Size(271, 376);
