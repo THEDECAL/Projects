@@ -247,7 +247,7 @@
             // 
             this.gbCatalog.Location = new System.Drawing.Point(177, 2);
             this.gbCatalog.Name = "gbCatalog";
-            this.gbCatalog.Size = new System.Drawing.Size(200, 100);
+            this.gbCatalog.Size = new System.Drawing.Size(545, 389);
             this.gbCatalog.TabIndex = 1;
             this.gbCatalog.TabStop = false;
             this.gbCatalog.Text = "Каталог";
@@ -260,6 +260,7 @@
             this.Controls.Add(this.gbCatalog);
             this.Controls.Add(this.gbMenu);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Каталог смартфонов";
             this.gbMenu.ResumeLayout(false);
             this.gbFilters.ResumeLayout(false);

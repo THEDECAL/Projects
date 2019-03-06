@@ -13,14 +13,29 @@ namespace smartfon_catalog
 {
     public partial class Form1 : Form
     {
+        /// <summary>
+        /// Текущая страницы (счёт с ноля)
+        /// </summary>
         int page = 0;
+        /// <summary>
+        /// Общее кол-во страниц
+        /// </summary>
         int amPages = 0;
-        //string cs = System.Configuration.ConfigurationManager.ConnectionStrings["default"].ConnectionString;
-        static string cs = System.Configuration.ConfigurationManager.ConnectionStrings["geekpc"].ConnectionString;
-        static DataContext dc = new DataContext(cs);
-        List<Smartfone> db = dc.GetTable<Smartfone>().ToList();
+        /// <summary>
+        /// Список телефонов
+        /// </summary>
+        List<Smartfone> db = Downloader.GetSmartfones();
+        static public ProgressForm PBar { get; private set; } = new ProgressForm();
         public Form1()
         {
+            if (db.Count == 0)
+            {
+                PBar.Show();
+                Downloader.DownloadPhones();
+                db = Downloader.GetSmartfones();
+                PBar.Close();
+            }
+
             InitializeComponent();
             ClientSize = new Size(PhoneBriefly.size.Width * 4 + gbMenu.Size.Width, PhoneBriefly.size.Height * 2);
             gbMenu.Size = new Size(gbMenu.Width, PhoneBriefly.size.Height * 2);
@@ -30,6 +45,11 @@ namespace smartfon_catalog
             GetValuesToDB();
             LoadData();
         }
+        /// <summary>
+        /// Метод для отбора телефона в соостветсвии выбранными фильтрами
+        /// </summary>
+        /// <param name="s">Принимает объект телефона</param>
+        /// <returns>Возвращает true, если телефон соответсвует фильтру иначе false</returns>
         bool FilterCheck(Smartfone s)
         {
             bool isValid = true;
@@ -39,16 +59,14 @@ namespace smartfon_catalog
                 if(i > -1)
                 {
                     ListBox lstBox = gbFilters.Controls[i] as ListBox;
-                    var val = s.GetType().GetProperty(prop.Name).GetValue(s);
-                    ;
+
                     if (lstBox.SelectedIndices.Count > 0)
                     {
                         bool check = false;
                         foreach (int index in lstBox.SelectedIndices)
                         {
-                            ;
-                            if (lstBox.Items[index] == "") check = true;
-                            else if (lstBox.Items[index] == val)
+                            string val = s.GetType().GetProperty(prop.Name).GetValue(s) as string;
+                            if (lstBox.Items[index] as string == val)
                             {
                                 check = true;
                                 break;
@@ -61,10 +79,13 @@ namespace smartfon_catalog
             }
             return isValid;
         }
+        /// <summary>
+        /// Метод загрузки данных на страницу
+        /// </summary>
         void LoadData()
         {
             var filter = db.Where(o => FilterCheck(o)).ToList();
-            ;
+
             UpdatePageNumber(filter);
             var tb = filter.Skip(page * 8).Take(8);
             gbCatalog.Controls.Clear();
@@ -87,27 +108,34 @@ namespace smartfon_catalog
             if (amPages > 0)
                 lbPage.Text = $"{page + 1} / {amPages}";
         }
+        /// <summary>
+        /// Метод заполнения вариантов для выбора, в фильтре, путём выборки уникальных значений в полях
+        /// </summary>
         void GetValuesToDB()
         {
+            //Массив названий полей для выборки
             string[] fltr = new string[] { "RAM", "BMEM", "ScrDiag", "MatrixType", "QualityGeneralCamera", "QualityFrontalCamera", "Brand" };
-            var tb = dc.GetTable<Smartfone>().ToList();
+
             foreach (var item in fltr)
             {
-                var variants = tb.GroupBy(o => o.GetType().GetProperty(item).GetValue(o, null)).Select(o => o.Key).ToList();
+                var variants = db.GroupBy(o => o.GetType().GetProperty(item).GetValue(o, null)).Select(o => o.Key).ToList();
                 var lstBox = gbFilters.Controls[gbFilters.Controls.IndexOfKey("lb" + item)] as ListBox;
-                variants.Insert(0, "");
                 lstBox.DataSource = variants.ToArray();
+                lstBox.SelectedIndex = -1;
                 lstBox.SelectedIndexChanged += (s, e) => { LoadData(); page = 0; };
             }
-            ;
         }
-
+        /// <summary>
+        /// Метод для выборки следующей страницы
+        /// </summary>
         private void btnNext_Click(object sender, EventArgs e)
         {
             page = (page == amPages - 1) ? 0 : page + 1;
             LoadData();
         }
-
+        /// <summary>
+        /// Метод для выборки предыдущей страницы
+        /// </summary>
         private void btnPrev_Click(object sender, EventArgs e)
         {
             page = (page == 0) ? amPages - 1 : page - 1;

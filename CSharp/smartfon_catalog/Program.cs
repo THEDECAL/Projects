@@ -11,8 +11,6 @@ namespace smartfon_catalog
         [STAThread]
         static void Main()
         {
-            //Downloader.GetPhones();
-            ;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

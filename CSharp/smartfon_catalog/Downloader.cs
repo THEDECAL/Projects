@@ -14,6 +14,21 @@ namespace smartfon_catalog
 {
     static class Downloader
     {
+        /// <summary>
+        /// Строка соединения
+        /// </summary>
+        static  string cs = System.Configuration.ConfigurationManager.ConnectionStrings["default"].ConnectionString;
+        //static  string cs = System.Configuration.ConfigurationManager.ConnectionStrings["geekpc"].ConnectionString;
+        //static string cs = System.Configuration.ConfigurationManager.ConnectionStrings["two"].ConnectionString;
+        /// <summary>
+        /// Контекст БД
+        /// </summary>
+        static DataContext dc = new DataContext(cs);
+        /// <summary>
+        /// Метод загрузки страницы
+        /// </summary>
+        /// <param name="URL">URL адрес</param>
+        /// <returns>Возвращает HTML документ</returns>
         static public HtmlDocument GetPage(string URL)
         {
             WebClient client = new WebClient();
@@ -25,11 +40,22 @@ namespace smartfon_catalog
 
             return htmlDoc;
         }
+        /// <summary>
+        /// Метод загрузки изображения
+        /// </summary>
+        /// <param name="URL">URL адрес</param>
+        /// <returns>Массив байт</returns>
         static public byte[] GetImage(string URL)
         {
             WebClient client = new WebClient();
             return client.DownloadData(URL);
         }
+        static public List<Smartfone> GetSmartfones() => dc.GetTable<Smartfone>().ToList();
+        /// <summary>
+        /// Метод преобразования массива байт в изображение
+        /// </summary>
+        /// <param name="byteArray">Принимает массив байт</param>
+        /// <returns>Возвращает изображение</returns>
         static public Image BytesToImage(byte[] byteArray)
         {
             using (MemoryStream ms = new MemoryStream(byteArray, 0, byteArray.Length))
@@ -37,27 +63,29 @@ namespace smartfon_catalog
                 return Image.FromStream(ms, true);
             }
         }
-        static public void GetPhones()
+        /// <summary>
+        /// Метод загрузки телефонов в БД с сайта ROZETKA
+        /// </summary>
+        static public void DownloadPhones()
         {
-            string cs = System.Configuration.ConfigurationManager.ConnectionStrings["default"].ConnectionString;
-            //string cs = System.Configuration.ConfigurationManager.ConnectionStrings["geekpc"].ConnectionString;
             string siteRef = "https://rozetka.com.ua/mobile-phones/c80003/preset=smartfon;seller=rozetka;view=tile";
-            ;
             try
             {
-                HtmlNode root = Downloader.GetPage(siteRef).DocumentNode;
-                int pageCount = Convert.ToInt32(root.SelectNodes("//*[@id='navigation_block']/ul/li").Last().Id.Replace("page", ""));
+                ProgressForm pf = new ProgressForm();
+                HtmlNode root = GetPage(siteRef).DocumentNode;
+                //Загрузка кол-ва страниц телефонов
+                int pageCount = 3;
+                //int pageCount = Convert.ToInt32(root.SelectNodes("//*[@id='navigation_block']/ul/li").Last().Id.Replace("page", ""));
+                Form1.PBar.SetMaximum(pageCount);
             
                 for (int i = 1; i <= pageCount; i++)
-                //for (int i = 1; i <= 2; i++)
                 {
-                    DataContext dc = new DataContext(cs);
                     var listPhones = new List<Smartfone>();
                     Table<Smartfone> phones = dc.GetTable<Smartfone>();
-                    HtmlNode page = Downloader.GetPage(siteRef + $";page={i}").DocumentNode;
+                    HtmlNode page = GetPage(siteRef + $";page={i}").DocumentNode;
                     string xpath = "//*[@id='catalog_goods_block']/div/div[@class='g-i-tile g-i-tile-catalog']/div[1]/div[1]/div[1]/div[@class='g-i-tile-i-box-desc']";
                     var phoneNodes = page.SelectNodes(xpath).ToList();
-                    ;
+
                     foreach (var pn in phoneNodes)
                     {
                         Smartfone phone = new Smartfone();
@@ -65,11 +93,11 @@ namespace smartfon_catalog
                         var subNode = pn.SelectNodes(xPath).First();
                         string imgRef = subNode.Attributes[0].Value;
                         string phoneRef = subNode.ParentNode.Attributes[0].Value + "characteristics";
-                        phone.Image = Downloader.GetImage(imgRef);
+                        phone.Image = GetImage(imgRef);
                         var val = Regex.Match(subNode.Attributes[4].Value, @"(\w*)\ (.*)").Groups;
                         phone.Brand = val[1].Value;
                         phone.Name = val[2].Value;
-                        HtmlNode phonePage = Downloader.GetPage(phoneRef).DocumentNode;
+                        HtmlNode phonePage = GetPage(phoneRef).DocumentNode;
 
                         var chrcNodes = phonePage.SelectNodes("//*[@id='tab_content']/div[1]/div[2]/table/tr");
                         if (chrcNodes != null)
@@ -88,10 +116,16 @@ namespace smartfon_catalog
                     }
                     phones.InsertAllOnSubmit(listPhones);
                     dc.SubmitChanges();
+                    Form1.PBar.SetProgress(i);
                 }
             }
             catch (Exception) { }
         }
+        /// <summary>
+        /// Метод помещения данных в поля
+        /// </summary>
+        /// <param name="node">Принимает HTML узел</param>
+        /// <param name="phone">Принимает объект телефона</param>
         static void DefinitionField(HtmlNodeCollection node, ref Smartfone phone)
         {
             string title = node[0].InnerText;

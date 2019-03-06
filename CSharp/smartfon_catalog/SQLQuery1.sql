@@ -1,7 +1,7 @@
-CREATE DATABASE smartfone_catalog
+CREATE DATABASE smartfone_catalog_two
 GO
 
-USE smartfone_catalog
+USE smartfone_catalog_two
 GO
 
 CREATE TABLE smartfones(
