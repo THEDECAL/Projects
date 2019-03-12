@@ -16,8 +16,7 @@ namespace BookShop
         public Form1()
         {
             InitializeComponent();
-            var tmp = SQLDbConntext.DbContext.Accounts.ToList();
-            ;
+            tslbLogin.Text = "Гость";
         }
     }
 }

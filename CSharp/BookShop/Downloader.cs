@@ -75,8 +75,8 @@ namespace BookShop
                 "https://www.yakaboo.ua/knigi/komp-juternaja-literatura/programmirovanie.html"
             };
             string[] genres = new string[]{ "Детектив", "Фантастика/Фэнтэзи" ,"Боевик" ,"Программирование"};
-            //try
-            //{
+            try
+            {
 
                 List<Book> books = new List<Book>();
                 for (int i = 0; i < refs.Count(); i++)
@@ -92,7 +92,7 @@ namespace BookShop
                         Book book = new Book();
 
                         //Жанр
-                        book.Genre.Name = genres[i]; //
+                        book.Genre =  SQLDbConntext.CheckUniqGenre(genres[i]);
 
                         //Изображение
                         xPath = "div/div[1]/a";
@@ -117,7 +117,7 @@ namespace BookShop
                         //Автор
                         xPath = "div/div[3]/div[1]/table/tr[2]/td/div";
                         string txtAuthor = bookNode.SelectSingleNode(xPath).InnerText;
-                        book.Author.Name = txtAuthor.Trim(); //
+                        book.Author = SQLDbConntext.CheckUniqAuthor(txtAuthor.Trim());
                         
                         //Издательство, год, страницы
                         root = GetPage(bookDescRef).DocumentNode;
@@ -131,17 +131,19 @@ namespace BookShop
                             string val = descNode.ChildNodes[3].InnerText.Trim();
 
                             if (field == "Издательство")
-                                book.Publisher.Name = val; //
+                                book.Publisher = SQLDbConntext.CheckUniqPublisher(val);
                             else if (field == "Год издания")
                                 book.Year = Convert.ToInt32(val);
                             else if (field == "Количество страниц")
                                 book.Pages = Convert.ToInt32(val);
                         }
-                        books.Add(book);
+                        //books.Add(book);
+                        SQLDbConntext.DbContext.Books.Add(book);
+                        SQLDbConntext.DbContext.SaveChanges();
                     }
                 }
-            //}
-            //catch (Exception) { }
+            }
+            catch (Exception) { }
         }
     }
 }

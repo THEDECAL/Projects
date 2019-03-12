@@ -10,7 +10,7 @@ namespace BookShop
 {
     class SQLDbConntext : DbContext
     {
-        static public readonly SQLDbConntext DbContext = new SQLDbConntext();
+        public static readonly SQLDbConntext DbContext = new SQLDbConntext();
         static SQLDbConntext()
         {
             string mode = ConfigurationManager.AppSettings["InitMode"];
@@ -32,12 +32,12 @@ namespace BookShop
         public DbSet<UserType> UserTypes { get; set; }
         public DbSet<Sales> Sales { get; set; }
         public DbSet<Stock> Stocks { get; set; }
-        static public void DBInit(SQLDbConntext context)
+        public static void DBInit(SQLDbConntext context)
         {
             UserType usr = new UserType { Name = "User" };
             UserType adm = new UserType { Name = "Admin" };
-            context.UsersType.Add(usr);
-            context.UsersType.Add(adm);
+            context.UserTypes.Add(usr);
+            context.UserTypes.Add(adm);
 
             User a = new User { Name = "Никита", UserType = adm };
             User u = new User { Name = "Игорь", UserType = usr };
@@ -49,9 +49,9 @@ namespace BookShop
             context.Accounts.Add(admin);
             context.Accounts.Add(user);
 
-            Genre fantstic = new Genre { Name = "Фантастика" };
-            Genre adventure = new Genre { Name = "Приключения" };
-            Genre detective = new Genre { Name = "Боевик" };
+            Genre fantstic = new Genre { Name = "Фантастика/Фэнтэзи" };
+            Genre adventure = new Genre { Name = "Боевик" };
+            Genre detective = new Genre { Name = "Детектив" };
             Genre programming = new Genre { Name = "Программирование" };
             context.Genres.Add(fantstic);
             context.Genres.Add(adventure);
@@ -60,34 +60,85 @@ namespace BookShop
 
             context.SaveChanges();
         }
-        public T CheckUniq<T>(string name)
+        /// <summary>
+        /// Метод который добавляет нового автора или возвращает уже существующего (для исключения дублирования)
+        /// </summary>
+        /// <param name="name">Принимает имя автора</param>
+        /// <returns>Возвращает объект автора</returns>
+        public static Author CheckUniqAuthor(string name)
         {
-            Type t = typeof(T);
-            Type dbContextType = DbContext.GetType();
-            string className = t.Name;
-            IQueryable<T> list = dbContextType.GetProperty(className + "s").GetValue(DbContext) as IQueryable<T>;
-
-            T obj;
-            foreach (dynamic item in list)
+            Author a = DbContext.Authors.FirstOrDefault(b => b.Name == name);
+            if (a == null)
             {
-                if (item.Name == name)
-                {
-                    obj = item;
-                    break;
-                }
-            }
-            
-            if (obj == null)
-            {
-                T o = (T)Activator.CreateInstance(t);
-                t.GetProperty("Name").SetValue(name, o);
-                //o = new T { Name = name };
-                //SQLDbContext.DbContext.Brands.Add(brand);
-                //SQLDbContext.DbContext.SaveChanges();
+                a = new Author { Name = name };
+                DbContext.Authors.Add(a);
+                DbContext.SaveChanges();
             }
 
-            return SQLDbContext.DbContext.Brands.FirstOrDefault(b => b.Name == name);
+            return DbContext.Authors.FirstOrDefault(b => b.Name == name);
         }
+        /// <summary>
+        /// Метод который добавляет новый жанр или возвращает уже существующий (для исключения дублирования)
+        /// </summary>
+        /// <param name="name">Принимает имя жанра</param>
+        /// <returns>Возвращает объект жанра</returns>
+        public static Genre CheckUniqGenre(string name)
+        {
+            Genre g = DbContext.Genres.FirstOrDefault(b => b.Name == name);
+            if (g == null)
+            {
+                g = new Genre { Name = name };
+                DbContext.Genres.Add(g);
+                DbContext.SaveChanges();
+            }
+
+            return DbContext.Genres.FirstOrDefault(b => b.Name == name);
+        }
+        /// <summary>
+        /// Метод который добавляет нового издателя или возвращает уже существующего (для исключения дублирования)
+        /// </summary>
+        /// <param name="name">Принимает имя издателя</param>
+        /// <returns>Возвращает объект издателя</returns>
+        public static Publisher CheckUniqPublisher(string name)
+        {
+            Publisher p = DbContext.Publishers.FirstOrDefault(b => b.Name == name);
+            if (p == null)
+            {
+                p = new Publisher { Name = name };
+                DbContext.Publishers.Add(p);
+                DbContext.SaveChanges();
+            }
+
+            return DbContext.Publishers.FirstOrDefault(b => b.Name == name);
+        }
+        //public T CheckUniq<T>(string name)
+        //{
+        //    Type t = typeof(T);
+        //    Type dbContextType = DbContext.GetType();
+        //    string className = t.Name;
+        //    IQueryable<T> list = dbContextType.GetProperty(className + "s").GetValue(DbContext) as IQueryable<T>;
+
+        //    T obj = (T)Activator.CreateInstance(t);
+        //    foreach (dynamic item in list)
+        //    {
+        //        if (item.Name == name)
+        //        {
+        //            obj = item;
+        //            break;
+        //        }
+        //    }
+
+        //    if (obj == null)
+        //    {
+        //        T o = (T)Activator.CreateInstance(t);
+        //        t.GetProperty("Name").SetValue(name, o);
+        //        //o = new T { Name = name };
+        //        //SQLDbContext.DbContext.Brands.Add(brand);
+        //        //SQLDbContext.DbContext.SaveChanges();
+        //    }
+
+        //    return SQLDbContext.DbContext.Brands.FirstOrDefault(b => b.Name == name);
+        //}
     }
 
     class InitDropCreateDatabaseAlways : DropCreateDatabaseAlways<SQLDbConntext>
