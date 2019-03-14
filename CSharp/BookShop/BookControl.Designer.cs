@@ -37,36 +37,40 @@
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.изменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lbPrice = new System.Windows.Forms.Label();
+            this.gbGeneric = new System.Windows.Forms.GroupBox();
             this.cmsRightClick.SuspendLayout();
+            this.gbGeneric.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbName
             // 
-            this.lbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbName.Location = new System.Drawing.Point(3, 170);
+            this.lbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbName.Location = new System.Drawing.Point(6, 210);
             this.lbName.Name = "lbName";
-            this.lbName.Size = new System.Drawing.Size(141, 43);
+            this.lbName.Size = new System.Drawing.Size(112, 28);
             this.lbName.TabIndex = 2;
             this.lbName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbAuthor
             // 
             this.lbAuthor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbAuthor.Location = new System.Drawing.Point(3, 213);
+            this.lbAuthor.Location = new System.Drawing.Point(6, 12);
             this.lbAuthor.Name = "lbAuthor";
-            this.lbAuthor.Size = new System.Drawing.Size(141, 28);
+            this.lbAuthor.Size = new System.Drawing.Size(112, 28);
             this.lbAuthor.TabIndex = 3;
             this.lbAuthor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnImage
             // 
-            this.btnImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnImage.Location = new System.Drawing.Point(3, 3);
+            this.btnImage.ForeColor = System.Drawing.Color.Black;
+            this.btnImage.Location = new System.Drawing.Point(6, 43);
             this.btnImage.Name = "btnImage";
-            this.btnImage.Size = new System.Drawing.Size(141, 164);
+            this.btnImage.Size = new System.Drawing.Size(112, 164);
             this.btnImage.TabIndex = 4;
             this.btnImage.UseVisualStyleBackColor = true;
             this.btnImage.Click += new System.EventHandler(this.btnImage_Click);
+            this.btnImage.MouseLeave += new System.EventHandler(this.btnImage_MouseLeave);
+            this.btnImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.btnImage_MouseMove);
             this.btnImage.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnImage_MouseUp);
             // 
             // cmsRightClick
@@ -76,47 +80,61 @@
             this.удалитьToolStripMenuItem,
             this.изменитьToolStripMenuItem});
             this.cmsRightClick.Name = "cmsRightClick";
-            this.cmsRightClick.Size = new System.Drawing.Size(201, 70);
+            this.cmsRightClick.Size = new System.Drawing.Size(179, 70);
             // 
             // положитьВКорзинуToolStripMenuItem
             // 
             this.положитьВКорзинуToolStripMenuItem.Name = "положитьВКорзинуToolStripMenuItem";
-            this.положитьВКорзинуToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.положитьВКорзинуToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.положитьВКорзинуToolStripMenuItem.Text = "Положить в корзину";
             // 
             // удалитьToolStripMenuItem
             // 
             this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.удалитьToolStripMenuItem.Text = "Удалить";
             // 
             // изменитьToolStripMenuItem
             // 
             this.изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
-            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.изменитьToolStripMenuItem.Text = "Изменить";
             // 
             // lbPrice
             // 
+            this.lbPrice.BackColor = System.Drawing.Color.PeachPuff;
             this.lbPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lbPrice.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(69)))));
-            this.lbPrice.Location = new System.Drawing.Point(3, 241);
+            this.lbPrice.Location = new System.Drawing.Point(6, 238);
             this.lbPrice.Name = "lbPrice";
-            this.lbPrice.Size = new System.Drawing.Size(141, 28);
+            this.lbPrice.Size = new System.Drawing.Size(112, 28);
             this.lbPrice.TabIndex = 6;
             this.lbPrice.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // gbGeneric
+            // 
+            this.gbGeneric.Controls.Add(this.btnImage);
+            this.gbGeneric.Controls.Add(this.lbName);
+            this.gbGeneric.Controls.Add(this.lbPrice);
+            this.gbGeneric.Controls.Add(this.lbAuthor);
+            this.gbGeneric.Location = new System.Drawing.Point(1, -4);
+            this.gbGeneric.Name = "gbGeneric";
+            this.gbGeneric.Size = new System.Drawing.Size(124, 273);
+            this.gbGeneric.TabIndex = 7;
+            this.gbGeneric.TabStop = false;
             // 
             // BookControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.lbPrice);
-            this.Controls.Add(this.btnImage);
-            this.Controls.Add(this.lbAuthor);
-            this.Controls.Add(this.lbName);
+            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.gbGeneric);
+            this.ForeColor = System.Drawing.SystemColors.WindowText;
             this.Name = "BookControl";
-            this.Size = new System.Drawing.Size(148, 274);
+            this.Size = new System.Drawing.Size(126, 269);
             this.cmsRightClick.ResumeLayout(false);
+            this.gbGeneric.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -130,5 +148,6 @@
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem изменитьToolStripMenuItem;
         private System.Windows.Forms.Label lbPrice;
+        private System.Windows.Forms.GroupBox gbGeneric;
     }
 }

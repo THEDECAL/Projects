@@ -14,8 +14,7 @@ namespace BookShop
         [STAThread]
         static void Main()
         {
-            Downloader.BookParsing();
-            ;
+            //Downloader.BookParsing();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

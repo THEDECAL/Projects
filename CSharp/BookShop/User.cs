@@ -5,6 +5,7 @@
         public int Id { get; set; }
         public string Name { get; set; }
         public virtual UserType UserType { get; set; }
+        public static User GetGuest() => new User { Name = "Гость" };
         public override string ToString() => $"{Name} ({UserType})";
     }
 }

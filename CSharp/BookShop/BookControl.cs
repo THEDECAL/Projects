@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BookShop
@@ -27,6 +20,7 @@ namespace BookShop
 
                 lbName.Text = book.Name;
                 lbAuthor.Text = book.Author.Name;
+                lbPrice.Text = book.Price.ToString() + "грн.";
             }
         }
 
@@ -42,5 +36,9 @@ namespace BookShop
                 cmsRightClick.Show(this, e.Location);
             }
         }
+
+        private void btnImage_MouseMove(object sender, MouseEventArgs e) => btnImage.FlatStyle = FlatStyle.Popup;
+
+        private void btnImage_MouseLeave(object sender, EventArgs e) => btnImage.FlatStyle = FlatStyle.Standard;
     }
 }

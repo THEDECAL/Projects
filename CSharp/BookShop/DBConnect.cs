@@ -15,14 +15,12 @@ namespace BookShop
         {
             string mode = ConfigurationManager.AppSettings["InitMode"];
 
-            if (mode == "InitDropCreateDatabaseAlways")
-                Database.SetInitializer(new InitDropCreateDatabaseAlways());
-            else if (mode == "InitDropCreateDatabaseIfModelChanges")
-                Database.SetInitializer(new InitDropCreateDatabaseIfModelChanges());
-            else
-                Database.SetInitializer(new InitDropCreateDatabaseAlways());
+            if (mode == "DropCreateDatabaseAlways") Database.SetInitializer(new InitDropCreateDatabaseAlways());
+            else if (mode == "DropCreateDatabaseIfModelChanges") Database.SetInitializer(new InitDropCreateDatabaseIfModelChanges());
+            else if (mode == "CreateDatabaseIfNotExists") Database.SetInitializer(new InitCreateDatabaseIfNotExists());
+            //else Database.SetInitializer(new InitDropCreateDatabaseAlways());
         }
-        SQLDbConntext() : base("name=default") { }
+        SQLDbConntext() : base("name=default2") { }
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
@@ -146,6 +144,10 @@ namespace BookShop
         protected override void Seed(SQLDbConntext context) => SQLDbConntext.DBInit(context);
     }
     class InitDropCreateDatabaseIfModelChanges : DropCreateDatabaseIfModelChanges<SQLDbConntext>
+    {
+        protected override void Seed(SQLDbConntext context) => SQLDbConntext.DBInit(context);
+    }
+    class InitCreateDatabaseIfNotExists : CreateDatabaseIfNotExists<SQLDbConntext>
     {
         protected override void Seed(SQLDbConntext context) => SQLDbConntext.DBInit(context);
     }

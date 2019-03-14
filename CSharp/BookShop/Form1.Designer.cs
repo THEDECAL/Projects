@@ -34,18 +34,17 @@
             this.tsbtnLogInLogOut = new System.Windows.Forms.ToolStripButton();
             this.tsbtnRegistration = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbtnCart = new System.Windows.Forms.ToolStripButton();
-            this.tslbSearch = new System.Windows.Forms.ToolStripLabel();
             this.tstbSearch = new System.Windows.Forms.ToolStripTextBox();
             this.tscbSearchType = new System.Windows.Forms.ToolStripComboBox();
+            this.tsbtnCart = new System.Windows.Forms.ToolStripButton();
+            this.tsbtnSearch = new System.Windows.Forms.ToolStripButton();
             this.flpBooks = new System.Windows.Forms.FlowLayoutPanel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbtnPrev = new System.Windows.Forms.ToolStripButton();
             this.tslbPageNumber = new System.Windows.Forms.ToolStripLabel();
-            this.tscbBooksOnPage = new System.Windows.Forms.ToolStripComboBox();
             this.tsbtnNext = new System.Windows.Forms.ToolStripButton();
-            this.tslbOnDisplayText = new System.Windows.Forms.ToolStripLabel();
             this.tslbOnDisplay = new System.Windows.Forms.ToolStripLabel();
+            this.tslbOnDisplayText = new System.Windows.Forms.ToolStripLabel();
             this.tsMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -58,7 +57,7 @@
             this.tsbtnLogInLogOut,
             this.tsbtnRegistration,
             this.toolStripSeparator4,
-            this.tslbSearch,
+            this.tsbtnSearch,
             this.tstbSearch,
             this.tscbSearchType,
             this.tsbtnCart});
@@ -66,50 +65,35 @@
             this.tsMenu.Name = "tsMenu";
             this.tsMenu.Size = new System.Drawing.Size(548, 25);
             this.tsMenu.TabIndex = 0;
+            this.tsMenu.Text = "Найти";
             // 
             // tslbLogin
             // 
+            this.tslbLogin.Font = new System.Drawing.Font("Tahoma", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tslbLogin.Name = "tslbLogin";
             this.tslbLogin.Size = new System.Drawing.Size(0, 22);
             // 
             // tsbtnLogInLogOut
             // 
-            this.tsbtnLogInLogOut.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnLogInLogOut.Image")));
             this.tsbtnLogInLogOut.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tsbtnLogInLogOut.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnLogInLogOut.Name = "tsbtnLogInLogOut";
-            this.tsbtnLogInLogOut.Size = new System.Drawing.Size(55, 22);
+            this.tsbtnLogInLogOut.Size = new System.Drawing.Size(36, 22);
             this.tsbtnLogInLogOut.Text = "Вход";
+            this.tsbtnLogInLogOut.Click += new System.EventHandler(this.tsbtnLogInLogOut_Click);
             // 
             // tsbtnRegistration
             // 
-            this.tsbtnRegistration.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnRegistration.Image")));
             this.tsbtnRegistration.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tsbtnRegistration.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnRegistration.Name = "tsbtnRegistration";
-            this.tsbtnRegistration.Size = new System.Drawing.Size(104, 22);
+            this.tsbtnRegistration.Size = new System.Drawing.Size(75, 22);
             this.tsbtnRegistration.Text = "Регистрация";
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
-            // 
-            // tsbtnCart
-            // 
-            this.tsbtnCart.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tsbtnCart.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnCart.Image")));
-            this.tsbtnCart.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.tsbtnCart.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtnCart.Name = "tsbtnCart";
-            this.tsbtnCart.Size = new System.Drawing.Size(76, 22);
-            this.tsbtnCart.Text = "Корзина";
-            // 
-            // tslbSearch
-            // 
-            this.tslbSearch.Name = "tslbSearch";
-            this.tslbSearch.Size = new System.Drawing.Size(49, 22);
-            this.tslbSearch.Text = "Поиск:";
             // 
             // tstbSearch
             // 
@@ -121,12 +105,32 @@
             this.tscbSearchType.Name = "tscbSearchType";
             this.tscbSearchType.Size = new System.Drawing.Size(115, 25);
             // 
+            // tsbtnCart
+            // 
+            this.tsbtnCart.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tsbtnCart.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tsbtnCart.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnCart.Name = "tsbtnCart";
+            this.tsbtnCart.Size = new System.Drawing.Size(53, 22);
+            this.tsbtnCart.Text = "Корзина";
+            // 
+            // tsbtnSearch
+            // 
+            this.tsbtnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbtnSearch.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnSearch.Image")));
+            this.tsbtnSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnSearch.Name = "tsbtnSearch";
+            this.tsbtnSearch.Size = new System.Drawing.Size(41, 22);
+            this.tsbtnSearch.Text = "Поиск";
+            this.tsbtnSearch.Click += new System.EventHandler(this.tsbtnSearch_Click);
+            // 
             // flpBooks
             // 
             this.flpBooks.AutoScroll = true;
-            this.flpBooks.Location = new System.Drawing.Point(0, 28);
+            this.flpBooks.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpBooks.Location = new System.Drawing.Point(0, 25);
             this.flpBooks.Name = "flpBooks";
-            this.flpBooks.Size = new System.Drawing.Size(548, 592);
+            this.flpBooks.Size = new System.Drawing.Size(548, 597);
             this.flpBooks.TabIndex = 9;
             // 
             // toolStrip1
@@ -136,7 +140,6 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbtnPrev,
             this.tslbPageNumber,
-            this.tscbBooksOnPage,
             this.tsbtnNext,
             this.tslbOnDisplay,
             this.tslbOnDisplayText});
@@ -148,52 +151,50 @@
             // 
             // tsbtnPrev
             // 
-            this.tsbtnPrev.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnPrev.Image")));
             this.tsbtnPrev.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnPrev.Name = "tsbtnPrev";
-            this.tsbtnPrev.Size = new System.Drawing.Size(41, 22);
+            this.tsbtnPrev.Size = new System.Drawing.Size(27, 22);
             this.tsbtnPrev.Text = "<<";
+            this.tsbtnPrev.ToolTipText = "Предыдущая страница";
+            this.tsbtnPrev.Click += new System.EventHandler(this.tsbtnPrev_Click);
             // 
             // tslbPageNumber
             // 
             this.tslbPageNumber.Name = "tslbPageNumber";
-            this.tslbPageNumber.Size = new System.Drawing.Size(112, 22);
-            this.tslbPageNumber.Text = "toolStripLabel1";
-            // 
-            // tscbBooksOnPage
-            // 
-            this.tscbBooksOnPage.Name = "tscbBooksOnPage";
-            this.tscbBooksOnPage.Size = new System.Drawing.Size(121, 25);
+            this.tslbPageNumber.Size = new System.Drawing.Size(11, 22);
+            this.tslbPageNumber.Text = "/";
             // 
             // tsbtnNext
             // 
-            this.tsbtnNext.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnNext.Image")));
             this.tsbtnNext.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnNext.Name = "tsbtnNext";
-            this.tsbtnNext.Size = new System.Drawing.Size(41, 22);
+            this.tsbtnNext.Size = new System.Drawing.Size(27, 22);
             this.tsbtnNext.Text = ">>";
-            // 
-            // tslbOnDisplayText
-            // 
-            this.tslbOnDisplayText.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tslbOnDisplayText.Name = "tslbOnDisplayText";
-            this.tslbOnDisplayText.Size = new System.Drawing.Size(98, 22);
-            this.tslbOnDisplayText.Text = "Выбрано книг:";
+            this.tsbtnNext.ToolTipText = "Следующая страница";
+            this.tsbtnNext.Click += new System.EventHandler(this.tsbtnNext_Click);
             // 
             // tslbOnDisplay
             // 
             this.tslbOnDisplay.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tslbOnDisplay.Name = "tslbOnDisplay";
-            this.tslbOnDisplay.Size = new System.Drawing.Size(14, 22);
+            this.tslbOnDisplay.Size = new System.Drawing.Size(13, 22);
             this.tslbOnDisplay.Text = "_";
+            // 
+            // tslbOnDisplayText
+            // 
+            this.tslbOnDisplayText.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tslbOnDisplayText.Name = "tslbOnDisplayText";
+            this.tslbOnDisplayText.Size = new System.Drawing.Size(81, 22);
+            this.tslbOnDisplayText.Text = "Выбрано книг:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(548, 647);
-            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.flpBooks);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.tsMenu);
             this.Name = "Form1";
             this.Text = "Магазин Книг";
@@ -210,7 +211,6 @@
 
         private System.Windows.Forms.ToolStrip tsMenu;
         private System.Windows.Forms.ToolStripButton tsbtnLogInLogOut;
-        private System.Windows.Forms.ToolStripLabel tslbSearch;
         private System.Windows.Forms.ToolStripTextBox tstbSearch;
         private System.Windows.Forms.ToolStripComboBox tscbSearchType;
         private System.Windows.Forms.ToolStripLabel tslbLogin;
@@ -221,10 +221,10 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton tsbtnPrev;
         private System.Windows.Forms.ToolStripLabel tslbPageNumber;
-        private System.Windows.Forms.ToolStripComboBox tscbBooksOnPage;
         private System.Windows.Forms.ToolStripButton tsbtnNext;
         private System.Windows.Forms.ToolStripLabel tslbOnDisplay;
         private System.Windows.Forms.ToolStripLabel tslbOnDisplayText;
+        private System.Windows.Forms.ToolStripButton tsbtnSearch;
     }
 }
 
