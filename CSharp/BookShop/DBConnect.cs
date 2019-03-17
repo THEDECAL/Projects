@@ -18,7 +18,6 @@ namespace BookShop
             if (mode == "DropCreateDatabaseAlways") Database.SetInitializer(new InitDropCreateDatabaseAlways());
             else if (mode == "DropCreateDatabaseIfModelChanges") Database.SetInitializer(new InitDropCreateDatabaseIfModelChanges());
             else if (mode == "CreateDatabaseIfNotExists") Database.SetInitializer(new InitCreateDatabaseIfNotExists());
-            //else Database.SetInitializer(new InitDropCreateDatabaseAlways());
         }
         SQLDbConntext() : base("name=default2") { }
         public DbSet<Book> Books { get; set; }
@@ -109,34 +108,11 @@ namespace BookShop
 
             return DbContext.Publishers.FirstOrDefault(b => b.Name == name);
         }
-        //public T CheckUniq<T>(string name)
-        //{
-        //    Type t = typeof(T);
-        //    Type dbContextType = DbContext.GetType();
-        //    string className = t.Name;
-        //    IQueryable<T> list = dbContextType.GetProperty(className + "s").GetValue(DbContext) as IQueryable<T>;
-
-        //    T obj = (T)Activator.CreateInstance(t);
-        //    foreach (dynamic item in list)
-        //    {
-        //        if (item.Name == name)
-        //        {
-        //            obj = item;
-        //            break;
-        //        }
-        //    }
-
-        //    if (obj == null)
-        //    {
-        //        T o = (T)Activator.CreateInstance(t);
-        //        t.GetProperty("Name").SetValue(name, o);
-        //        //o = new T { Name = name };
-        //        //SQLDbContext.DbContext.Brands.Add(brand);
-        //        //SQLDbContext.DbContext.SaveChanges();
-        //    }
-
-        //    return SQLDbContext.DbContext.Brands.FirstOrDefault(b => b.Name == name);
-        //}
+        public static bool CheckLogin(string login)
+        {
+            Account u = DbContext.Accounts.FirstOrDefault(a => a.Login == login);
+            return (u != null) ? true : false;
+        }
     }
 
     class InitDropCreateDatabaseAlways : DropCreateDatabaseAlways<SQLDbConntext>

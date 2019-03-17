@@ -29,49 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.lbName = new System.Windows.Forms.Label();
-            this.lbAuthor = new System.Windows.Forms.Label();
-            this.btnImage = new System.Windows.Forms.Button();
             this.cmsRightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.положитьВКорзинуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.изменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lbPrice = new System.Windows.Forms.Label();
             this.gbGeneric = new System.Windows.Forms.GroupBox();
+            this.tbPrice = new System.Windows.Forms.TextBox();
+            this.tbName = new System.Windows.Forms.TextBox();
+            this.pbImage = new System.Windows.Forms.PictureBox();
             this.cmsRightClick.SuspendLayout();
             this.gbGeneric.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.SuspendLayout();
-            // 
-            // lbName
-            // 
-            this.lbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbName.Location = new System.Drawing.Point(6, 210);
-            this.lbName.Name = "lbName";
-            this.lbName.Size = new System.Drawing.Size(112, 28);
-            this.lbName.TabIndex = 2;
-            this.lbName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbAuthor
-            // 
-            this.lbAuthor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbAuthor.Location = new System.Drawing.Point(6, 12);
-            this.lbAuthor.Name = "lbAuthor";
-            this.lbAuthor.Size = new System.Drawing.Size(112, 28);
-            this.lbAuthor.TabIndex = 3;
-            this.lbAuthor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnImage
-            // 
-            this.btnImage.ForeColor = System.Drawing.Color.Black;
-            this.btnImage.Location = new System.Drawing.Point(6, 43);
-            this.btnImage.Name = "btnImage";
-            this.btnImage.Size = new System.Drawing.Size(112, 164);
-            this.btnImage.TabIndex = 4;
-            this.btnImage.UseVisualStyleBackColor = true;
-            this.btnImage.Click += new System.EventHandler(this.btnImage_Click);
-            this.btnImage.MouseLeave += new System.EventHandler(this.btnImage_MouseLeave);
-            this.btnImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.btnImage_MouseMove);
-            this.btnImage.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnImage_MouseUp);
             // 
             // cmsRightClick
             // 
@@ -87,41 +56,70 @@
             this.положитьВКорзинуToolStripMenuItem.Name = "положитьВКорзинуToolStripMenuItem";
             this.положитьВКорзинуToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.положитьВКорзинуToolStripMenuItem.Text = "Положить в корзину";
+            this.положитьВКорзинуToolStripMenuItem.Click += new System.EventHandler(this.положитьВКорзинуToolStripMenuItem_Click);
             // 
             // удалитьToolStripMenuItem
             // 
             this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
             this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.удалитьToolStripMenuItem.Text = "Удалить";
+            this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
             // изменитьToolStripMenuItem
             // 
             this.изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
             this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.изменитьToolStripMenuItem.Text = "Изменить";
-            // 
-            // lbPrice
-            // 
-            this.lbPrice.BackColor = System.Drawing.Color.PeachPuff;
-            this.lbPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbPrice.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(69)))));
-            this.lbPrice.Location = new System.Drawing.Point(6, 238);
-            this.lbPrice.Name = "lbPrice";
-            this.lbPrice.Size = new System.Drawing.Size(112, 28);
-            this.lbPrice.TabIndex = 6;
-            this.lbPrice.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.изменитьToolStripMenuItem.Click += new System.EventHandler(this.изменитьToolStripMenuItem_Click);
             // 
             // gbGeneric
             // 
-            this.gbGeneric.Controls.Add(this.btnImage);
-            this.gbGeneric.Controls.Add(this.lbName);
-            this.gbGeneric.Controls.Add(this.lbPrice);
-            this.gbGeneric.Controls.Add(this.lbAuthor);
-            this.gbGeneric.Location = new System.Drawing.Point(1, -4);
+            this.gbGeneric.Controls.Add(this.tbPrice);
+            this.gbGeneric.Controls.Add(this.tbName);
+            this.gbGeneric.Controls.Add(this.pbImage);
+            this.gbGeneric.Location = new System.Drawing.Point(3, -2);
             this.gbGeneric.Name = "gbGeneric";
-            this.gbGeneric.Size = new System.Drawing.Size(124, 273);
+            this.gbGeneric.Size = new System.Drawing.Size(118, 235);
             this.gbGeneric.TabIndex = 7;
             this.gbGeneric.TabStop = false;
+            // 
+            // tbPrice
+            // 
+            this.tbPrice.BackColor = System.Drawing.Color.PeachPuff;
+            this.tbPrice.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbPrice.Enabled = false;
+            this.tbPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbPrice.ForeColor = System.Drawing.Color.SteelBlue;
+            this.tbPrice.Location = new System.Drawing.Point(4, 204);
+            this.tbPrice.Multiline = true;
+            this.tbPrice.Name = "tbPrice";
+            this.tbPrice.Size = new System.Drawing.Size(110, 26);
+            this.tbPrice.TabIndex = 9;
+            this.tbPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbName
+            // 
+            this.tbName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbName.Enabled = false;
+            this.tbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbName.Location = new System.Drawing.Point(2, 7);
+            this.tbName.Multiline = true;
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(112, 33);
+            this.tbName.TabIndex = 8;
+            this.tbName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // pbImage
+            // 
+            this.pbImage.BackColor = System.Drawing.Color.White;
+            this.pbImage.Location = new System.Drawing.Point(2, 40);
+            this.pbImage.Name = "pbImage";
+            this.pbImage.Size = new System.Drawing.Size(112, 162);
+            this.pbImage.TabIndex = 7;
+            this.pbImage.TabStop = false;
+            this.pbImage.MouseLeave += new System.EventHandler(this.pbImage_MouseLeave);
+            this.pbImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbImage_MouseMove);
+            this.pbImage.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbImage_MouseUp);
             // 
             // BookControl
             // 
@@ -132,22 +130,23 @@
             this.Controls.Add(this.gbGeneric);
             this.ForeColor = System.Drawing.SystemColors.WindowText;
             this.Name = "BookControl";
-            this.Size = new System.Drawing.Size(126, 269);
+            this.Size = new System.Drawing.Size(123, 235);
             this.cmsRightClick.ResumeLayout(false);
             this.gbGeneric.ResumeLayout(false);
+            this.gbGeneric.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Label lbName;
-        private System.Windows.Forms.Label lbAuthor;
-        private System.Windows.Forms.Button btnImage;
         private System.Windows.Forms.ContextMenuStrip cmsRightClick;
         private System.Windows.Forms.ToolStripMenuItem положитьВКорзинуToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem изменитьToolStripMenuItem;
-        private System.Windows.Forms.Label lbPrice;
         private System.Windows.Forms.GroupBox gbGeneric;
+        public System.Windows.Forms.PictureBox pbImage;
+        public System.Windows.Forms.TextBox tbPrice;
+        public System.Windows.Forms.TextBox tbName;
     }
 }

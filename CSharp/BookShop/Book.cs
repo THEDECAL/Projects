@@ -19,6 +19,7 @@ namespace BookShop
         public int? Year { get; set; } = null;
         public double? CostPrice { get; set; } = null;
         public double? Price { get; set; } = null;
+        public double? GetCostPrice() => (int)((Price == null) ? 0 : Price / 100) * 70;
         public override string ToString() => $"{Name} ({Author})";
     }
 }

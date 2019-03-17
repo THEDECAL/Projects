@@ -106,7 +106,7 @@ namespace BookShop
                         string txtPrice = bookNode.SelectSingleNode(xPath).InnerText;
                         txtPrice = Regex.Match(txtPrice, @"(\d*)").Value;
                         double price = Convert.ToDouble(txtPrice);
-                        book.CostPrice = (int)(price / 100) * 70;
+                        book.CostPrice = book.GetCostPrice();
                         book.Price = price;
                         
                         //Название

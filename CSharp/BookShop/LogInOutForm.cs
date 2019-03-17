@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace BookShop
 {
-    public partial class LogInOutForm : Form
+    partial class LogInOutForm : Form
     {
         Form1 parent;
         private LogInOutForm()
@@ -21,7 +21,7 @@ namespace BookShop
         private void btnEnter_Click(object sender, EventArgs e)
         {
             if (!parent.CheckAccount(tbLogin.Text, tbPassword.Text))
-                MessageBox.Show("Неверный логин или пароль.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Form1.Msg(Form1.MsgType.ERR_LOGIN, MessageBoxIcon.Warning);
             else Close();
         }
     }
