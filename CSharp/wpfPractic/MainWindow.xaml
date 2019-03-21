@@ -5,75 +5,269 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wpfPractic"
         mc:Ignorable="d"
-        Title="MainWindow" Height="537.603" Width="348.156">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+        Title="MainWindow"
+        Height="15cm" Width="9cm"
+        MinHeight="15cm" MinWidth="9cm"
+        ResizeMode="NoResize"
+        WindowStyle="ToolWindow" BorderBrush="{x:Null}">
+    <Grid Background="#025285">
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="1" Grid.RowSpan="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0"
+                   Padding="12"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Foreground="White"
+                   TextAlignment="Center"
+                   TextWrapping="Wrap"
+                   Text="Lorem ipsum dolor sit amet, consecteur adipiscing elit, sed do
+                   eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                   FontFamily="Arial"
+                   FontSize="11"/>
+        <Grid Grid.Row="1"
+              Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Name="tbContacts" 
-                       Padding="12"
+            <TextBlock Padding="12"
                        Text="please choose, who you want to contact"
                        TextAlignment="Center"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="11"
+                       FontFamily="Arial"
                        Grid.Row="0"
                        Foreground="#BEBEBE"/>
-            <Grid Grid.Row="1" Grid.RowSpan="3" Margin="38,0,38,12">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+            <Grid Grid.Row="1"
+                  Grid.RowSpan="3"
+                  Margin="50,0,50,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0"
+                      Background="#025285">
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Button Grid.Column="0" Background="#025285" BorderBrush="#025285">
-                        <Image Source="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE85nOC0vAjKfiRgFkJITwKSwaLbO61L4WvjgwOdBXsxQx6SppHw"/>
-                    </Button>
-                    <Button Grid.Column="1" Background="#025285">
-                        <Image Source="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE85nOC0vAjKfiRgFkJITwKSwaLbO61L4WvjgwOdBXsxQx6SppHw"/>
-                    </Button>
-                    <Button Grid.Column="2" Background="#025285">
-                        <Image Source="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE85nOC0vAjKfiRgFkJITwKSwaLbO61L4WvjgwOdBXsxQx6SppHw"/>
-                        Jack
-                    </Button>
+                    <Image Grid.Row="0"
+                           Margin="5"
+                           Height="65"
+                           Source="https://www.sciencenews.org/sites/default/files/2018/03/main/articles/041418_reviews_animals_main.jpg" Stretch="Fill"/>
+                    <TextBlock Grid.Row="1"
+                               Padding="1"
+                               Text="jack"
+                               TextAlignment="Center"
+                               Foreground="White"
+                               FontSize="11"
+                               FontFamily="Arial"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="0"
+                           Margin="5"
+                           Height="65"
+                           Source="https://www.sciencenews.org/sites/default/files/2018/03/main/articles/041418_reviews_animals_main.jpg" Stretch="Fill"/>
+                    <TextBlock Grid.Row="1"
+                               Padding="1"
+                               Text="jack"
+                               TextAlignment="Center"
+                               Foreground="White"
+                               FontSize="11"
+                               FontFamily="Arial"
+                               FontWeight="Bold"/>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="0"
+                           Margin="5"
+                           Height="65"
+                           Source="https://www.sciencenews.org/sites/default/files/2018/03/main/articles/041418_reviews_animals_main.jpg" Stretch="Fill"/>
+                    <TextBlock Grid.Row="1"
+                               Padding="1"
+                               Text="jack"
+                               TextAlignment="Center"
+                               Foreground="White"
+                               FontSize="11"
+                               FontFamily="Arial"
+                               FontWeight="Bold"/>
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="4" Grid.RowSpan="6" Background="#025285">
-
+        <Grid Grid.Row="2" Grid.RowSpan="5" Margin="15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0"
+                           Foreground="White"
+                           Grid.Row="0"
+                           Text="Name"
+                           FontSize="11"
+                           FontFamily="Arial"
+                           Padding="15 0 10 0"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="0"
+                           Foreground="White"
+                           Grid.Row="1"
+                           Text="Email"
+                           FontSize="11"
+                           FontFamily="Arial"
+                           Padding="15 0 10 0"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="0"
+                           Foreground="White"
+                           Grid.Row="2"
+                           Text="Phone"
+                           FontSize="11"
+                           FontFamily="Arial"
+                           Padding="15 0 10 0"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="0"
+                           Foreground="White"
+                           Grid.Row="3"
+                           Text="Gender"
+                           FontSize="11"
+                           FontFamily="Arial"
+                           Padding="15 0 10 0"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="0"
+                           Foreground="White"
+                           Grid.Row="4"
+                           Text="Want"
+                           FontSize="11"
+                           FontFamily="Arial"
+                           Padding="15 0 10 0"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"/>
+                <Button Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="5"
+                        Width="100"
+                        Height="30"
+                        FontSize="11"
+                        FontFamily="Arial"
+                        Foreground="White"
+                        Background="CornflowerBlue" BorderBrush="{x:Null}"
+                        >Send</Button>
+                <TextBox Grid.Column="1"
+                         Grid.Row="0"
+                         Margin="0 6 20 6"
+                         FontSize="11"
+                         FontFamily="Arial"
+                         Background="CornflowerBlue"/>
+                <TextBox Grid.Column="1"
+                         Grid.Row="1"
+                         Margin="0 6 20 6"
+                         FontSize="11"
+                         FontFamily="Arial"
+                         Background="CornflowerBlue"/>
+                <TextBox Grid.Column="1"
+                         Grid.Row="2"
+                         Margin="0 6 20 6"
+                         FontSize="11"
+                         FontFamily="Arial"
+                         Background="CornflowerBlue"/>
+                <TextBox Grid.Column="1"
+                         Grid.Row="3"
+                         Margin="0 6 20 6"
+                         FontSize="11"
+                         FontFamily="Arial"
+                         Background="CornflowerBlue"/>
+                <TextBox Grid.Column="1"
+                         Grid.Row="4"
+                         Margin="0 6 20 6"
+                         FontSize="11"
+                         FontFamily="Arial"
+                         Background="CornflowerBlue"/>
+                <TextBlock Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Grid.Row="6"
+                           HorizontalAlignment="Center"
+                           Padding="12"
+                           Foreground="White"
+                           FontSize="11"
+                           FontFamily="Arial"
+                           Text="Login with social"/>
+                <Button Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="7"
+                        Width="150"
+                        Height="30"
+                        FontFamily="Arial"
+                        Foreground="White"
+                        Background="CornflowerBlue">
+                    <Grid Width="150">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                               Width="30"
+                               HorizontalAlignment="Left"
+                               Source="https://facebookbrand.com/wp-content/themes/fb-branding/assets/images/fb-logo.png"/>
+                        <TextBlock Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   FontSize="11"
+                                   FontFamily="Arial"
+                                   Text="Login with Facebook"/>
+                    </Grid>
+                </Button>
+                <Button Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="8"
+                        Width="150"
+                        Height="30"
+                        FontFamily="Arial"
+                        Foreground="White"
+                        Background="CadetBlue">
+                    <Grid Width="150">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                               Width="30"
+                               HorizontalAlignment="Left"
+                               Source="https://avatanplus.com/files/resources/mid/5761ba6c7938615555c037d1.png"/>
+                        <TextBlock Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   FontSize="11"
+                                   FontFamily="Arial"
+                                   Text="Login with Twitter"/>
+                    </Grid>
+                </Button>
+            </Grid>
         </Grid>
-        <TextBlock Name="tbTitle"
-                   Padding="12"
-                   Background="#025285" 
-                   Foreground="White"
-                   TextAlignment="Center"
-                   TextWrapping="Wrap"
-                   Text="Lorem ipsum dolor sit amet, consecteur adipiscing elit, sed do
-                   eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                   Grid.Row="0"
-                   Grid.ColumnSpan="2" FontFamily="Arial"/>
-
     </Grid>
 </Window>
