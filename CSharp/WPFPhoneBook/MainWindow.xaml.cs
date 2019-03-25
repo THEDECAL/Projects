@@ -22,17 +22,41 @@ namespace WPFPhoneBook
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        public People People { get; private set; }
+        public List<People> PhoneBook { get; set; } = new List<People>();
         public MainWindow()
         {
+
             InitializeComponent();
-            DataContext = People;
-            this.IsMinButtonEnabled = false;
+            InitPhoneBookList();
+            DataContext = this;
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             gMain.Visibility = Visibility.Hidden;
+        }
+        private void InitPhoneBookList()
+        {
+            PhoneBook.Add(new People
+            {
+                FName = "Игорь",
+                SName = "Прокофьев",
+                PName = "Иванович",
+                Birth = new DateTime(1990, 10, 2),
+                Email = "www@www.www",
+                PhoneNumber = "+380991230981",
+                PathToImage = "https://cdn130.picsart.com/285935885003201.jpg?c256x256"
+            });
+            PhoneBook.Add(new People
+            {
+                FName = "Никита",
+                SName = "Звегинцев",
+                PName = "Юрьевич",
+                Birth = new DateTime(1990, 8, 23),
+                Email = "thedecal1@gmail.com",
+                PhoneNumber = "+380992993734",
+                PathToImage = "https://scontent.fiev15-1.fna.fbcdn.net/v/t1.0-1/p160x160/44032498_718402521850990_7366167004845178880_n.jpg?_nc_cat=100&_nc_ht=scontent.fiev15-1.fna&oh=61b84b01d5fa47156a458f9f831b53f0&oe=5D041E18"
+            });
         }
     }
 }

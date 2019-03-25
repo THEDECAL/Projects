@@ -24,12 +24,23 @@ namespace wpfPractic
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
         }
 
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
+            People.Gender = (cbGender.SelectedItem as ComboBoxItem).Content as string;
+            People.Want = (cbWant.SelectedItem as ComboBoxItem).Content as string;
 
+            lbPeoples.Items.Add(People.Clone());
             People.Clear();
+            ClearTextBoxes();
+        }
+        private void ClearTextBoxes()
+        {
+            tboxName.Text = "";
+            tboxEmail.Text = "";
+            tboxPhone.Text = "";
         }
     }
 }

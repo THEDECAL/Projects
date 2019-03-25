@@ -8,7 +8,7 @@
         Title="MainWindow"
         Height="18cm" Width="9.5cm"
         MinHeight="18cm" MinWidth="9.5cm"
-        WindowStyle="ThreeDBorderWindow"  BorderBrush="{x:Null}">
+        WindowStyle="ThreeDBorderWindow">
     <Grid Background="#025285">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -186,59 +186,56 @@
                         >Send</Button>
                 <TextBox Grid.Column="1"
                          Grid.Row="0"
+                         Name="tboxName"
                          Margin="0 6 20 6"
                          FontSize="11"
                          FontFamily="Arial"
-                         Background="CornflowerBlue"/>
+                         Background="CornflowerBlue"
+                         Text="{Binding People.Name}"/>
                 <TextBox Grid.Column="1"
                          Grid.Row="1"
+                         Name="tboxEmail"
                          Margin="0 6 20 6"
                          FontSize="11"
                          FontFamily="Arial"
-                         Background="CornflowerBlue"/>
+                         Background="CornflowerBlue"
+                         Text="{Binding People.Email}"/>
                 <TextBox Grid.Column="1"
                          Grid.Row="2"
+                         Name="tboxPhone"
                          Margin="0 6 20 6"
                          FontSize="11"
                          FontFamily="Arial"
-                         Background="CornflowerBlue"/>
+                         Background="CornflowerBlue"
+                         Text="{Binding People.Phone}"/>
                 <ComboBox Grid.Column="1"
                           Grid.Row="3"
+                          Name="cbGender"
                           Margin="0 6 20 6"
                           FontSize="11"
                           FontFamily="Arial"
                           Background="CornflowerBlue">
                     <ComboBoxItem IsSelected="True"
-                                  Background="CornflowerBlue">
-                        <TextBlock Text="Male"
-                                   FontSize="11"
-                                   FontFamily="Arial"/>
-                    </ComboBoxItem>
+                                  Background="CornflowerBlue"
+                                  Content="Male"/>
                     <ComboBoxItem IsSelected="False"
-                                  Background="CornflowerBlue">
-                        <TextBlock Text="Female"
-                                   FontSize="11"
-                                   FontFamily="Arial"/>
-                    </ComboBoxItem>
+                                  Background="CornflowerBlue"
+                                  Content="Female"/>
                 </ComboBox>
                 <ComboBox Grid.Column="1"
                           Grid.Row="4"
+                          Name="cbWant"
                           Margin="0 6 20 6"
                           FontSize="11"
                           FontFamily="Arial"
                           Background="CornflowerBlue">
                     <ComboBoxItem IsSelected="True"
-                                  Background="CornflowerBlue">
-                        <TextBlock Text="Job"
-                                   FontSize="11"
-                                   FontFamily="Arial"/>
-                    </ComboBoxItem>
+                                  Background="CornflowerBlue"
+                                  Content="Job"/>
+
                     <ComboBoxItem IsSelected="False"
-                                  Background="CornflowerBlue">
-                        <TextBlock Text="Girlfrand"
-                                   FontSize="11"
-                                   FontFamily="Arial"/>
-                    </ComboBoxItem>
+                                  Background="CornflowerBlue"
+                                  Content="Girlfrand"/>
                 </ComboBox>
                 <TextBlock Grid.Column="0"
                            Grid.ColumnSpan="2"
@@ -305,7 +302,95 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    
+                    <ListBox Grid.Column="0"
+                             Name="lbPeoples">
+                    </ListBox>
+                    <Grid Grid.Column="1"
+                          Margin="5 0 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <!-- Колонка №1 -->
+                        <TextBlock Grid.Column="0"
+                                   Grid.Row="0"
+                                   Text="Name:"
+                                   Foreground="White"
+                                   FontSize="11"
+                                   FontFamily="Arial"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="0"
+                                   Grid.Row="1"
+                                   Text="Email:"
+                                   Foreground="White"
+                                   FontSize="11"
+                                   FontFamily="Arial"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="0"
+                                   Grid.Row="2"
+                                   Text="Phone:"
+                                   Foreground="White"
+                                   FontSize="11"
+                                   FontFamily="Arial"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="0"
+                                   Grid.Row="3"
+                                   Text="Gender:"
+                                   Foreground="White"
+                                   FontSize="11"
+                                   FontFamily="Arial"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="0"
+                                   Grid.Row="4"
+                                   Text="Want:"
+                                   Foreground="White"
+                                   FontSize="11"
+                                   FontFamily="Arial"
+                                   VerticalAlignment="Center"/>
+                        <!-- Колонка №2 -->
+                        <TextBlock Grid.Column="1"
+                                   Grid.Row="0"
+                                   Foreground="White"
+                                   FontSize="10"
+                                   FontFamily="Arial"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding ElementName=lbPeoples, Path=SelectedItem.Name}"/>
+                        <TextBlock Grid.Column="1"
+                                   Grid.Row="1"
+                                   Foreground="White"
+                                   FontSize="10"
+                                   FontFamily="Arial"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding ElementName=lbPeoples, Path=SelectedItem.Email}"/>
+                        <TextBlock Grid.Column="1"
+                                   Grid.Row="2"
+                                   Foreground="White"
+                                   FontSize="10"
+                                   FontFamily="Arial"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding ElementName=lbPeoples, Path=SelectedItem.Phone}"/>
+                        <TextBlock Grid.Column="1"
+                                   Grid.Row="3"
+                                   Foreground="White"
+                                   FontSize="10"
+                                   FontFamily="Arial"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding ElementName=lbPeoples, Path=SelectedItem.Gender}"/>
+                        <TextBlock Grid.Column="1"
+                                   Grid.Row="4"
+                                   Foreground="White"
+                                   FontSize="10"
+                                   FontFamily="Arial"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding ElementName=lbPeoples, Path=SelectedItem.Want}"/>
+                    </Grid>
                 </Grid>
             </Grid>
         </Grid>
