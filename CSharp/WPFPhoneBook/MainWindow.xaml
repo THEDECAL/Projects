@@ -1,0 +1,91 @@
+﻿<Controls:MetroWindow x:Class="WPFPhoneBook.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:WPFPhoneBook"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+                      
+        Title="Телефонная книга"
+        Height="480" Width="260"
+        Icon="http://psforce.ru/wp-content/uploads/2012/09/phonebook_icon.png"
+        ShowMinButton="False" ShowMaxRestoreButton="False"
+        ResizeMode="NoResize"
+        BorderThickness="1"
+        WindowStartupLocation="CenterScreen"
+                      
+        BorderBrush="{DynamicResource AccentColorBrush}">
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Name="btnAdd"  Content="Добавить" Click="btnAdd_Click"/>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="TextBlock" x:Key="tblckStyle">
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="TextAlignment" Value="Left"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Name="gMain">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0"
+                     Controls:TextBoxHelper.Watermark="Поиск"
+                     Controls:TextBoxHelper.ClearTextButton="True"/>
+            <Controls:SplitButton Grid.Column="1" SelectedIndex="0">
+                <Controls:SplitButton.Items>
+                    <TextBlock Text="По имени"/>
+                </Controls:SplitButton.Items>
+            </Controls:SplitButton>
+        </Grid>
+        <ListBox Grid.Row="1">
+            <Border BorderBrush="Sienna" BorderThickness="0 0 0 3">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Height="50" Source="https://cdn130.picsart.com/285935885003201.jpg?c256x256"/>
+                    <Grid Grid.Column="1" Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Name="tblckFName" Grid.Column="0" Grid.Row="0"
+                                   Style="{StaticResource tblckStyle}"
+                                   Text="Игорь&#x0a;Иванович"/>
+                        <Button Name="btnInfo" Grid.Column="1"
+                                Width="30" Height="30"
+                                Margin="5"
+                                Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}">
+                            <icons:PackIconModern Kind="Edit"/>
+                        </Button>
+                        <Button Name="btnDelete" Grid.Column="2"
+                                Width="30" Height="30"
+                                Margin="5"
+                                Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}">
+                            <icons:PackIconModern Kind="Delete"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Border>
+        </ListBox>
+    </Grid>
+</Controls:MetroWindow>
