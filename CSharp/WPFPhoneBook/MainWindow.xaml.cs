@@ -23,6 +23,7 @@ namespace WPFPhoneBook
     public partial class MainWindow : MetroWindow
     {
         public List<People> PhoneBook { get; set; } = new List<People>();
+        //public People CurrentPeople { get; set; } = new People();
         public MainWindow()
         {
 
@@ -31,9 +32,21 @@ namespace WPFPhoneBook
             DataContext = this;
         }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        private void btnAdd_Click(object s, RoutedEventArgs e)
         {
-            gMain.Visibility = Visibility.Hidden;
+            MainGridShowSwitcher();
+        }
+        private void MainGridShowSwitcher() => gMain.Visibility = (gMain.Visibility == Visibility.Hidden) ? Visibility.Visible : Visibility.Hidden;
+        private void btnInfo_Click(object s, RoutedEventArgs e)
+        {
+            Button btn = s as Button;
+            //CurrentPeople.CopyPropertyValues(btn.DataContext as People);
+            var People = btn.DataContext as People;
+            var uri = new Uri(People.PathToImage);
+            iImage.Source = BitmapFrame.Create(uri);
+
+            MainGridShowSwitcher();
+            gInfo.Visibility = Visibility.Visible;
         }
         private void InitPhoneBookList()
         {

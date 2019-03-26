@@ -12,6 +12,12 @@ namespace WPFPhoneBook
         public string PathToImage { get; set; }
         public string Email { get; set; }
         public DateTime Birth { get; set; }
+        public void CopyPropertyValues(People o)
+        {
+            Type t = this.GetType();
+            foreach (var item in t.GetProperties())
+                item.SetValue(this, item.GetValue(o));
+        }
         public override string ToString() => $"{FName} {PName}";
     }
 }
