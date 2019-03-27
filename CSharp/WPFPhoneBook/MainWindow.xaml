@@ -7,7 +7,8 @@
         xmlns:local="clr-namespace:WPFPhoneBook"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-                      
+
+        Name="mWindow"
         Title="PhoneBook"
         Height="480" Width="280"
         Icon="http://psforce.ru/wp-content/uploads/2012/09/phonebook_icon.png"
@@ -17,11 +18,6 @@
         WindowStartupLocation="CenterScreen"
                       
         BorderBrush="{DynamicResource AccentColorBrush}">
-    <Controls:MetroWindow.RightWindowCommands>
-        <Controls:WindowCommands>
-            <Button Name="btnAdd"  Content="Добавить" Click="btnAdd_Click"/>
-        </Controls:WindowCommands>
-    </Controls:MetroWindow.RightWindowCommands>
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -33,110 +29,168 @@
                 <Setter Property="FontSize" Value="12"/>
                 <Setter Property="TextAlignment" Value="Left"/>
                 <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Padding" Value="2"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="TextBox" x:Key="tboxStyle">
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="FontWeight" Value="ExtraBlack"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="TextAlignment" Value="Left"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Padding" Value="2"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
             </Style>
         </ResourceDictionary>
     </Window.Resources>
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Name="btnAdd" Click="btnAdd_Click">
+                <icons:PackIconModern Kind="Add"/>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout Name="fInfo" Position="Left" Height="480" Width="280" IsOpenChanged="FInfo_IsOpenChanged">
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" BorderBrush="Sienna" BorderThickness="2" Margin="50 5 50 5">
+                        <Image Name="iImage"/>
+                    </Border>
+
+                    <TextBlock Grid.Row="1" Text="Имя:" Style="{StaticResource tblckStyle}" FontSize="10"/>
+                    <TextBlock Grid.Row="3" Text="Фамилия:" Style="{StaticResource tblckStyle}" FontSize="10"/>
+                    <TextBlock Grid.Row="5" Text="Отчетсво:" Style="{StaticResource tblckStyle}" FontSize="10"/>
+                    <TextBlock Grid.Row="7" Text="Номер телефона:" Style="{StaticResource tblckStyle}" FontSize="10"/>
+                    <TextBlock Grid.Row="9" Text="Почтовый адрес:" Style="{StaticResource tblckStyle}" FontSize="10"/>
+                    <TextBlock Grid.Row="11" Text="Дата рождения:" Style="{StaticResource tblckStyle}" FontSize="10"/>
+
+                    <TextBox Name="tboxFName" Grid.Row="2" IsReadOnly="True"
+                             Style="{StaticResource tboxStyle}"
+                             Controls:TextBoxHelper.ClearTextButton="True"
+                             TextAlignment="Center"/>
+                    <TextBox Name="tboxSName" Grid.Row="4" IsReadOnly="True"
+                             Style="{StaticResource tboxStyle}"
+                             Controls:TextBoxHelper.ClearTextButton="True"
+                             TextAlignment="Center"/>
+                    <TextBox Name="tboxPName" Grid.Row="6" IsReadOnly="True"
+                             Style="{StaticResource tboxStyle}"
+                             Controls:TextBoxHelper.ClearTextButton="True"
+                             TextAlignment="Center"/>
+                    <TextBox Name="tboxPhoneNumber" Grid.Row="8" IsReadOnly="True"
+                             Style="{StaticResource tboxStyle}"
+                             Controls:TextBoxHelper.ClearTextButton="True"
+                             TextAlignment="Center"/>
+                    <TextBox Name="tboxEmail" Grid.Row="10" IsReadOnly="True"
+                             Style="{StaticResource tboxStyle}"
+                             Controls:TextBoxHelper.ClearTextButton="True"
+                             TextAlignment="Center"/>
+                    <TextBox Name="tboxBirth" Grid.Row="12" IsReadOnly="True"
+                             Style="{StaticResource tboxStyle}"
+                             Controls:TextBoxHelper.ClearTextButton="True"
+                             TextAlignment="Center"/>
+                </Grid>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
     <Grid>
-        <Grid Name="gMain" Visibility="Visible">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0"
                          Controls:TextBoxHelper.Watermark="Поиск"
                          Controls:TextBoxHelper.ClearTextButton="True"/>
-                <ComboBox Grid.Column="1" SelectedIndex="0">
-                    <ComboBox.Items>
-                        <TextBlock Text="По имени" Style="{StaticResource tblckStyle}"/>
-                        <TextBlock Text="По фамилии" Style="{StaticResource tblckStyle}"/>
-                        <TextBlock Text="По отчеству" Style="{StaticResource tblckStyle}"/>
-                        <TextBlock Text="По почте" Style="{StaticResource tblckStyle}"/>
-                        <TextBlock Text="По дате рождения" Style="{StaticResource tblckStyle}"/>
-                    </ComboBox.Items>
-                </ComboBox>
-            </Grid>
-            <ListBox Name="lbPeoples" Grid.Row="1" ItemsSource="{Binding PhoneBook}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Border BorderBrush="Sienna" BorderThickness="0 0 0 3">
-                            <Grid>
+            <ComboBox Grid.Column="1" SelectedIndex="0">
+                <ComboBox.Items>
+                    <TextBlock Text="По имени" Style="{StaticResource tblckStyle}"/>
+                    <TextBlock Text="По фамилии" Style="{StaticResource tblckStyle}"/>
+                    <TextBlock Text="По отчеству" Style="{StaticResource tblckStyle}"/>
+                    <TextBlock Text="По почте" Style="{StaticResource tblckStyle}"/>
+                    <TextBlock Text="По дате рождения" Style="{StaticResource tblckStyle}"/>
+                </ComboBox.Items>
+            </ComboBox>
+        </Grid>
+        <ListBox Name="lbPeoples" Grid.Row="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Sienna" BorderThickness="0 0 0 3">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Height="50" Source="{Binding PathToImage}"/>
+                            <Grid Grid.Column="1" Margin="5">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <Image Height="50" Source="{Binding PathToImage}"/>
-                                <Grid Grid.Column="1" Margin="5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Name="tblckFName" Grid.Column="0" Grid.Row="0"
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Name="tblckFName" Grid.Column="0" Grid.Row="0"
                                                Style="{StaticResource tblckStyle}"
                                                Text="{Binding FName}"/>
-                                    <TextBlock Name="tblckPName" Grid.Column="0" Grid.Row="1"
+                                <TextBlock Name="tblckPName" Grid.Column="0" Grid.Row="1"
                                                Style="{StaticResource tblckStyle}"
                                                Text="{Binding PName}"/>
-                                    <TextBlock Name="tblckPhoneNumber" Grid.Column="0" Grid.Row="2"
+                                <TextBlock Name="tblckPhoneNumber" Grid.Column="0" Grid.Row="2"
                                                Style="{StaticResource tblckStyle}"
                                                Text="{Binding PhoneNumber}"
                                                FontSize="10"
                                                TextAlignment="Right"
                                                Foreground="RosyBrown"/>
-                                    <Button Name="btnInfo" Grid.Column="1" Grid.RowSpan="3"
+                                <Button Name="btnInfo" Grid.Column="1" Grid.RowSpan="3"
                                             Width="30" Height="30"
                                             Margin="5"
                                             Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
                                             Click="btnInfo_Click">
-                                        <icons:PackIconModern Kind="Information"/>
-                                    </Button>
-                                    <Button Name="btnEdit" Grid.Column="2" Grid.RowSpan="3"
+                                    <icons:PackIconModern Kind="Information"/>
+                                </Button>
+                                <Button Name="btnEdit" Grid.Column="2" Grid.RowSpan="3"
                                             Width="30" Height="30"
                                             Margin="5"
                                             Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}">
-                                        <icons:PackIconModern Kind="Edit"/>
-                                    </Button>
-                                    <Button Name="btnDelete" Grid.Column="3" Grid.RowSpan="3"
+                                    <icons:PackIconModern Kind="Edit"/>
+                                </Button>
+                                <Button Name="btnDelete" Grid.Column="3" Grid.RowSpan="3"
                                             Width="30" Height="30"
                                             Margin="5"
-                                            Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}">
-                                        <icons:PackIconModern Kind="Delete"/>
-                                    </Button>
-                                </Grid>
+                                            Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                                            Click="btnDelete_Click">
+                                    <icons:PackIconModern Kind="Delete"/>
+                                </Button>
                             </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </Grid>
-        <Grid Name="gInfo" Visibility="Hidden">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Image Name="iImage" Grid.Row="0"/>
-            <TextBlock Name="tblckFName" Grid.Row="1"/>
-            <TextBlock Name="tblckSName" Grid.Row="2"/>
-            <TextBlock Name="tblckPName" Grid.Row="3"/>
-            <TextBlock Name="tblckPhoneNumber" Grid.Row="4"/>
-            <TextBlock Name="tblckEmail" Grid.Row="5"/>
-            <TextBlock Name="tblckBirth" Grid.Row="6"/>
-        </Grid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Controls:MetroWindow>

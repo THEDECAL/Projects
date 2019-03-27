@@ -22,8 +22,8 @@ namespace WPFPhoneBook
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        public List<People> PhoneBook { get; set; } = new List<People>();
-        //public People CurrentPeople { get; set; } = new People();
+        enum mode { SHOW, EDIT, ADD };
+        mode currMode = mode.SHOW;
         public MainWindow()
         {
 
@@ -34,23 +34,49 @@ namespace WPFPhoneBook
 
         private void btnAdd_Click(object s, RoutedEventArgs e)
         {
-            MainGridShowSwitcher();
+            currMode = mode.ADD;
+            lbPeoples.Items.Add(new People());
         }
-        private void MainGridShowSwitcher() => gMain.Visibility = (gMain.Visibility == Visibility.Hidden) ? Visibility.Visible : Visibility.Hidden;
         private void btnInfo_Click(object s, RoutedEventArgs e)
         {
             Button btn = s as Button;
-            //CurrentPeople.CopyPropertyValues(btn.DataContext as People);
             var People = btn.DataContext as People;
+            fInfo.IsOpen = !fInfo.IsOpen;
+
             var uri = new Uri(People.PathToImage);
             iImage.Source = BitmapFrame.Create(uri);
+            tboxFName.Text = People.FName;
+            tboxSName.Text = People.SName;
+            tboxPName.Text = People.PName;
+            tboxPhoneNumber.Text = People.PhoneNumber;
+            tboxEmail.Text = People.Email;
+            tboxBirth.Text = People.Birth.ToShortDateString();
+        }
+        private void TextBoxReadOnlySwitcher(bool value)
+        {
+            tboxFName.IsReadOnly = value;
+            tboxSName.IsReadOnly = value;
+            tboxPName.IsReadOnly = value;
+            tboxPhoneNumber.IsReadOnly = value;
+            tboxEmail.IsReadOnly = value;
+            tboxBirth.IsReadOnly = value;
+        }
+        private void btnEdit_Click(object s, RoutedEventArgs e)
+        {
+            currMode = mode.EDIT;
+            TextBoxReadOnlySwitcher(false);
 
-            MainGridShowSwitcher();
-            gInfo.Visibility = Visibility.Visible;
+            
+        }
+        private void btnDelete_Click(object s, RoutedEventArgs e)
+        {
+            Button btn = s as Button;
+            var People = btn.DataContext as People;
+            lbPeoples.Items.Remove(People);
         }
         private void InitPhoneBookList()
         {
-            PhoneBook.Add(new People
+            lbPeoples.Items.Add(new People
             {
                 FName = "Игорь",
                 SName = "Прокофьев",
@@ -60,7 +86,7 @@ namespace WPFPhoneBook
                 PhoneNumber = "+380991230981",
                 PathToImage = "https://cdn130.picsart.com/285935885003201.jpg?c256x256"
             });
-            PhoneBook.Add(new People
+            lbPeoples.Items.Add(new People
             {
                 FName = "Никита",
                 SName = "Звегинцев",
@@ -70,6 +96,22 @@ namespace WPFPhoneBook
                 PhoneNumber = "+380992993734",
                 PathToImage = "https://scontent.fiev15-1.fna.fbcdn.net/v/t1.0-1/p160x160/44032498_718402521850990_7366167004845178880_n.jpg?_nc_cat=100&_nc_ht=scontent.fiev15-1.fna&oh=61b84b01d5fa47156a458f9f831b53f0&oe=5D041E18"
             });
+        }
+
+        private void FInfo_IsOpenChanged(object sender, RoutedEventArgs e)
+        {
+            if (!fInfo.IsOpen)
+            {
+                if (currMode == mode.ADD)
+                {
+                }
+                else if (currMode == mode.EDIT)
+                {
+                }
+            }
+
+            TextBoxReadOnlySwitcher(true);
+            currMode = mode.SHOW;
         }
     }
 }
