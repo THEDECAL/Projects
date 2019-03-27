@@ -59,15 +59,5 @@ namespace WPFPhoneBook.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap phonebook_icon {
-            get {
-                object obj = ResourceManager.GetObject("phonebook_icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }
