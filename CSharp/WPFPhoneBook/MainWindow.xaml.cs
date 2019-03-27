@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,6 @@ namespace WPFPhoneBook
             InitPhoneBookList();
             DataContext = this;
         }
-
         private void btnAdd_Click(object s, RoutedEventArgs e)
         {
             People People = new People();
@@ -57,7 +57,14 @@ namespace WPFPhoneBook
         private void btnEdit_Click(object s, RoutedEventArgs e)
         {
             TextBoxReadOnlySwitcher(false);
+            btnImage.Click += ImageSourceSet;
             btnInfo_Click(s, e);
+        }
+        private void ImageSourceSet(object s, RoutedEventArgs e)
+        {
+            Button btn = s as Button;
+            gImageInsert.DataContext = btn.DataContext;
+            fImageInsert.IsOpen = !fImageInsert.IsOpen;
         }
         private void btnDelete_Click(object s, RoutedEventArgs e)
         {
@@ -88,30 +95,32 @@ namespace WPFPhoneBook
                 PathToImage = "https://scontent.fiev15-1.fna.fbcdn.net/v/t1.0-1/p160x160/44032498_718402521850990_7366167004845178880_n.jpg?_nc_cat=100&_nc_ht=scontent.fiev15-1.fna&oh=61b84b01d5fa47156a458f9f831b53f0&oe=5D041E18"
             });
         }
-
         private void FInfo_IsOpenChanged(object sender, RoutedEventArgs e)
         {
             if (!fInfo.IsOpen)
             {
                 TextBoxReadOnlySwitcher(true);
+                btnImage.Click -= ImageSourceSet;
+                fImageInsert.IsOpen = false;
             }
         }
-
         private void TboxSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (tboxSearch.Text.Length > 2)
             {
-                //string searchType = (cbSearchTypes.SelectedItem as TextBlock).Tag as string;
-                //Type t = typeof(People);
-                //var tmp = t.GetProperty(searchType, t);
-                ;
-                lbPeoples.Items.Filter = (o) => {
-                    //var text = t.GetProperty(searchType, t).GetValue(o).ToString();
-                    //return text.Contains(tboxSearch.Text);
-                    return (o as People).FName.Contains(tboxSearch.Text);
+                string searchType = (cbSearchTypes.SelectedItem as TextBlock).Tag as string;
+                Type t = typeof(People);
+                var prop = t.GetProperty(searchType);
+                
+                lbPeoples.Items.Filter = (o) =>
+                {
+                    var text = prop.GetValue(o).ToString();
+                    return text.Contains(tboxSearch.Text);
                 };
             }
             else lbPeoples.Items.Filter = (o) => { return true; };
         }
+
+        private void BtnHideImageInsert_Click(object sender, RoutedEventArgs e) => fImageInsert.IsOpen = false;
     }
 }
