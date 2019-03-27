@@ -22,11 +22,8 @@ namespace WPFPhoneBook
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        enum mode { SHOW, EDIT, ADD };
-        mode currMode = mode.SHOW;
         public MainWindow()
         {
-
             InitializeComponent();
             InitPhoneBookList();
             DataContext = this;
@@ -34,8 +31,11 @@ namespace WPFPhoneBook
 
         private void btnAdd_Click(object s, RoutedEventArgs e)
         {
-            currMode = mode.ADD;
-            lbPeoples.Items.Add(new People());
+            People People = new People();
+            lbPeoples.Items.Add(People);
+            Button btn = new Button();
+            btn.DataContext = People;
+            btnEdit_Click(btn, null);
         }
         private void btnInfo_Click(object s, RoutedEventArgs e)
         {
@@ -43,14 +43,7 @@ namespace WPFPhoneBook
             var People = btn.DataContext as People;
             fInfo.IsOpen = !fInfo.IsOpen;
 
-            var uri = new Uri(People.PathToImage);
-            iImage.Source = BitmapFrame.Create(uri);
-            tboxFName.Text = People.FName;
-            tboxSName.Text = People.SName;
-            tboxPName.Text = People.PName;
-            tboxPhoneNumber.Text = People.PhoneNumber;
-            tboxEmail.Text = People.Email;
-            tboxBirth.Text = People.Birth.ToShortDateString();
+            gInfo.DataContext = People;
         }
         private void TextBoxReadOnlySwitcher(bool value)
         {
@@ -63,10 +56,8 @@ namespace WPFPhoneBook
         }
         private void btnEdit_Click(object s, RoutedEventArgs e)
         {
-            currMode = mode.EDIT;
             TextBoxReadOnlySwitcher(false);
-
-            
+            btnInfo_Click(s, e);
         }
         private void btnDelete_Click(object s, RoutedEventArgs e)
         {
@@ -102,16 +93,25 @@ namespace WPFPhoneBook
         {
             if (!fInfo.IsOpen)
             {
-                if (currMode == mode.ADD)
-                {
-                }
-                else if (currMode == mode.EDIT)
-                {
-                }
+                TextBoxReadOnlySwitcher(true);
             }
+        }
 
-            TextBoxReadOnlySwitcher(true);
-            currMode = mode.SHOW;
+        private void TboxSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (tboxSearch.Text.Length > 2)
+            {
+                //string searchType = (cbSearchTypes.SelectedItem as TextBlock).Tag as string;
+                //Type t = typeof(People);
+                //var tmp = t.GetProperty(searchType, t);
+                ;
+                lbPeoples.Items.Filter = (o) => {
+                    //var text = t.GetProperty(searchType, t).GetValue(o).ToString();
+                    //return text.Contains(tboxSearch.Text);
+                    return (o as People).FName.Contains(tboxSearch.Text);
+                };
+            }
+            else lbPeoples.Items.Filter = (o) => { return true; };
         }
     }
 }

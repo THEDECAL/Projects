@@ -53,7 +53,7 @@
     <Controls:MetroWindow.Flyouts>
         <Controls:FlyoutsControl>
             <Controls:Flyout Name="fInfo" Position="Left" Height="480" Width="280" IsOpenChanged="FInfo_IsOpenChanged">
-                <Grid Margin="5">
+                <Grid Name="gInfo" Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
@@ -71,7 +71,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0" BorderBrush="Sienna" BorderThickness="2" Margin="50 5 50 5">
-                        <Image Name="iImage"/>
+                        <Image Source="{Binding PathToImage}"/>
                     </Border>
 
                     <TextBlock Grid.Row="1" Text="Имя:" Style="{StaticResource tblckStyle}" FontSize="10"/>
@@ -83,28 +83,28 @@
 
                     <TextBox Name="tboxFName" Grid.Row="2" IsReadOnly="True"
                              Style="{StaticResource tboxStyle}"
-                             Controls:TextBoxHelper.ClearTextButton="True"
-                             TextAlignment="Center"/>
+                             TextAlignment="Center"
+                             Text="{Binding FName}"/>
                     <TextBox Name="tboxSName" Grid.Row="4" IsReadOnly="True"
                              Style="{StaticResource tboxStyle}"
-                             Controls:TextBoxHelper.ClearTextButton="True"
-                             TextAlignment="Center"/>
+                             TextAlignment="Center"
+                             Text="{Binding SName}"/>
                     <TextBox Name="tboxPName" Grid.Row="6" IsReadOnly="True"
                              Style="{StaticResource tboxStyle}"
-                             Controls:TextBoxHelper.ClearTextButton="True"
-                             TextAlignment="Center"/>
+                             TextAlignment="Center"
+                             Text="{Binding PName}"/>
                     <TextBox Name="tboxPhoneNumber" Grid.Row="8" IsReadOnly="True"
                              Style="{StaticResource tboxStyle}"
-                             Controls:TextBoxHelper.ClearTextButton="True"
-                             TextAlignment="Center"/>
+                             TextAlignment="Center"
+                             Text="{Binding PhoneNumber}"/>
                     <TextBox Name="tboxEmail" Grid.Row="10" IsReadOnly="True"
                              Style="{StaticResource tboxStyle}"
-                             Controls:TextBoxHelper.ClearTextButton="True"
-                             TextAlignment="Center"/>
+                             TextAlignment="Center"
+                             Text="{Binding Email}"/>
                     <TextBox Name="tboxBirth" Grid.Row="12" IsReadOnly="True"
                              Style="{StaticResource tboxStyle}"
-                             Controls:TextBoxHelper.ClearTextButton="True"
-                             TextAlignment="Center"/>
+                             TextAlignment="Center"
+                             Text="{Binding Birth}"/>
                 </Grid>
             </Controls:Flyout>
         </Controls:FlyoutsControl>
@@ -119,16 +119,21 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0"
-                         Controls:TextBoxHelper.Watermark="Поиск"
-                         Controls:TextBoxHelper.ClearTextButton="True"/>
-            <ComboBox Grid.Column="1" SelectedIndex="0">
+            <TextBox Name="tboxSearch" Grid.Column="0"
+                     Controls:TextBoxHelper.Watermark="Поиск"
+                     Controls:TextBoxHelper.ClearTextButton="True"
+                     FontFamily="Arial"
+                     FontSize="12"
+                     FontWeight="ExtraBlack"
+                     TextChanged="TboxSearch_TextChanged"/>
+            <ComboBox Name="cbSearchTypes" Grid.Column="1" SelectedIndex="0">
                 <ComboBox.Items>
-                    <TextBlock Text="По имени" Style="{StaticResource tblckStyle}"/>
-                    <TextBlock Text="По фамилии" Style="{StaticResource tblckStyle}"/>
-                    <TextBlock Text="По отчеству" Style="{StaticResource tblckStyle}"/>
-                    <TextBlock Text="По почте" Style="{StaticResource tblckStyle}"/>
-                    <TextBlock Text="По дате рождения" Style="{StaticResource tblckStyle}"/>
+                    <TextBlock Text="По имени" Tag="FName" Style="{StaticResource tblckStyle}"/>
+                    <TextBlock Text="По фамилии" Tag="SName" Style="{StaticResource tblckStyle}"/>
+                    <TextBlock Text="По отчеству" Tag="PName" Style="{StaticResource tblckStyle}"/>
+                    <TextBlock Text="По номеру телефона" Tag="PhoneNumber" Style="{StaticResource tblckStyle}"/>
+                    <TextBlock Text="По почте" Tag="Email" Style="{StaticResource tblckStyle}"/>
+                    <TextBlock Text="По дате рождения" Tag="Birth" Style="{StaticResource tblckStyle}"/>
                 </ComboBox.Items>
             </ComboBox>
         </Grid>
@@ -154,32 +159,33 @@
                                     <RowDefinition/>
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Name="tblckFName" Grid.Column="0" Grid.Row="0"
+                                <TextBlock Grid.Column="0" Grid.Row="0"
                                                Style="{StaticResource tblckStyle}"
                                                Text="{Binding FName}"/>
-                                <TextBlock Name="tblckPName" Grid.Column="0" Grid.Row="1"
+                                <TextBlock Grid.Column="0" Grid.Row="1"
                                                Style="{StaticResource tblckStyle}"
                                                Text="{Binding PName}"/>
-                                <TextBlock Name="tblckPhoneNumber" Grid.Column="0" Grid.Row="2"
+                                <TextBlock Grid.Column="0" Grid.Row="2"
                                                Style="{StaticResource tblckStyle}"
                                                Text="{Binding PhoneNumber}"
                                                FontSize="10"
                                                TextAlignment="Right"
                                                Foreground="RosyBrown"/>
-                                <Button Name="btnInfo" Grid.Column="1" Grid.RowSpan="3"
+                                <Button Grid.Column="1" Grid.RowSpan="3"
                                             Width="30" Height="30"
                                             Margin="5"
                                             Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
                                             Click="btnInfo_Click">
                                     <icons:PackIconModern Kind="Information"/>
                                 </Button>
-                                <Button Name="btnEdit" Grid.Column="2" Grid.RowSpan="3"
+                                <Button Grid.Column="2" Grid.RowSpan="3"
                                             Width="30" Height="30"
                                             Margin="5"
-                                            Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}">
+                                            Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                                            Click="btnEdit_Click">
                                     <icons:PackIconModern Kind="Edit"/>
                                 </Button>
-                                <Button Name="btnDelete" Grid.Column="3" Grid.RowSpan="3"
+                                <Button Grid.Column="3" Grid.RowSpan="3"
                                             Width="30" Height="30"
                                             Margin="5"
                                             Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
