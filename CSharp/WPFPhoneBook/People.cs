@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 
 namespace WPFPhoneBook
 {
+    [Serializable]
     public class People
     {
         public string FName { get; set; }

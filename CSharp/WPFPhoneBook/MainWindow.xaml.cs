@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace WPFPhoneBook
 {
@@ -23,10 +24,12 @@ namespace WPFPhoneBook
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        readonly string dbFileName = "PhoneBook.dat";
         public MainWindow()
         {
             InitializeComponent();
-            InitPhoneBookList();
+            Deserialize();
+            Closing += (s, e) => { Serialize(); };
             DataContext = this;
         }
         private void btnAdd_Click(object s, RoutedEventArgs e)
@@ -45,6 +48,18 @@ namespace WPFPhoneBook
 
             gInfo.DataContext = People;
         }
+        private void btnEdit_Click(object s, RoutedEventArgs e)
+        {
+            TextBoxReadOnlySwitcher(false);
+            btnImage.Click += ImageSourceSet;
+            btnInfo_Click(s, e);
+        }
+        private void btnDelete_Click(object s, RoutedEventArgs e)
+        {
+            Button btn = s as Button;
+            var People = btn.DataContext as People;
+            lbPeoples.Items.Remove(People);
+        }
         private void TextBoxReadOnlySwitcher(bool value)
         {
             tboxFName.IsReadOnly = value;
@@ -54,46 +69,11 @@ namespace WPFPhoneBook
             tboxEmail.IsReadOnly = value;
             tboxBirth.IsReadOnly = value;
         }
-        private void btnEdit_Click(object s, RoutedEventArgs e)
-        {
-            TextBoxReadOnlySwitcher(false);
-            btnImage.Click += ImageSourceSet;
-            btnInfo_Click(s, e);
-        }
         private void ImageSourceSet(object s, RoutedEventArgs e)
         {
             Button btn = s as Button;
             gImageInsert.DataContext = btn.DataContext;
-            fImageInsert.IsOpen = !fImageInsert.IsOpen;
-        }
-        private void btnDelete_Click(object s, RoutedEventArgs e)
-        {
-            Button btn = s as Button;
-            var People = btn.DataContext as People;
-            lbPeoples.Items.Remove(People);
-        }
-        private void InitPhoneBookList()
-        {
-            lbPeoples.Items.Add(new People
-            {
-                FName = "Игорь",
-                SName = "Прокофьев",
-                PName = "Иванович",
-                Birth = new DateTime(1990, 10, 2),
-                Email = "www@www.www",
-                PhoneNumber = "+380991230981",
-                PathToImage = "https://cdn130.picsart.com/285935885003201.jpg?c256x256"
-            });
-            lbPeoples.Items.Add(new People
-            {
-                FName = "Никита",
-                SName = "Звегинцев",
-                PName = "Юрьевич",
-                Birth = new DateTime(1990, 8, 23),
-                Email = "thedecal1@gmail.com",
-                PhoneNumber = "+380992993734",
-                PathToImage = "https://scontent.fiev15-1.fna.fbcdn.net/v/t1.0-1/p160x160/44032498_718402521850990_7366167004845178880_n.jpg?_nc_cat=100&_nc_ht=scontent.fiev15-1.fna&oh=61b84b01d5fa47156a458f9f831b53f0&oe=5D041E18"
-            });
+            fImageInsert.IsOpen = true;
         }
         private void FInfo_IsOpenChanged(object sender, RoutedEventArgs e)
         {
@@ -120,7 +100,26 @@ namespace WPFPhoneBook
             }
             else lbPeoples.Items.Filter = (o) => { return true; };
         }
-
         private void BtnHideImageInsert_Click(object sender, RoutedEventArgs e) => fImageInsert.IsOpen = false;
+        private void Serialize()
+        {
+            var list = lbPeoples.Items.Cast<People>().ToList();
+            using (FileStream fs = new FileStream(dbFileName, (File.Exists(dbFileName) ? FileMode.Truncate : FileMode.Create), FileAccess.Write))
+            {
+                new BinaryFormatter().Serialize(fs, list);
+            }
+        }
+        private void Deserialize()
+        {
+            var list = new List<People>();
+            if (File.Exists(dbFileName))
+            {
+                using (FileStream fs = new FileStream(dbFileName, FileMode.Open, FileAccess.Read))
+                {
+                    list = new BinaryFormatter().Deserialize(fs) as List<People>;
+                }
+                list.ForEach(o => lbPeoples.Items.Add(o));
+            }
+        }
     }
 }

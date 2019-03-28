@@ -170,7 +170,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Image Height="50" Source="{Binding PathToImage}"/>
+                            <Image Height="50" Width="46" Source="{Binding PathToImage}"/>
                             <Grid Grid.Column="1" Margin="5">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
