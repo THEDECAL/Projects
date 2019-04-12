@@ -1,0 +1,70 @@
+﻿<Controls:MetroWindow x:Class="WPFTestodrom.MainWindow" 
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:local="clr-namespace:WPFTestodrom"
+                      mc:Ignorable="d"
+                      Title="TESTODROM" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="0" Grid.Row="0" >
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Name="btnAdd" Grid.Column="0" FontSize="14" Click="btnAdd_Click">
+                    <iconPacks:Modern Kind="Add"/>
+                </Button>
+                <Button Name="btnRemove" Grid.Column="1" FontSize="14" Click="btnRemove_Click">
+                    <iconPacks:Modern Kind="Delete"/>
+                </Button>
+            </Grid>
+        </Grid>
+        <ListBox Name="lbTests" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Tests}"
+                 BorderBrush="Olive" BorderThickness="1"
+                 MouseDoubleClick="lbTests_MouseDoubleClick"
+                 SelectionChanged="lbTests_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Olive" BorderThickness="0 2 0 2" Margin="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Text="{Binding Name}" FontSize="10" FontWeight="Bold"
+                                       TextWrapping="WrapWithOverflow"/>
+                            <TextBlock Grid.Row="1" Text="{Binding Theme}" FontSize="10" Foreground="Olive"/>
+                            <TextBlock Grid.Row="2"
+                                       Text="{Binding Path=Questions.Count, StringFormat={}{0} вопросов}"
+                                       FontSize="9"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <FlowDocumentReader Grid.Column="1" Grid.RowSpan="2">
+            <FlowDocument  Name="fdTest"/>
+        </FlowDocumentReader>
+    </Grid>
+</Controls:MetroWindow>
