@@ -29,7 +29,12 @@ namespace WPFPhoneBook
         {
             InitializeComponent();
             Deserialize();
-            Closing += (s, e) => { Serialize(); };
+            Closing += (s, e) =>
+            {
+                lbPeoples.Items.Filter = (o) => { return true; };
+                Serialize();
+            };
+            cbSearchTypes.SelectionChanged += (s,e) => { TboxSearch_TextChanged(null, null); };
             DataContext = this;
         }
         private void btnAdd_Click(object s, RoutedEventArgs e)
@@ -94,8 +99,8 @@ namespace WPFPhoneBook
                 
                 lbPeoples.Items.Filter = (o) =>
                 {
-                    var text = prop.GetValue(o).ToString();
-                    return text.Contains(tboxSearch.Text);
+                    var text = prop.GetValue(o).ToString().ToLower();
+                    return text.Contains(tboxSearch.Text.ToLower());
                 };
             }
             else lbPeoples.Items.Filter = (o) => { return true; };
