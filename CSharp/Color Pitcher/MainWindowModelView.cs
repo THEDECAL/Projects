@@ -16,7 +16,7 @@ namespace ColorPitcher
 
         private Color selectedColor = Color.FromArgb(255, 0, 0, 0);
         private Command addCmd;
-        //private Command delCmd;
+        private Command delCmd;
         //private Command chkBoxCmd;
         public Command AddCmd
         {
@@ -26,6 +26,18 @@ namespace ColorPitcher
                 {
                     ListColors.Add(CopyColor(selectedColor));
                     Alpha = 255; Red = 0; Green = 0; Blue = 0;
+                }));
+            }
+        }
+        public Command DelCmd
+        {
+            get
+            {
+                return delCmd ?? (delCmd = new Command((o) =>
+                {
+                    Color color = (Color)o;
+                    ;
+                    ListColors?.Remove((Color)o);
                 }));
             }
         }

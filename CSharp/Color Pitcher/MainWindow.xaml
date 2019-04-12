@@ -4,18 +4,8 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MetroTemplate"
-        mc:Ignorable="d"
-        Title="Color Pitcher" Height="450" Width="300" MinHeight="450" MinWidth="300">
-    <Window.Resources>
-        <Style x:Key="LetterStyle">
-            <Setter Property="Control.FontSize" Value="16"/>
-            <Setter Property="Control.FontWeight" Value="UltraBold"/>
-            <Setter Property="Control.Margin" Value="3"/>
-        </Style>
-    </Window.Resources>
+        Title="Color Pitcher" Height="450" Width="300" MinHeight="450" MinWidth="300"
+        x:Name="wMain">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -31,11 +21,18 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <CheckBox Grid.Row="0" Grid.Column="0" Margin="3" IsChecked="True"/>
-        <CheckBox Grid.Row="1" Grid.Column="0" Margin="3" IsChecked="True"/>
-        <CheckBox Grid.Row="2" Grid.Column="0" Margin="3" IsChecked="True"/>
-        <CheckBox Grid.Row="3" Grid.Column="0" Margin="3" IsChecked="True"/>
+        <Grid.Resources>
+            <Style x:Key="LetterStyle">
+                <Setter Property="Control.FontSize" Value="16"/>
+                <Setter Property="Control.FontWeight" Value="UltraBold"/>
+                <Setter Property="Control.Margin" Value="3"/>
+            </Style>
+        </Grid.Resources>
+
+        <CheckBox x:Name="chkA" Grid.Row="0" Grid.Column="0" Margin="3" IsChecked="True"/>
+        <CheckBox x:Name="chkR" Grid.Row="1" Grid.Column="0" Margin="3" IsChecked="True"/>
+        <CheckBox x:Name="chkG" Grid.Row="2" Grid.Column="0" Margin="3" IsChecked="True"/>
+        <CheckBox x:Name="chkB" Grid.Row="3" Grid.Column="0" Margin="3" IsChecked="True"/>
 
         <TextBlock Grid.Row="0" Grid.Column="1" Text="A"
                    VerticalAlignment="Center" Style="{StaticResource LetterStyle}" ToolTip="Прозрачность"/>
@@ -48,28 +45,71 @@
 
         <Slider x:Name="sA" Grid.Row="0" Grid.Column="2"
                 Margin="3" Maximum="255" Minimum="0"
-                IsSnapToTickEnabled="True" Value="{Binding Alpha}"/>
+                IsSnapToTickEnabled="True" Value="{Binding Alpha}" RenderTransformOrigin="0.5,0.5"
+                IsEnabled="{Binding ElementName=chkA, Path=IsChecked}">
+            <Slider.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-3.100"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Slider.RenderTransform>
+        </Slider>
         <Slider x:Name="sR" Grid.Row="1" Grid.Column="2"
                 Margin="3" Maximum="255" Minimum="0"
-                IsSnapToTickEnabled="True" Value="{Binding Red}"/>
+                IsSnapToTickEnabled="True" Value="{Binding Red}" RenderTransformOrigin="0.5,0.5"
+                IsEnabled="{Binding ElementName=chkR, Path=IsChecked}">
+            <Slider.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-3.100"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Slider.RenderTransform>
+        </Slider>
         <Slider x:Name="sG" Grid.Row="2" Grid.Column="2"
                 Margin="3" Maximum="255" Minimum="0"
-                IsSnapToTickEnabled="True" Value="{Binding Green}"/>
+                IsSnapToTickEnabled="True" Value="{Binding Green}" RenderTransformOrigin="0.5,0.5"
+                IsEnabled="{Binding ElementName=chkG, Path=IsChecked}">
+            <Slider.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-3.100"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Slider.RenderTransform>
+        </Slider>
         <Slider x:Name="sB" Grid.Row="3" Grid.Column="2"
                 Margin="3" Maximum="255" Minimum="0"
-                IsSnapToTickEnabled="True" Value="{Binding Blue}"/>
+                IsSnapToTickEnabled="True" Value="{Binding Blue}" RenderTransformOrigin="0.5,0.5"
+                IsEnabled="{Binding ElementName=chkB, Path=IsChecked}">
+            <Slider.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-3.100"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Slider.RenderTransform>
+        </Slider>
 
         <TextBox Grid.Row="0" Grid.Column="5" Margin="3"
-                 Text="{Binding ElementName=sA, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding ElementName=sA, Path=Value, UpdateSourceTrigger=PropertyChanged}"
+                 IsEnabled="{Binding ElementName=chkA, Path=IsChecked}"/>
         <TextBox Grid.Row="1" Grid.Column="5" Margin="3"
-                 Text="{Binding ElementName=sR, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding ElementName=sR, Path=Value, UpdateSourceTrigger=PropertyChanged}"
+                 IsEnabled="{Binding ElementName=chkR, Path=IsChecked}"/>
         <TextBox Grid.Row="2" Grid.Column="5" Margin="3"
-                 Text="{Binding ElementName=sG, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding ElementName=sG, Path=Value, UpdateSourceTrigger=PropertyChanged}"
+                 IsEnabled="{Binding ElementName=chkG, Path=IsChecked}"/>
         <TextBox Grid.Row="3" Grid.Column="5" Margin="3"
-                 Text="{Binding ElementName=sB, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding ElementName=sB, Path=Value, UpdateSourceTrigger=PropertyChanged}"
+                 IsEnabled="{Binding ElementName=chkB, Path=IsChecked}"/>
 
-        <Button x:Name="btnAdd" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Margin="5" BorderThickness="2"
-                Command="{Binding AddCmd}">
+        <Button x:Name="btnAdd" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Margin="5" BorderThickness="2" Command="{Binding AddCmd}">
             <Button.Background>
                 <SolidColorBrush Color="{Binding SelectedColor, UpdateSourceTrigger=PropertyChanged}"/>
             </Button.Background>
@@ -80,34 +120,53 @@
             </TextBlock>
         </Button>
 
-        <ListBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" Margin="3"
-                 ItemsSource="{Binding ListColors}">
+        <ListBox x:Name="lbColors" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" Margin="3" ItemsSource="{Binding ListColors}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="White" BorderThickness="2">
-                        <Grid Margin="3">
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
+                    <Border BorderBrush="White" BorderThickness="2 1 2 1">
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding A, StringFormat=A: {0}}" FontSize="9"/>
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding R, StringFormat=R: {0}}" FontSize="9"/>
-                            <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding G, StringFormat=G: {0}}" FontSize="9"/>
-                            <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding B, StringFormat=B: {0}}" FontSize="9"/>
+                            <Grid Grid.Column="0" Margin="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="FontSize" Value="9"/>
+                                    </Style>
+                                </Grid.Resources>
 
-                            <Grid Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" >
+                                <TextBlock Grid.Row="0" Text="{Binding A, StringFormat=A: {0}}"/>
+                                <TextBlock Grid.Row="1" Text="{Binding R, StringFormat=R: {0}}"/>
+                                <TextBlock Grid.Row="2" Text="{Binding G, StringFormat=G: {0}}"/>
+                                <TextBlock Grid.Row="3" Text="{Binding B, StringFormat=B: {0}}"/>
+                            </Grid>
+
+                            <Grid Grid.Column="1" Margin="3">
                                 <Grid.Background>
                                     <SolidColorBrush Color="{Binding}"/>
                                 </Grid.Background>
-                                <TextBlock Text="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                           Foreground="White"/>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <TextBlock Grid.Column="0" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Foreground="White" FontWeight="Bold"/>
+                                <Button Grid.Column="1" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                                        Height="20" Width="20" Margin="3"
+                                        Command="{Binding ElementName=wMain, Path=DataContext.DelCmd}"
+                                        CommandParameter="{Binding ElementName=lbColors, Path=SelectedItem}">
+                                    <iconPacks:Modern Kind="Minus"/>
+                                </Button>
                             </Grid>
                         </Grid>
                     </Border>
