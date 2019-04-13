@@ -27,6 +27,12 @@
                 <Setter Property="Control.FontWeight" Value="UltraBold"/>
                 <Setter Property="Control.Margin" Value="3"/>
             </Style>
+            <Style TargetType="Slider" BasedOn="{StaticResource MetroSlider}">
+                <Setter Property="Margin" Value="3"/>
+                <Setter Property="Minimum" Value="0"/>
+                <Setter Property="Maximum" Value="255"/>
+                <Setter Property="IsSnapToTickEnabled" Value="True"/>
+            </Style>
         </Grid.Resources>
 
         <CheckBox x:Name="chkA" Grid.Row="0" Grid.Column="0" Margin="3" IsChecked="True"/>
@@ -43,58 +49,14 @@
         <TextBlock Grid.Row="3" Grid.Column="1" Text="B" Foreground="Blue"
                    VerticalAlignment="Center" Style="{StaticResource LetterStyle}" ToolTip="Синий"/>
 
-        <Slider x:Name="sA" Grid.Row="0" Grid.Column="2"
-                Margin="3" Maximum="255" Minimum="0"
-                IsSnapToTickEnabled="True" Value="{Binding Alpha}" RenderTransformOrigin="0.5,0.5"
-                IsEnabled="{Binding ElementName=chkA, Path=IsChecked}">
-            <Slider.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-3.100"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Slider.RenderTransform>
-        </Slider>
-        <Slider x:Name="sR" Grid.Row="1" Grid.Column="2"
-                Margin="3" Maximum="255" Minimum="0"
-                IsSnapToTickEnabled="True" Value="{Binding Red}" RenderTransformOrigin="0.5,0.5"
-                IsEnabled="{Binding ElementName=chkR, Path=IsChecked}">
-            <Slider.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-3.100"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Slider.RenderTransform>
-        </Slider>
-        <Slider x:Name="sG" Grid.Row="2" Grid.Column="2"
-                Margin="3" Maximum="255" Minimum="0"
-                IsSnapToTickEnabled="True" Value="{Binding Green}" RenderTransformOrigin="0.5,0.5"
-                IsEnabled="{Binding ElementName=chkG, Path=IsChecked}">
-            <Slider.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-3.100"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Slider.RenderTransform>
-        </Slider>
-        <Slider x:Name="sB" Grid.Row="3" Grid.Column="2"
-                Margin="3" Maximum="255" Minimum="0"
-                IsSnapToTickEnabled="True" Value="{Binding Blue}" RenderTransformOrigin="0.5,0.5"
-                IsEnabled="{Binding ElementName=chkB, Path=IsChecked}">
-            <Slider.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-3.100"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Slider.RenderTransform>
-        </Slider>
+        <Slider x:Name="sA" Grid.Row="0" Grid.Column="2" Value="{Binding Alpha}"
+                IsEnabled="{Binding ElementName=chkA, Path=IsChecked}"/>
+        <Slider x:Name="sR" Grid.Row="1" Grid.Column="2" Value="{Binding Red}"
+                IsEnabled="{Binding ElementName=chkR, Path=IsChecked}"/>
+        <Slider x:Name="sG" Grid.Row="2" Grid.Column="2" Value="{Binding Green}"
+                IsEnabled="{Binding ElementName=chkG, Path=IsChecked}"/>
+        <Slider x:Name="sB" Grid.Row="3" Grid.Column="2" Value="{Binding Blue}"
+                IsEnabled="{Binding ElementName=chkB, Path=IsChecked}"/>
 
         <TextBox Grid.Row="0" Grid.Column="5" Margin="3"
                  Text="{Binding ElementName=sA, Path=Value, UpdateSourceTrigger=PropertyChanged}"
@@ -109,14 +71,15 @@
                  Text="{Binding ElementName=sB, Path=Value, UpdateSourceTrigger=PropertyChanged}"
                  IsEnabled="{Binding ElementName=chkB, Path=IsChecked}"/>
 
-        <Button x:Name="btnAdd" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Margin="5" BorderThickness="2" Command="{Binding AddCmd}">
+        <Button x:Name="btnAdd" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Margin="5" BorderThickness="2"
+                Command="{Binding AddCmd}" IsEnabled="{Binding IsNoDoubleColor}">
             <Button.Background>
                 <SolidColorBrush Color="{Binding SelectedColor, UpdateSourceTrigger=PropertyChanged}"/>
             </Button.Background>
             <TextBlock Text="ДОБАВИТЬ" FontWeight="UltraBold">
                 <TextBlock.Foreground>
                     <SolidColorBrush Color="{Binding SelectedColorInvert, UpdateSourceTrigger=PropertyChanged}"/>
-                </TextBlock.Foreground>    
+                </TextBlock.Foreground>
             </TextBlock>
         </Button>
 
@@ -164,7 +127,7 @@
                                 <Button Grid.Column="1" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
                                         Height="20" Width="20" Margin="3"
                                         Command="{Binding ElementName=wMain, Path=DataContext.DelCmd}"
-                                        CommandParameter="{Binding ElementName=lbColors, Path=SelectedItem}">
+                                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=Content}">
                                     <iconPacks:Modern Kind="Minus"/>
                                 </Button>
                             </Grid>

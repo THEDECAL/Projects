@@ -17,7 +17,10 @@ namespace ColorPitcher
         private Color selectedColor = Color.FromArgb(255, 0, 0, 0);
         private Command addCmd;
         private Command delCmd;
-        //private Command chkBoxCmd;
+        public bool IsNoDoubleColor
+        {
+            get { return !(ListColors.Any(o => o.Equals(selectedColor))); }
+        }
         public Command AddCmd
         {
             get
@@ -36,7 +39,6 @@ namespace ColorPitcher
                 return delCmd ?? (delCmd = new Command((o) =>
                 {
                     Color color = (Color)o;
-                    ;
                     ListColors?.Remove((Color)o);
                 }));
             }
@@ -49,6 +51,7 @@ namespace ColorPitcher
                 selectedColor = value;
                 OnPropertyChanged(nameof(SelectedColor));
                 OnPropertyChanged(nameof(SelectedColorInvert));
+                OnPropertyChanged(nameof(IsNoDoubleColor));
             }
         }
 
@@ -57,13 +60,14 @@ namespace ColorPitcher
             get { return Color.FromArgb(255, (byte)(255 - selectedColor.R), (byte)(255 - selectedColor.G), (byte)(255 - selectedColor.B)); }
         }
         public Color CopyColor(Color c) => Color.FromArgb(c.A, c.R, c.G, c.B);
-        public bool CheckDoubleColor() => ListColors.Any(o => o.Equals(selectedColor));
+        //public void CheckDoubleColor() => ListColors.Any(o => o.Equals(selectedColor));
         public byte Alpha
         {
             get { return selectedColor.A; }
             set
             {
                 SelectedColor = Color.FromArgb(value, selectedColor.R, selectedColor.G, selectedColor.B);
+                
                 OnPropertyChanged(nameof(Alpha));
             }
         }
