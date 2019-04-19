@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FlowDocumentConverter;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Xml.Serialization;
+using Spire.Pdf;
 
 namespace FoodBucket.Models
 {
@@ -41,6 +40,42 @@ namespace FoodBucket.Models
                 }
             }
             catch (Exception){ }
+        }
+        public static void SaveToPDF(FlowDocument fd, string filename)
+        {
+            if (fd != null && filename != null)
+            {
+                try
+                {
+                    var arrayBytes = PdfConverter.ConvertDoc(fd);
+                    using (FileStream fs = new FileStream(filename, FileMode.Create, FileAccess.Write))
+                    {
+                        fs.Write(arrayBytes, 0, arrayBytes.Length);
+                    }
+                }
+                catch (Exception) { }
+            }
+        }
+        public static void SaveToDOC(FlowDocument fd, string filename)
+        {
+            if (fd != null && filename != null)
+            {
+                //try
+                //{
+                    var arrayBytes = PdfConverter.ConvertDoc(fd);
+                    string pdfFilename = $"{filename}.pdf";
+                    using (FileStream fs = new FileStream(pdfFilename, FileMode.Create, FileAccess.Write))
+                    {
+                        fs.Write(arrayBytes, 0, arrayBytes.Length);
+                    }
+
+                    PdfDocument pdf = new PdfDocument();
+                    pdf.LoadFromFile(pdfFilename);
+                    pdf.SaveToFile(filename, FileFormat.DOC);
+                    File.Delete(pdfFilename);
+                //}
+                //catch (Exception) { }
+            }
         }
     }
 }

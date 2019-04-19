@@ -152,7 +152,7 @@
                 </Grid.ColumnDefinitions>
 
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="Путь:" Style="{StaticResource TextBoxTitle}"/>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Путь/URL:" Style="{StaticResource TextBoxTitle}"/>
                 <TextBox x:Name="tbPathToImage" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="1"/>
 
                 <Button Grid.Row="1" Grid.Column="2" Height="25" Width="25"

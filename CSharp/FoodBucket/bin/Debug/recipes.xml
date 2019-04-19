@@ -11,8 +11,9 @@
 5. Долить в сковороду оставшееся масло, обжарить чеснок до мягкости, тут же добавить томатную пасту и щепотку сахара, а потом сразу помидоры. Тушить тридцать секунд, после ­чего вмешать все ранее обжаренные овощи и рубленую ­петрушку, посолить, поперчить, потомить минуту — и снять с огня.
 </Description>
     <PathToImages>
-      <string>C:\Users\vm-user\Documents\Visual Studio 2015\Projects\FoodBucket\bin\Debug\Images\Ratatui.jpg</string>
-      <string>C:\Users\vm-user\Documents\Visual Studio 2015\Projects\FoodBucket\bin\Debug\Images\p_OA8MAPSJV.jpg</string>
+      <string>http://s2.eda.ru/StaticContent/Photos/120815023247/120821220211/p_O.jpg</string>
+      <string>http://s2.eda.ru/StaticContent/Photos/150810204910/150818154229/p_O.jpg</string>
+      <string>http://s1.eda.ru/StaticContent/Photos/121114213720/140315154403/p_O.jpg</string>
     </PathToImages>
     <Ingredients>
       <Ingredient>
@@ -76,13 +77,5 @@
         <Unit>По вкусу</Unit>
       </Ingredient>
     </Ingredients>
-  </Recipe>
-  <Recipe>
-    <Name>123</Name>
-    <Type>123</Type>
-    <Country>123</Country>
-    <Description />
-    <PathToImages />
-    <Ingredients />
   </Recipe>
 </ArrayOfRecipe>

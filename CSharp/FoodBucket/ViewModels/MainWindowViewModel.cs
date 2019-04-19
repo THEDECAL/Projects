@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -20,6 +21,8 @@ namespace FoodBucket.ViewModels
         private CommandRelay addCmd;
         private CommandRelay editCmd;
         private CommandRelay delCmd;
+        private CommandRelay toPDFCmd;
+        private CommandRelay toDOCCmd;
         public CommandRelay AddCmd
         {
             get
@@ -70,6 +73,42 @@ namespace FoodBucket.ViewModels
                 }));
             }
         }
+        public CommandRelay ToPDFCmd
+        {
+            get
+            {
+                return toPDFCmd ?? (toPDFCmd = new CommandRelay((o) =>
+                {
+                    SaveFileDialog sfd = new SaveFileDialog();
+                    sfd.Filter = "PDF Файлы (*.pdf)|*.pdf";
+                    sfd.DefaultExt = "pdf";
+
+                    if (sfd.ShowDialog() == true)
+                    {
+                        Models.FileManager.SaveToPDF(view.fwRecipe, sfd.FileName);
+                        view.lbRecipes.SelectedIndex = -1;
+                    }
+                }));
+            }
+        }
+        public CommandRelay ToDOCCmd
+        {
+            get
+            {
+                return toDOCCmd ?? (toDOCCmd = new CommandRelay((o) =>
+                {
+                    SaveFileDialog sfd = new SaveFileDialog();
+                    sfd.Filter = "DOC Файлы (*.doc)|*.doc";
+                    sfd.DefaultExt = "doc";
+
+                    if (sfd.ShowDialog() == true)
+                    {
+                        Models.FileManager.SaveToDOC(view.fwRecipe, sfd.FileName);
+                        view.lbRecipes.SelectedIndex = -1;
+                    }
+                }));
+            }
+        }
         private List<string> filterTypes;
         private List<string> filterCountries;
         public List<string> FilterTypes
@@ -117,24 +156,35 @@ namespace FoodBucket.ViewModels
             {
                 var recipe = view.lbRecipes.SelectedItem as Models.Recipe;
                 var p1 = new Paragraph();
-                p1.Inlines.Add(new Run() { Text = $"{recipe.Name}", FontSize = 20, FontWeight = FontWeights.Bold });
+                p1.Inlines.Add(new Run() { Text = $"{recipe.Name} ", FontSize = 20, FontWeight = FontWeights.Bold });
                 p1.Inlines.Add(new Run() { Text = $"({recipe.Country})", FontSize = 16, FontWeight = FontWeights.Bold });
                 p1.Inlines.Add(new LineBreak());
                 p1.Inlines.Add(new Run() { Text = $"{recipe.Type}", FontSize = 18, Foreground = Brushes.Olive });
                 view.fwRecipe.Blocks.Add(p1);
 
+                var stackp = new StackPanel();
                 foreach (var item in recipe.PathToImages)
                 {
-                    var border = new Border()
+                    try
                     {
-                        BorderBrush = Brushes.Black,
-                        BorderThickness = new Thickness(2),
-                        Padding = new Thickness(3),
-                        Child = new Image() { Source = new BitmapImage(new Uri(item)), Width = 200, Height = 200
-                    }};
-
-                    view.fwRecipe.Blocks.Add(new BlockUIContainer() { Child = border });
+                        var border = new Border()
+                        {
+                            Height = 240,
+                            Width = 320,
+                            BorderBrush = Brushes.Black,
+                            BorderThickness = new Thickness(2),
+                            Padding = new Thickness(3),
+                            Child = new Image()
+                            {
+                                Source = new BitmapImage(new Uri(item)),
+                                Stretch = Stretch.Uniform
+                            }
+                        };
+                        stackp.Children.Add(border);
+                    }
+                    catch (Exception) { }
                 }
+                view.fwRecipe.Blocks.Add(new BlockUIContainer() { Child = stackp });
 
                 var p2 = new Paragraph();
                 p2.Inlines.Add(new Run() { Text = "Ингридиенты:", FontSize = 16, FontWeight = FontWeights.Bold });
