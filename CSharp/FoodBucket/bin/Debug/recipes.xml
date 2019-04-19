@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<ArrayOfRecipe xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Recipe>
+    <Name>Рататуй</Name>
+    <Type>Рагу</Type>
+    <Country>Франция</Country>
+    <Description>1. Нарезать мелкими кубиками лук и баклажаны. Баклажаны посыпать солью и дать им полежать несколько минут, чтобы пустили сок.
+2. За это время очистить перцы и помидоры от внутренностей, а мякоть нарезать такими же мелкими кубиками, как до того баклажаны и лук. Чеснок и петрушку мелко нарубить.
+3. Разогреть в сковородке часть оливкового масла, обжарить до мягкости лук и откинуть его на дуршлаг.
+4. Добавить в сковороду немного масла, обжарить на нем до мягкости предварительно отжатые от лишней жидкости кубики баклажанов. Обжаренные баклажаны откинуть на дуршлаг. Теперь осталось обжарить все на том же масле кубики перца и тоже откинуть их на дуршлаг.
+5. Долить в сковороду оставшееся масло, обжарить чеснок до мягкости, тут же добавить томатную пасту и щепотку сахара, а потом сразу помидоры. Тушить тридцать секунд, после ­чего вмешать все ранее обжаренные овощи и рубленую ­петрушку, посолить, поперчить, потомить минуту — и снять с огня.
+</Description>
+    <PathToImages>
+      <string>C:\Users\vm-user\Documents\Visual Studio 2015\Projects\FoodBucket\bin\Debug\Images\Ratatui.jpg</string>
+      <string>C:\Users\vm-user\Documents\Visual Studio 2015\Projects\FoodBucket\bin\Debug\Images\p_OA8MAPSJV.jpg</string>
+    </PathToImages>
+    <Ingredients>
+      <Ingredient>
+        <Name>Баклажан</Name>
+        <Count>2</Count>
+        <Unit>шт</Unit>
+      </Ingredient>
+      <Ingredient>
+        <Name>Желтый сладкий перец</Name>
+        <Count>1</Count>
+        <Unit>шт</Unit>
+      </Ingredient>
+      <Ingredient>
+        <Name>Красный сладкий перец</Name>
+        <Count>1</Count>
+        <Unit>шт</Unit>
+      </Ingredient>
+      <Ingredient>
+        <Name>Лук репчатый</Name>
+        <Count>1</Count>
+        <Unit>головка</Unit>
+      </Ingredient>
+      <Ingredient>
+        <Name>Чеснок</Name>
+        <Count>2</Count>
+        <Unit>зубчика</Unit>
+      </Ingredient>
+      <Ingredient>
+        <Name>Помидор</Name>
+        <Count>2</Count>
+        <Unit>шт</Unit>
+      </Ingredient>
+      <Ingredient>
+        <Name>Сахар</Name>
+        <Count>1</Count>
+        <Unit>щепотка</Unit>
+      </Ingredient>
+      <Ingredient>
+        <Name>Оливкое масло</Name>
+        <Count>50</Count>
+        <Unit>мл</Unit>
+      </Ingredient>
+      <Ingredient>
+        <Name>Томатная паста</Name>
+        <Count>1</Count>
+        <Unit>Чайная ложка</Unit>
+      </Ingredient>
+      <Ingredient>
+        <Name>Петрушка</Name>
+        <Count>10</Count>
+        <Unit>г</Unit>
+      </Ingredient>
+      <Ingredient>
+        <Name>Соль</Name>
+        <Count>1</Count>
+        <Unit>По вкусу</Unit>
+      </Ingredient>
+      <Ingredient>
+        <Name>Перец</Name>
+        <Count>1</Count>
+        <Unit>По вкусу</Unit>
+      </Ingredient>
+    </Ingredients>
+  </Recipe>
+  <Recipe>
+    <Name>123</Name>
+    <Type>123</Type>
+    <Country>123</Country>
+    <Description />
+    <PathToImages />
+    <Ingredients />
+  </Recipe>
+</ArrayOfRecipe>

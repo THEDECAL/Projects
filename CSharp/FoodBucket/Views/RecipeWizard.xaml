@@ -1,0 +1,211 @@
+﻿<Controls:MetroWindow x:Class="FoodBucket.Views.RecipeWizard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        Title="Мастер Рецепта" Height="460" Width="700"
+        WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen" Name="mwMain"
+        Icon="../food-bucket.ico" ResizeMode="NoResize">
+    <Grid>
+        <Grid.Resources>
+            <Style x:Key="TextBoxTitle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Margin" Value="1"/>
+            </Style>
+            <Style x:Key="GroupBoxTitle" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Margin" Value="-3"/>
+                <Setter Property="FontSize" Value="11"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Grid.Column="0" Margin="2">
+            <GroupBox.Header>
+                <TextBlock Text="Описание блюда" Style="{StaticResource GroupBoxTitle}"/>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Название:" Style="{StaticResource TextBoxTitle}"/>
+                <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="1" Text="{Binding Recipe.Name}"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Тип:" Style="{StaticResource TextBoxTitle}"/>
+                <TextBox Grid.Row="3" Grid.Column="0" Margin="1" Text="{Binding Recipe.Type}"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="Страна:" Style="{StaticResource TextBoxTitle}"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Margin="1" Text="{Binding Recipe.Country}"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Margin="2">
+            <GroupBox.Header>
+                <TextBlock Text="Ингридиенты блюда"  Style="{StaticResource GroupBoxTitle}"/>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <ListBox Name="lbIngredients" Grid.Column="0" Margin="3" Height="86"
+                         ItemsSource="{Binding Recipe.Ingredients}"
+                         ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Margin" Value="1"/>
+                                        <Setter Property="FontSize" Value="9"/>
+                                    </Style>
+                                </Grid.Resources>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Text="{Binding Name}" FontWeight="Bold"/>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Count}"/>
+                                    <TextBlock Text="{Binding Unit}"/>
+                                </StackPanel>
+                                <Button Grid.Column="2" Grid.RowSpan="2" Margin="1" Height="18" Width="18" HorizontalAlignment="Right"
+                                        Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                                        Command="{Binding ElementName=mwMain, Path=DataContext.DelIngCmd}"
+                                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=Content}">
+                                    <iconPacks:Modern Kind="Minus" Height="16" Width="16"/>
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <Button Grid.Column="1" Margin="2" Command="{Binding AddIngCmd}">
+                    <iconPacks:Modern Kind="Add"/>
+                </Button>
+
+                <Grid Name="gIngredientFields" Grid.Column="2" Margin="3" IsEnabled="False"
+                      DataContext="{Binding ElementName=lbIngredients, Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="Название ингридиента:" Style="{StaticResource TextBoxTitle}"/>
+                    <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="1"
+                             Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Количество:" Style="{StaticResource TextBoxTitle}"/>
+                    <TextBox Grid.Column="0" Grid.Row="3" Margin="1"
+                             Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock Grid.Column="1" Grid.Row="2" Text="Мера:" Style="{StaticResource TextBoxTitle}"/>
+                    <TextBox Grid.Column="1" Grid.Row="3" Margin="1"
+                             Text="{Binding Unit, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="2" Margin="2">
+            <GroupBox.Header>
+                <TextBlock Text="Изображения" Style="{StaticResource GroupBoxTitle}"/>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Путь:" Style="{StaticResource TextBoxTitle}"/>
+                <TextBox x:Name="tbPathToImage" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="1"/>
+
+                <Button Grid.Row="1" Grid.Column="2" Height="25" Width="25"
+                        Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                        Command="{Binding AddImageCmd}"
+                        CommandParameter="{Binding ElementName=tbPathToImage, Path=Text}">
+                    <iconPacks:Modern Kind="Add"/>
+                </Button>
+                
+                <ListBox Name="lbImages" Grid.Row="2" Grid.ColumnSpan="3" Margin="1"
+                         ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                         ItemsSource="{Binding Recipe.PathToImages}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Width="90" Height="60" BorderBrush="White" BorderThickness="2">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding}" Stretch="UniformToFill"/>
+                                </Border.Background>
+                                <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="18" Height="18"
+                                        Background="White"
+                                        Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                                        Command="{Binding ElementName=mwMain, Path=DataContext.DelImageCmd}"
+                                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=Content}">
+                                    <iconPacks:Modern Kind="Minus" Width="16" Height="16"/>
+                                </Button>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Margin="2">
+            <GroupBox.Header>
+                <TextBlock Text="Инструкция приготовления" Style="{StaticResource GroupBoxTitle}"/>
+            </GroupBox.Header>
+            <TextBox Text="{Binding Recipe.Description}"/>
+        </GroupBox>
+
+        <Button Grid.Row="3" Grid.ColumnSpan="2" Command="{Binding SaveRecipeCmd}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="0 0 10 0">
+                    <InlineUIContainer>
+                        <iconPacks:Modern Kind="Save"/>
+                    </InlineUIContainer>
+                </TextBlock>
+                <TextBlock Text="Сохранить"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Controls:MetroWindow>
