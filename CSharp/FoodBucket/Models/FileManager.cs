@@ -5,6 +5,8 @@ using System.IO;
 using System.Windows.Documents;
 using System.Xml.Serialization;
 using Spire.Pdf;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace FoodBucket.Models
 {
@@ -60,8 +62,8 @@ namespace FoodBucket.Models
         {
             if (fd != null && filename != null)
             {
-                //try
-                //{
+                try
+                {
                     var arrayBytes = PdfConverter.ConvertDoc(fd);
                     string pdfFilename = $"{filename}.pdf";
                     using (FileStream fs = new FileStream(pdfFilename, FileMode.Create, FileAccess.Write))
@@ -73,8 +75,8 @@ namespace FoodBucket.Models
                     pdf.LoadFromFile(pdfFilename);
                     pdf.SaveToFile(filename, FileFormat.DOC);
                     File.Delete(pdfFilename);
-                //}
-                //catch (Exception) { }
+                }
+                catch (Exception) { }
             }
         }
     }

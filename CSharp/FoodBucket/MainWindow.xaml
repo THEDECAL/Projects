@@ -96,7 +96,7 @@
                     </StackPanel>
                 </Button>
                 
-                <Button Grid.Row="1" Grid.Column="0" Margin="2" Command="{Binding ToPDFCmd}">
+                <Button x:Name="btnToPDF" Grid.Row="1" Grid.Column="0" Margin="2" Command="{Binding ToPDFCmd}" IsEnabled="False">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="0 0 5 0">
                             <InlineUIContainer>
@@ -107,7 +107,7 @@
                     </StackPanel>
                 </Button>
 
-                <Button Grid.Row="1" Grid.Column="1" Margin="2" Command="{Binding ToDOCCmd}">
+                <Button x:Name="btnToDOC" Grid.Row="1" Grid.Column="1" Margin="2" Command="{Binding ToDOCCmd}" IsEnabled="False">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="0 0 5 0">
                             <InlineUIContainer>
@@ -169,8 +169,8 @@
         </GroupBox>
 
         <GroupBox Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Margin="1">
-            <FlowDocumentReader ViewingMode="Scroll">
-                <FlowDocument x:Name="fwRecipe"/>
+            <FlowDocumentReader x:Name="fdrRecipe" ViewingMode="Scroll">
+                <FlowDocument x:Name="fdRecipe"/>
             </FlowDocumentReader>
         </GroupBox>
     </Grid>

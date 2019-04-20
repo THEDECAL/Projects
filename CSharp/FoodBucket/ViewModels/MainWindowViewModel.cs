@@ -1,10 +1,13 @@
-﻿using Microsoft.Win32;
+﻿using MahApps.Metro.Controls;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -85,8 +88,16 @@ namespace FoodBucket.ViewModels
 
                     if (sfd.ShowDialog() == true)
                     {
-                        Models.FileManager.SaveToPDF(view.fwRecipe, sfd.FileName);
-                        view.lbRecipes.SelectedIndex = -1;
+                        var pw = new Views.ProgressWindow();
+                        pw.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (Action)(() =>
+                        {
+                            Models.FileManager.SaveToPDF(view.fdRecipe, sfd.FileName);
+                            pw.PermittedClose();
+                        }));
+                        pw.ShowDialog();
+
+                        view.fdrRecipe.ViewingMode = FlowDocumentReaderViewingMode.Page;
+                        view.fdrRecipe.ViewingMode = FlowDocumentReaderViewingMode.Scroll;
                     }
                 }));
             }
@@ -103,8 +114,16 @@ namespace FoodBucket.ViewModels
 
                     if (sfd.ShowDialog() == true)
                     {
-                        Models.FileManager.SaveToDOC(view.fwRecipe, sfd.FileName);
-                        view.lbRecipes.SelectedIndex = -1;
+                        var pw = new Views.ProgressWindow();
+                        pw.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal , (Action) (()=>
+                        {   
+                            Models.FileManager.SaveToDOC(view.fdRecipe, sfd.FileName);
+                            pw.PermittedClose();
+                        }));
+                        pw.ShowDialog();
+
+                        view.fdrRecipe.ViewingMode = FlowDocumentReaderViewingMode.Page;
+                        view.fdrRecipe.ViewingMode = FlowDocumentReaderViewingMode.Scroll;
                     }
                 }));
             }
@@ -151,16 +170,21 @@ namespace FoodBucket.ViewModels
         }
         public void lbRecipes_SelectionChanged(object s, EventArgs e)
         {
-            view.fwRecipe.Blocks.Clear();
+            view.btnToDOC.IsEnabled = false;
+            view.btnToPDF.IsEnabled = false;
+            view.fdRecipe.Blocks.Clear();
+
             if (view.lbRecipes.SelectedIndex != -1)
             {
+                view.btnToDOC.IsEnabled = true;
+                view.btnToPDF.IsEnabled = true;
                 var recipe = view.lbRecipes.SelectedItem as Models.Recipe;
                 var p1 = new Paragraph();
                 p1.Inlines.Add(new Run() { Text = $"{recipe.Name} ", FontSize = 20, FontWeight = FontWeights.Bold });
                 p1.Inlines.Add(new Run() { Text = $"({recipe.Country})", FontSize = 16, FontWeight = FontWeights.Bold });
                 p1.Inlines.Add(new LineBreak());
                 p1.Inlines.Add(new Run() { Text = $"{recipe.Type}", FontSize = 18, Foreground = Brushes.Olive });
-                view.fwRecipe.Blocks.Add(p1);
+                view.fdRecipe.Blocks.Add(p1);
 
                 var stackp = new StackPanel();
                 foreach (var item in recipe.PathToImages)
@@ -184,7 +208,7 @@ namespace FoodBucket.ViewModels
                     }
                     catch (Exception) { }
                 }
-                view.fwRecipe.Blocks.Add(new BlockUIContainer() { Child = stackp });
+                view.fdRecipe.Blocks.Add(new BlockUIContainer() { Child = stackp });
 
                 var p2 = new Paragraph();
                 p2.Inlines.Add(new Run() { Text = "Ингридиенты:", FontSize = 16, FontWeight = FontWeights.Bold });
@@ -192,17 +216,20 @@ namespace FoodBucket.ViewModels
                 var list = new List();
                 foreach (var item in recipe.Ingredients)
                 {
-                    var line = new ListItem() { Blocks = { new Paragraph() { Inlines = { new Run()
+                    var line = new ListItem()
+                    {
+                        Blocks = { new Paragraph() { Inlines = { new Run()
                     {
                         Text = $"{item.Name} ({item.Count} {item.Unit})"
-                    }}}}};
+                    }}}}
+                    };
                     list.ListItems.Add(line);
                 }
-                view.fwRecipe.Blocks.Add(list);
+                view.fdRecipe.Blocks.Add(list);
 
                 var p3 = new Paragraph();
-                p3.Inlines.Add(new Run() { Text = recipe.Description } );
-                view.fwRecipe.Blocks.Add(p3);
+                p3.Inlines.Add(new Run() { Text = recipe.Description });
+                view.fdRecipe.Blocks.Add(p3);
             }
         }
         public void OnPropertyChanged([CallerMemberName]string prop = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
