@@ -1,0 +1,9 @@
+﻿@using week1.Models
+@model Ticket
+@{
+    ViewBag.Title = $"Изменить заявку ({Model.CreateDate})";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("_form", Model)

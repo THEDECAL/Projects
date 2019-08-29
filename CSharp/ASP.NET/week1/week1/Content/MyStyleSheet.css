@@ -1,0 +1,40 @@
+﻿.field-validation-error {
+    color: red;
+    font-size: 12px;
+    text-decoration: blink;
+    margin: 5px 0;
+}
+
+/*tickets*/
+.tickets table {
+    margin: 10px 0;
+    border-spacing: 2px;
+}
+.tickets button {
+    margin: 5px;
+}
+.tickets td, th {
+    border: 1px solid lightgray;
+    padding: 5px;
+}
+.tickets td img:hover {
+    box-shadow: 0 0 5px 5px rgba(0,0,0,0.3);
+}
+
+/*ticket-form*/
+.ticket-form form {
+    display: flex;
+    flex-direction: column;
+}
+.ticket-form input{
+    margin-bottom: 10px;
+}
+.ticket-form textarea {
+    resize: none;
+}
+
+/*Default*/
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}

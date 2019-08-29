@@ -1,0 +1,32 @@
+﻿@using week1.Models
+@model Ticket
+<h3>@Model.Title</h3>
+@{
+    //Создаём анонимный массив для выпадающего списка где key - value, а val - text
+    var prioNames = Ticket.prioNames.Select((val, key) => new { val, key }).ToArray();
+}
+
+<div class="ticket-form">
+    @using (Html.BeginForm(null, null, FormMethod.Post))
+    {
+        @Html.Hidden("Id", Model.Id)
+
+        @Html.LabelFor(model => model.Title)
+        @Html.TextBox("Title", Model.Title, new { @required = "" })
+        @Html.ValidationMessageFor(model => model.Title);
+
+        @Html.LabelFor(model => model.Description)
+        @Html.TextArea("Description", Model.Description, 10, 50, new { @required = "" })
+        @Html.ValidationMessageFor(model => model.Description);
+
+        @Html.LabelFor(model => model.Priority)
+        @Html.DropDownList("Priority", new SelectList(prioNames, "key", "val", Model.PriorityName()))
+        @Html.ValidationMessageFor(model => model.Priority);
+
+        @Html.LabelFor(model => model.EndDate)
+        <input type="datetime-local" id="EndDate" name="EndDate" required value="@Model.EndDate.ToString("yyyy-MM-ddTHH:mm")" />
+        @Html.ValidationMessageFor(model => model.EndDate);
+
+        <input type="submit" value="Сохранить" />
+    }
+</div>

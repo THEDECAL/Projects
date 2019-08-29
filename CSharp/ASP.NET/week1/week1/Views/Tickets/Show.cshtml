@@ -1,0 +1,14 @@
+﻿@using week1.Models
+@model Ticket
+@{
+    ViewBag.Title = $"Просмотр заявки ({Model.CreateDate})";
+}
+
+<h2>@ViewBag.Title</h2>
+<h3>@Model.Title</h3>
+<h4>@Model.Description</h4>
+<h4>Приоритет: @Model.PriorityName()</h4>
+<h4>Выполнить до: @Model.EndDate</h4>
+
+@Html.ActionLink("Изменить", "Edit", new { id = Model.Id })
+@Html.ActionLink("Удалить", "Delete", new { id = Model.Id })

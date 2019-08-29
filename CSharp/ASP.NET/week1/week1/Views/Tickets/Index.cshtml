@@ -1,0 +1,86 @@
+﻿@using week1.Models
+@model List<Ticket>
+@{
+    ViewBag.Title = "Заявки";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="tickets">
+    <div>
+
+        @using (Html.BeginForm("Search", "Tickets", FormMethod.Post))
+        {
+            <a href="@Url.Action("Add", "Tickets")" class="btn btn-success">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                Добавить новую заявку
+            </a>
+
+            <select name="type">
+                <option value="Title">Название</option>
+                <option value="Description">Описание</option>
+                <option value="CreateDate">Дата создания</option>
+                <option value="EndDate">Дата завершения</option>
+            </select>
+
+            @Html.TextBox("text", "");
+
+            <button type="submit" class="btn btn-success" aria-label="Left Align">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                Искать
+            </button>
+        }
+    </div>
+    @if (Model.Count > 0)
+    {
+        <table>
+            <tr>
+                <td>№</td>
+                <td></td>
+                <td>Название</td>
+                <td>Дата создания</td>
+                <td>Дата завершения</td>
+                <td>Статус</td>
+                <td>Приоритет</td>
+                <td>Действия</td>
+            </tr>
+            @{int cnt = 1;
+                foreach (Ticket ticket in Model)
+                {
+                    string textDec = (ticket.Status) ? "line-through" : "none";
+                    string checkBoxIcon = (ticket.Status) ? "check.png" : "uncheck.png";
+
+                    <tr style="background-color: @ticket.PriorityColor(); text-decoration: @textDec">
+                        <td>@cnt</td>
+                        <td>
+                            <a href="@Url.Action("ChangeStatus", "Tickets", new { id = ticket.Id })">
+                                <img src="../../icons/@checkBoxIcon" alt="..." width="16" height="16" />
+                            </a>
+                        </td>
+                        <td>@ticket.Title</td>
+                        <td>@ticket.CreateDate</td>
+                        <td>@ticket.EndDate</td>
+                        <td>@ticket.StatusName()</td>
+                        <td>@ticket.PriorityName()</td>
+                        <td>
+                            <a href="@Url.Action("Show", "Tickets", new { id = ticket.Id})">
+                                <img src="../../icons/show.png" alt="..." width="16" height="16"/>
+                            </a>
+                            <a href="@Url.Action("Edit", "Tickets", new { id = ticket.Id })">
+                                <img src="../../icons/edit.png" alt="..." width="16" height="16"/>
+                            </a>
+                            <a href="@Url.Action("Delete", "Tickets", new { id = ticket.Id })">
+                                <img src="../../icons/delete.png" alt="..." width="16" height="16"/>
+                            </a>
+                        </td>
+                    </tr>
+                    cnt++;
+                }
+            }
+        </table>
+     }
+     else
+     {
+        <h3>Заявок нет.</h3>
+     }
+</div>
