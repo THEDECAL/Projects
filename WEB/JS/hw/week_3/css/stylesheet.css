@@ -1,0 +1,348 @@
+hr{
+    margin-top: 0;
+}
+html *
+{
+    font-family: "Sansation_Regular";
+    font-weight: bold;
+    color: #38393a;
+}
+body
+{
+    margin: 0;
+    padding: 0;
+}
+.container
+{
+    width: 1000px;
+    margin: 0 auto;
+}
+.container h1
+{
+    margin: 0 auto;
+    text-shadow: 1px 2px 1px white, 0 0 1em yellow;
+}
+.title
+{
+    background-image: url(../images/cells-background2.jpg);
+    background-size: cover;
+    text-align: center;
+    border: 1px solid rgba(56,57,58, 0.3);
+    margin: 5px 0px;
+}
+.title h1:hover
+{
+    cursor: default;
+    text-shadow: none;
+}
+.select
+{
+    display: flex;
+    margin-bottom: 8px;
+}
+.menu
+{
+    padding: 10px;
+    width: 25%;
+    background-image: url(../images/cells-background2.jpg);
+    background-size: cover;
+    border: 1px solid rgba(56,57,58, 0.3);
+    border-left: none;
+}
+.menu h2
+{
+    margin: 0px 10px;
+}
+.menu h2:hover
+{
+    
+    cursor: default;
+    color: brown;
+    text-shadow: 1px 2px 1px white, 0 0 1em yellow;
+}
+.menu > ul
+{
+    list-style: circle;
+}
+.menu li:hover
+{
+    cursor: pointer;
+    color: brown;
+    text-shadow: 1px 2px 1px white, 0 0 1em yellow;
+}
+.submenu ul
+{
+    list-style: none;
+    display: flex;
+}
+.submenu li
+{
+    margin: 3px;
+    border: 1px solid #38393a;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+.submenu li:hover
+{
+    border-color: brown;
+}
+.submenu a
+{
+    font-family: "Arial";
+    text-decoration: none;
+}
+.submenu a:hover
+{
+    color: brown;
+}
+#task
+{
+    margin-left: 8px;
+    padding: 10px;
+    width: 75%;
+    background-image: url(../images/cells-background2.jpg);
+    background-size: cover;
+    border: 1px solid rgba(56,57,58, 0.3);
+    border-right: none;
+    text-align: center;
+}
+#forum
+{
+    width: 100%;
+}
+#messages
+{
+    margin: 0;
+    padding: 0;
+}
+#messages ul
+{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+#messages li
+{
+    margin: 0;
+    padding: 0;
+}
+#messages table
+{
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+#messages th, td
+{
+    border: 1px solid gray;
+    padding: 10px;
+    word-wrap: break-word;
+}
+#stylized-text
+{
+    width: 400px;
+    border: 1px solid lightgray;
+    margin: 0 auto;
+    padding: 10px;
+}
+#stylized-text p, label
+{
+    user-select: none;
+    display: inline-block;
+}
+#stylized-text textarea, span
+{
+    background-color: rgba(255,255,255,0.5);
+    color: black;
+    font-size: 18px;
+    font-family: serif;
+    font-weight: none !important;
+    width: 93%;
+    height: 200px;
+    resize: none;
+    word-wrap: break-word;
+}
+#book-shop
+{
+    margin: 0 auto;
+}
+#book-shop ul
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+#book-shop li
+{
+    user-select: none;
+    width: 190px;
+    height: 400px;
+    border: 1px solid gray;
+    border-radius: 15px;
+    padding: 5px;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#book-shop li:hover
+{
+    background-color: rgba(255,255,255, 0.5);
+}
+#book-shop img
+{
+    width: 180px;
+    height: 220px;
+    margin: 0 auto;
+}
+#book-shop h1
+{
+    margin: 5px;
+    padding: 0;
+    font-size: 18px;
+    text-align: right;
+    font-family: "Sansation_Bold";
+}
+#book-shop h2
+{
+    margin: 5px;
+    padding: 0;
+    font-size: 16px;
+    text-align: left;
+    font-family: "Sansation_Bold";
+}
+#book-shop h3
+{
+    margin: 5px;
+    padding: 0;
+    font-size: 12px;
+    text-align: left;
+}
+#book-shop button
+{
+    width: 100px;
+    height: 30px;
+    font-family: "Sansation_Bold";
+    color: 18px;
+    margin: 5px auto;
+    border-radius: 5px;
+}
+#book-shop form
+{
+    margin: 5px;
+    padding: 10px;
+    width: 603px;
+    text-align: left;
+    border: 1px solid gray;
+    border-radius: 15px;
+}
+#book-shop label
+{
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+#book-shop input
+{
+    padding: 3px;
+    width: 70%;
+    border-radius: 5px;
+    font-size: 16px;
+}
+#order
+{
+    width: 100%;
+    border: 1px solid gray;
+    border-radius: 15px;
+}
+#log-book
+{
+    margin: 0 auto;
+    width: 500px;
+    background-color: rgba(255,255,255,0.3);
+}
+#log-book div:first-child
+{
+    border-bottom: 1px solid darkgray;
+}
+#log-book select, button
+{
+    margin: 5px;
+}
+#show-group
+{
+    padding: 10px;
+}
+#show-group label
+{
+    text-align: left;
+    margin: 5px;
+    font-size: 18px;
+}
+#show-group table
+{
+    width: 100%;
+}
+#show-group th, td
+{
+    text-align: left;
+    border: none;
+    border-bottom: 1px solid darkgray;
+}
+#show-group button
+{
+    margin: 5px auto;
+    text-align: center;
+}
+#ticked-booking
+{
+    width: 700px;
+    margin: 0 auto;
+}
+#flight-search
+{
+    border-bottom: 1px solid darkgray;
+}
+#flight-search select
+{
+    margin: 5px;
+}
+#flight-search label
+{
+    margin: 10px;
+}
+#selected-flight table
+{
+    margin: 5px auto;
+    margin-top: 20px;
+	border-radius: 10px;
+	border: 1px solid darkgray;
+	padding: 10px;
+}
+#selected-flight label
+{
+    width: 40px;
+    height: 20px;
+    padding: 3px;
+    border: 1px solid darkgray;
+}
+#total-price
+{
+	text-align: right
+}
+#string-generator
+{
+    margin: 10px auto;
+    width: 500px
+}
+#string-generator div
+{   
+    text-align: left;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid rgba(0,0,0,0.2)
+}

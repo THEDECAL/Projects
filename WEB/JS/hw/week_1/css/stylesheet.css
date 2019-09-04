@@ -1,0 +1,463 @@
+hr{
+    margin-top: 0;
+}
+html *
+{
+    font-family: "Sansation_Regular";
+    font-weight: bold;
+    color: #38393a;
+}
+body
+{
+    margin: 0;
+    padding: 0;
+}
+.container
+{
+    width: 1000px;
+    margin: 0 auto;
+}
+.container h1
+{
+    margin: 0 auto;
+    text-shadow: 1px 2px 1px white, 0 0 1em yellow;
+}
+.title
+{
+    background-image: url(../images/cells-background2.jpg);
+    background-size: cover;
+    text-align: center;
+    border: 1px solid rgba(56,57,58, 0.3);
+    margin: 5px 0px;
+}
+.title h1:hover
+{
+    cursor: default;
+    text-shadow: none;
+}
+.select
+{
+    display: flex;
+    margin-bottom: 8px;
+}
+.menu
+{
+    padding: 10px;
+    width: 25%;
+    background-image: url(../images/cells-background2.jpg);
+    background-size: cover;
+    border: 1px solid rgba(56,57,58, 0.3);
+    border-left: none;
+}
+.menu h2
+{
+    margin: 0px 10px;
+}
+.menu h2:hover
+{
+    
+    cursor: default;
+    color: brown;
+    text-shadow: 1px 2px 1px white, 0 0 1em yellow;
+}
+.menu > ul
+{
+    list-style: circle;
+}
+.menu li:hover
+{
+    cursor: pointer;
+    color: brown;
+    text-shadow: 1px 2px 1px white, 0 0 1em yellow;
+}
+.submenu ul
+{
+    list-style: none;
+    display: flex;
+}
+.submenu li
+{
+    margin: 3px;
+    border: 1px solid #38393a;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+.submenu li:hover
+{
+    border-color: brown;
+}
+.submenu a
+{
+    font-family: "Arial";
+    text-decoration: none;
+}
+.submenu a:hover
+{
+    color: brown;
+}
+#task
+{
+    margin-left: 8px;
+    padding: 10px;
+    width: 75%;
+    background-image: url(../images/cells-background2.jpg);
+    background-size: cover;
+    border: 1px solid rgba(56,57,58, 0.3);
+    border-right: none;
+    text-align: center;
+}
+#taskFour
+{
+    width: 400px;
+    height: 155px;
+    margin: 0 auto;
+    display: flex;
+}
+#menuTaskFour
+{
+    width: 20%;
+    border: 2px solid #597ba0;
+    border-right: none;
+}
+#menuTaskFour ul
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+#menuTaskFour li
+{
+    padding: 10px 0px;
+    background-color: #597ba0;
+    color: lightgray;
+}
+#menuTaskFour li:hover
+{
+    background-color: rgba(0,0,0,0);
+    cursor: pointer;
+    background-color: #f2f2c4;
+    color: #38393a;
+}
+#textTaskFour
+{
+    width: 80%;
+    border: 2px solid #597ba0;
+    border-left: none;
+    background-color: #f2f2c4;
+}
+#taskFive
+{
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    position: relative;
+}
+#taskFive ul
+{
+    list-style: none;
+}
+#taskFive button
+{
+    margin: 0;
+    height: 30px;
+    margin: 15px;
+}
+#taskFive li
+{
+    margin-bottom: 10px;
+    border-bottom: 1px solid black;
+    display: flex;
+    background-color: rgba(255,255,255,0.3);
+}
+#progressBarContainer
+{
+    width: 100%;
+    height: 20px;
+    border: 1px solid #597ba0;
+    padding: 5px 0px;
+}
+#progressBar
+{
+    width: 0%;
+    height: 100%;
+    background-color: limegreen;
+}
+#progressBarButton
+{
+    margin: 5px;
+}
+#calc
+{
+    margin: 0 auto;
+    width: 200px;
+    height: 180px;
+}
+#calc input
+{
+    width: 93%;
+    height: 35px;
+}
+#calc table
+{
+    width: 100%;
+    height: 100%;
+}
+#calc input
+{
+    font-size: 18px;
+    padding: 3px;
+    text-align: right;
+}
+#calc td
+{
+    border: 1px solid darkgray;
+    user-select: none;
+}
+#calc td:hover
+{
+    background-color: rgba(255,255,255,0.5);
+}
+#calc td:active
+{
+    background-color: white;
+}
+#modalWindow
+{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.2);
+    position: fixed;
+    display: grid;
+    align-items: center;
+    vertical-align: middle;
+}
+#message
+{
+    border-radius: 20px;
+    margin: 10px;
+    padding: 30px;
+    left: 50%;
+    position: relative;
+    width: 180px;
+    height: 50px;
+    background-image: url(../images/cells-background2.jpg);
+    border: 2px solid rgba(0,0,0,0.5);
+    text-align: center;
+}
+#message button
+{
+    border-radius: 20px;
+    background-color: darkgray;
+    margin-top: 10px;
+    padding: 10px;
+    user-select: none;
+}
+#field-border
+{
+    margin: 0 auto;
+    width: 650px;
+    height: 425px;
+    border: 1px solid rgba(56,57,58, 0.3);
+    padding: 10px;
+}
+#field
+{
+    background-image: url(../images/footbal-filed.jpg);
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+}
+#ball
+{
+    margin-top: 185px;
+    margin-left: 300px;
+    width: 50px;
+    height: 50px;
+}
+
+#traffic-lights-div
+{
+    margin: 0 auto;
+    width: 300px;
+    padding: 10px;
+    display: flex;
+}
+#traffic-lights-div button
+{
+    border: 2px solid darkgray;
+    background-color: rgba(255,255,255,0);
+    border-radius: 15px;
+    margin: 0px 3px;
+}
+#traffic-lights-div button:hover
+{
+    background-color: lightgray;
+    cursor: pointer;
+}
+#traffic-lights-div button:action
+{
+    background-color: darkgray;
+    border: 5px solid darkgray;
+}
+#traffic-lights
+{
+    border-radius: 15px;
+    border: 2px solid darkgray;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+}
+#traffic-lights ul
+{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
+}
+#traffic-lights li
+{
+    border-radius: 100%;
+    border: 2px solid darkgray;
+    width: 60px;;
+    height: 60px;
+    background-color: gray;
+}
+#text-list
+{
+    margin: 0 auto;
+    width: 200px;
+}
+#text-list ul
+{
+    margin: 0;
+    padding: 0;
+    list-style: decimal;
+}
+#text-list li
+{
+    user-select: none;
+}
+#links-list
+{
+    margin: 0 auto;
+    width: 200px;
+    text-align: left;
+}
+#links-list ul
+{
+    list-style: circle;
+    user-select: none;
+}
+#links-list li
+{
+    color: gray;
+}
+#links-list li:hover
+{
+    color: darkgray;
+    cursor: default;
+}
+#tree-dir
+{
+    margin: 0 auto;
+    color: gray;
+    user-select: none;
+}
+#tree-dir > ul
+{
+    text-align: left;
+}
+#tree-dir span:hover
+{
+    border-bottom: 1px dotted gray;
+    font-weight: bold;
+}
+#text-list-select
+{
+    margin: 0 auto;
+}
+#show-edit-text
+{
+    margin: 0 auto;
+    text-align: left;
+    width: 400px;
+    height: 200px;
+    border: 2px solid gray;
+    background-color: lightgray;
+    padding: 10px;
+    user-select: none;
+}
+#show-edit-text span
+{
+    width: 100%;
+    height: 100%;
+}
+#show-edit-text textarea
+{
+    resize: none;
+    width: 99%;
+    height: 70%;
+}
+#table-sort
+{
+    margin: 0 auto;
+    text-align: center;
+}
+#table-sort table
+{
+    margin: 0 auto;
+    color: gray;
+    user-select: none;
+}
+#table-sort table tr:first-child td{
+    font-weight: bold;
+    background-color: lightgray;
+    color: white;
+}
+#table-sort table tr:first-child td:hover
+{
+    cursor: pointer;
+    background-color: gray;
+    color: black;
+}
+#table-sort tr,td
+{
+    text-align: left;
+    padding: 5px;
+    border: 1px solid black;
+}
+#resize-block
+{
+    margin: 0 auto;
+    border: 2px solid darkgray;
+    width: 300px;
+    height: 100px;
+    text-align: left;
+    color: gray;
+    position: relative;
+    user-select: none;
+}
+#span-text
+{
+    position: absolute;
+    margin: 10px;
+}
+#triangle
+{
+    position: absolute;
+    top: 100%;
+    left: 100%;
+    margin: -16px;
+}
+#triangle img
+{
+    width: 15px;
+}
+#triangle img:hover
+{
+    cursor: nw-resize;
+}

@@ -1,0 +1,12 @@
+﻿'Вратарь' 'Клаудио Браво' 'Манчестер Сити' 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Chile_VS._Australia_%281cropped%29.jpg/208px-Chile_VS._Australia_%281cropped%29.jpg'
+'Защитник' 'Кайл Уокер' 'Манчестер Сити' 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Kyle_Walker.jpg/213px-Kyle_Walker.jpg'
+'Защитник' 'Данило' 'Манчестер Сити' 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Danilo_2018.jpg/182px-Danilo_2018.jpg'
+'Защитник' 'Джон Стоунз' 'Манчестер Сити' 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/1_john_stones_2015_%28cropped%29.jpg/249px-1_john_stones_2015_%28cropped%29.jpg'
+'Нападающий' 'Рахим Стерлинг' 'Манчестер Сити' 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Raheem_Sterling_2018.jpg/213px-Raheem_Sterling_2018.jpg'
+'Полузащитник' 'Илкай Гюндоган' 'Манчестер Сити' 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/20180602_FIFA_Friendly_Match_Austria_vs._Germany_%C4%B0lkay_G%C3%BCndo%C4%9Fan_850_0728.jpg/213px-20180602_FIFA_Friendly_Match_Austria_vs._Germany_%C4%B0lkay_G%C3%BCndo%C4%9Fan_850_0728.jpg'
+'Нападающий' 'Габриэл Жезус' 'Манчестер Сити' 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/20180610_FIFA_Friendly_Match_Austria_vs._Brazil_Gabriel_Jesus_850_1688.jpg/213px-20180610_FIFA_Friendly_Match_Austria_vs._Brazil_Gabriel_Jesus_850_1688.jpg'
+'Нападающий' 'Серхио Агуэро' 'Манчестер Сити' 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Ag%C3%BCero_in_2018.jpg/213px-Ag%C3%BCero_in_2018.jpg'
+'Полузащитник' 'Александр Зинченко' 'Манчестер Сити' 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Zinchenko_2018.jpg/200px-Zinchenko_2018.jpg'
+'Защитник' 'Эмерик Ляпорт' 'Манчестер Сити' 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Aymeric_Laporte_and_Leo_Messi.jpg/240px-Aymeric_Laporte_and_Leo_Messi.jpg'
+'Защитник' 'Эльяким Мангаля' 'Манчестер Сити' 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Eliaquim_Mangala_69783.jpg/320px-Eliaquim_Mangala_69783.jpg'
+

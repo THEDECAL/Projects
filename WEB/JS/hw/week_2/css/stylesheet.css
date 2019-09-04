@@ -1,0 +1,110 @@
+hr{
+    margin-top: 0;
+}
+html *
+{
+    font-family: "Sansation_Regular";
+    font-weight: bold;
+    color: #38393a;
+}
+body
+{
+    margin: 0;
+    padding: 0;
+}
+.container
+{
+    width: 1000px;
+    margin: 0 auto;
+}
+.container h1
+{
+    margin: 0 auto;
+    text-shadow: 1px 2px 1px white, 0 0 1em yellow;
+}
+.title
+{
+    background-image: url(../images/cells-background2.jpg);
+    background-size: cover;
+    text-align: center;
+    border: 1px solid rgba(56,57,58, 0.3);
+    margin: 5px 0px;
+}
+.title h1:hover
+{
+    cursor: default;
+    text-shadow: none;
+}
+.select
+{
+    display: flex;
+    margin-bottom: 8px;
+}
+.menu
+{
+    padding: 10px;
+    width: 25%;
+    background-image: url(../images/cells-background2.jpg);
+    background-size: cover;
+    border: 1px solid rgba(56,57,58, 0.3);
+    border-left: none;
+}
+.menu h2
+{
+    margin: 0px 10px;
+}
+.menu h2:hover
+{
+    
+    cursor: default;
+    color: brown;
+    text-shadow: 1px 2px 1px white, 0 0 1em yellow;
+}
+.menu > ul
+{
+    list-style: circle;
+}
+.menu li:hover
+{
+    cursor: pointer;
+    color: brown;
+    text-shadow: 1px 2px 1px white, 0 0 1em yellow;
+}
+.submenu ul
+{
+    list-style: none;
+    display: flex;
+}
+.submenu li
+{
+    margin: 3px;
+    border: 1px solid #38393a;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+.submenu li:hover
+{
+    border-color: brown;
+}
+.submenu a
+{
+    font-family: "Arial";
+    text-decoration: none;
+}
+.submenu a:hover
+{
+    color: brown;
+}
+#task
+{
+    margin-left: 8px;
+    padding: 10px;
+    width: 75%;
+    background-image: url(../images/cells-background2.jpg);
+    background-size: cover;
+    border: 1px solid rgba(56,57,58, 0.3);
+    border-right: none;
+    text-align: center;
+}

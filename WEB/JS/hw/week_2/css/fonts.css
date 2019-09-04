@@ -1,0 +1,30 @@
+@font-face
+{
+    font-family: "Sansation_Bold";
+    src: url(../fonts/sansation/Sansation_Bold.ttf);
+}
+@font-face
+{
+    font-family: "Sansation_Bold_Italic";
+    src: url(../fonts/sansation/Sansation_Bold_Italic.ttf);
+}
+@font-face
+{
+    font-family: "Sansation_Italic";
+    src: url(../fonts/sansation/Sansation_Italic.ttf);
+}
+@font-face
+{
+    font-family: "Sansation_Light";
+    src: url(../fonts/sansation/Sansation_Light.ttf);
+}
+@font-face
+{
+    font-family: "Sansation_Light_Italic";
+    src: url(../fonts/sansation/Sansation_Light_Italic.ttf);
+}
+@font-face
+{
+    font-family: "Sansation_Regular";
+    src: url(../fonts/sansation/Sansation_Regular.ttf);
+}

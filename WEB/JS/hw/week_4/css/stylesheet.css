@@ -1,0 +1,106 @@
+#phones-block h5
+{
+    font-weight: bold;
+    text-align: center
+}
+#phones-block h4
+{
+    border-radius: 5px;
+    border: 1px solid gray;
+    text-align: center
+}
+#phones-block ul
+{
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+#phones-block li
+{
+	user-select: none;
+	padding: 20px;
+	border: 1px solid darkgray;
+	margin: 5px;
+}
+#phones-block li:hover
+{
+	border: 1px solid #337ab7;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5)
+}
+#phones-block a
+{
+    width: 100%;
+}
+#phones-block img
+{
+	width: 180px;
+}
+#cart-phones
+{
+    width: 100%;
+    margin: 0 auto;
+}
+#cart-phones img
+{
+    height: 50px;
+}
+#cart-phones a
+{
+    padding-right: 10px;
+    width: 100%;
+}
+#cart-phones li
+{
+    margin: 3px auto;
+    border-radius: 5px;
+    border: 1px solid gray;
+    width: 100%;
+    display: flex;
+}
+#cart-phones button
+{
+    width: 100%;
+}
+.glyphicon.glyphicon-remove:hover
+{
+    cursor: pointer;
+}
+#purchase div
+{
+    border-radius: 10px;
+    border: 2px solid rgba(0,0,0,0.5);
+    margin: 5px;
+    padding: 5px;
+}
+#purchase img
+{
+    width: 50px;
+}
+#search-bar
+{
+    margin-bottom: 5px;
+}
+#search-bar h5
+{
+    font-weight: bold;
+}
+#search-bar ul
+{
+    margin: 0;
+    padding: 0;
+}
+#search-bar li
+{
+    margin: 0 10px;
+    padding: 0px 3px;
+    display: flex;
+    height: 40px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+}
+#search-bar li *
+{
+    margin: 3px;
+}

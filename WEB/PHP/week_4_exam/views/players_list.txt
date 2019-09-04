@@ -1,0 +1,12 @@
+﻿'Вратарь' 'Кепа Аррисабалага' 'Челси' 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Chelsea_vs._Arsenal%2C_29_May_2019_21_%28cropped%29.jpg/248px-Chelsea_vs._Arsenal%2C_29_May_2019_21_%28cropped%29.jpg'
+'Защитник' 'Антонио Рюдигер' 'Челси' 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/20180602_FIFA_Friendly_Match_Austria_vs._Germany_Antonio_R%C3%BCdiger_850_0711.jpg/213px-20180602_FIFA_Friendly_Match_Austria_vs._Germany_Antonio_R%C3%BCdiger_850_0711.jpg'
+'Защитник' 'Маркос Алонсо' 'Челси' 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Marcos_Alonso_Mendoza.jpg/159px-Marcos_Alonso_Mendoza.jpg'
+'Защитник' 'Давиде Дзаппакоста' 'Челси' 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Davide_Zappacosta.JPG/174px-Davide_Zappacosta.jpg'
+'Защитник' 'Андреас Кристенсен' 'Челси' 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/ACvsQarabag17.png/178px-ACvsQarabag17.png'
+'Полузащитник' 'Итан Ампаду' 'Челси' 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Ethan_Ampadu_2017.jpg/320px-Ethan_Ampadu_2017.jpg'
+'Нападающий' 'Оливье Жиру' 'Челси' 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Olivier_Giroud.jpg/234px-Olivier_Giroud.jpg'
+'Полузащитник' 'Жоржиньо' 'Челси' 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Jorginho_2016.jpg/235px-Jorginho_2016.jpg'
+'Полузащитник' 'Дэнни Дринкуотер' 'Челси' 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Emerson_20180216.jpg/243px-Emerson_20180216.jpg'
+'Защитник' 'Давид Луис' 'Челси' 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Danny_Drinkwater_20170114.jpg/138px-Danny_Drinkwater_20170114.jpg'
+'Защитник' 'Эмерсон Палмери' 'Челси' 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/David_Luiz_and_Ahmed_Musa_%28cropped%29.jpg/208px-David_Luiz_and_Ahmed_Musa_%28cropped%29.jpg'
+

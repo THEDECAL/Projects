@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Интернет магазин</title>
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/stylesheet.css" rel="stylesheet">
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+        <div id="shop">
+            <nav class="navbar navbar-default">
+                <div class="container">
+                    <div class="navbar-header">
+                      <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Интернет магазин</a>
+                    </div> 
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#">Контакты</a></li>
+                            <li><a href="#">Доставка</a></li>
+                            <li class="dropdown" id="search-button" @click="searchButtonShowHide()">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Поиск и Фильтры<span class="caret"></span></a>
+                            </li>
+                        </ul>
+                        <div id='cart'>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="dropdown">
+                                    <a href="#" onclick="cart.getPhonesList()" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Корзина <span id="cart-count" class="badge">{{getPhones().length}} шт</span><span id="sum" class="badge">{{getSum()}}</span><span class="caret"></span></a>
+                                    <ul id="cart-phones" class="dropdown-menu"></ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+              <div class="container" id="search-bar" style="display: none">
+                  <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
+                      <ul class="nav navbar-nav">
+                          <li>
+                              <input id="search-input" class="form-control" type="search" placeholder="Поиск" aria-label="Search">
+                              <button id="search-button" type="button" class="btn btn-success" @click="searchAndFilter()">Искать</button>
+                          </li>
+                          <li>
+                              <h5>Брэнд: </h5>
+                              <select class="form-control" id="filter-brand" @change="searchAndFilter()"></select>
+                          </li>
+                          <li>
+                              <h5>Цена: </h5>
+                              <span>От:</span>
+                              <input id="filter-price-from" @keypress="searchAndFilter()" min="0" max="50000" step=1000 type="number" style="width: 80px" value=0 class="form-control" type="search">
+                              <span>До:</span>
+                              <input id="filter-price-to" @keypress="searchAndFilter()" min="0" max="50000" step=1000 type="number" style="width: 80px" value=50000 class="form-control" type="search">
+                          </li>
+                      </ul>
+                  </div>
+<!--                  <br>-->
+              </div>
+            </nav>
+            <div class="container">
+                <div id="phones-block">
+                    <ul>
+                        <li v-for="(phone, idx) in phones"><phone-card v-bind:phone-data="phone" v-bind:id="idx"/></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Модальное окно -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">Спасибо за покупку!</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                      <h3>Вы приобрели:</h3>
+                  <div id="purchase" class="modal-body">
+                    </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cart.clear()">Закрыть</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <script src="js/script.js"></script>
+	</body>
+</html>
