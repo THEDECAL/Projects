@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "Чат";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="chat">
+    <div class="groups">
+        <div id="info-messages">
+        </div>
+        <div class="text-center"><h4>Группы</h4></div>
+        <ul class="nav nav-tabs" id="chat-groups">
+            <li role="presentation"><a href="#" id="btn-add-group"><span class="glyphicon glyphicon-plus"></span> Добавить</a></li>
+        </ul>
+        <div class="chat-messages" id="chat-messages">
+        </div>
+        <div class="send-message">
+            <input id="text-message" type="text" class="form-control">
+            <button id="btn-send-message" type="button" class="btn btn-sucess">Отправить</button>
+        </div>
+    </div>
+    <div class="users" id="users">
+        <div class="text-center"><h4>Пользователи</h4></div>
+        <ul id="chat-users" class="list-group">
+        </ul>
+    </div>
+    <input id="user-id" type="hidden"/>
+</div>
+
+@Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
+@Scripts.Render("~/Scripts/jquery.signalR-2.4.1.min.js")
+@Scripts.Render("~/signalr/hubs")
+@Scripts.Render("~/Scripts/chat.js")
