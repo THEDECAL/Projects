@@ -35,6 +35,10 @@ textarea {
     border-radius: 10px;
     /*margin: 3px;*/
 }
+.user {
+    word-wrap: break-word;
+    font-size: 13px;
+}
 .groups {
     width: 80%;
     border: 1px dashed lightgray;
@@ -84,10 +88,21 @@ textarea {
     display: flex;
     flex-direction: column;
     word-wrap: break-word;
-    border: 1px solid lightgray;
+    border-style: solid;
+    border: 1px;
     border-radius: 5px;
     margin-bottom: 5px;
     padding: 7px;
+}
+.blue {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+.green {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
 }
 .message-owner {
     font-size: 12px;

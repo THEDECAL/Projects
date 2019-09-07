@@ -1,13 +1,10 @@
 ﻿const chat = $.connection.chatHub;
-let userName = null;
-let groups = [];
-
 
 const GUI = {
     $messages: $("#chat-messages"),
     $groups: $("#chat-groups"),
     $users: $("#chat-users"),
-    $infoMessages: $("#info-messages"),
+    $notifications: $("#notifications"),
     $userId: $("#user-id")
 };
 
@@ -26,11 +23,32 @@ $(function () {
     });
 
     $("#btn-send-message").bind('click', function () {
-        let textMessage = $("#text-message").val();
-        let groupId = GUI.$groups.children(".active").attr("id");
-        $("#text-message").val("");
+        let textMessage = $("#text-message").val().trim();
+        let activeGroup = GUI.$groups.children(".active");
+        //console.log(activeGroup);
 
-        chat.server.hubSendToGroup(groupId, textMessage);
+        if (textMessage !== "" && activeGroup.length > 0) {
+            let groupId = GUI.$groups.children(".active").attr("id");
+            $("#text-message").val("");
+
+            chat.server.hubSendToGroup(groupId, textMessage);
+        }
+    });
+
+    $("#text-message").keydown(function (e) {
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        if (keycode === 13) {
+            let textMessage = $("#text-message").val().trim();
+            let activeGroup = GUI.$groups.children(".active");
+            //console.log(activeGroup);
+
+            if (textMessage !== "" && activeGroup.length > 0) {
+                let groupId = GUI.$groups.children(".active").attr("id");
+                $("#text-message").val("");
+
+                chat.server.hubSendToGroup(groupId, textMessage);
+            }
+        }
     });
 
     //Клиентские функции которые видит хаб
@@ -39,11 +57,13 @@ $(function () {
     };
 
     chat.client.removeGroup = function (groupId) {
-        GUI.$users.children().remove(`[name='${userName}']`);
+        $(`#${groupId}`).remove();
+        GUI.$messages.empty();
     };
 
-    chat.client.onConnected = function (id, users, groups, messages) {
-        GUI.$userId.val(id);
+    chat.client.onConnected = function (currentUser, users, groups, messages) {
+        GUI.$userId.val(currentUser.Id);
+        GUI.$userId.attr("name", currentUser.Name);
 
         if (groups.length > 0) {
             for (var i = 0; i < groups.length; i++) {
@@ -65,20 +85,31 @@ $(function () {
     };
 
     chat.client.onDisconnected = function (userName) {
-        disconnectedUserMessage(userName);
         delUser(userName);
     };
 
-    chat.client.addNewUser = function (userName) {
-        connectedUserMessage(userName);
+    chat.client.createUser = function (userName) {
         addUser(userName);
     };
 
+    chat.client.createEnterNotification = function (userName) {
+        addNotification(`Пользователь <strong>${userName}</strong> вошёл в чат.`, "alert-success");
+    };
+
+    chat.client.createExitNotification = function (userName) {
+        addNotification(`Пользователь <strong>${userName}</strong> вышел из чата.`, "alert-warning");
+    };
+
+    chat.client.removeUser = function (userName) {
+        delUser(userName);
+    };
+
     chat.client.errorMessage = function(text){
-        errorMessage(text);
+        addNotification(text, "alert-danger");
     };
 
     chat.client.createMessage = function (groupId, message) {
+        //console.log("chat.client.createMessage");
         addMessage(groupId, message);
     };
 
@@ -102,62 +133,72 @@ function transferAddGroup() {
     hideAddGroupTab();
 }
 
-function transferDelGroup() {
-    let groupId = $("#btn-del-group").parent().parent().attr("id");
-
-    chat.server.hubRemoveGroup(groupId);
-}
-
 function addGroup(group) {
     let userId = GUI.$userId.val();
-    let removeButton = (userId === group.OwnerId) ? "<button id='btn-del-group' style='padding: 0 !important;' class='btn btn-link btn-sm' onclick='transferDelGroup()'><span class='glyphicon glyphicon-remove'></span></button>" : "";
+    let isOwner = false;
+    for (var i = 0; i < group.Owners.length; i++) {
+        if (group.Owners[i].Id === userId) {
+            isOwner = true;
+            break;
+        }
+    }
+    
+    let removeButton = (isOwner === true) ? `<button id='btn-del-group' style='padding: 0 !important;' class='btn btn-link btn-sm'><span class='glyphicon glyphicon-remove'></span></button>` : "";
 
     GUI.$groups.append(`<li id='${group.Id}' role='presentation'><a href='#'>${group.Name} ${removeButton}</a></li>`);
-    $(`#${group.Id}`).click(function () {
-        GUI.$groups.children("[class=active]").removeClass();
 
+    let button = $(`#${group.Id}`).children().first().children().first();
+    if (removeButton != "") {
+        button.bind('click', function () {
+            let groupId = $(this).parent().parent().attr("id");
+
+            chat.server.hubRemoveGroup(groupId);
+        })
+    }
+
+    GUI.$messages.empty();
+    GUI.$groups.children("[class=active]").removeClass();
+    $(`#${group.Id}`).addClass("active");
+
+    $(`#${group.Id}`).click(function () {
+        GUI.$messages.empty();
+        GUI.$groups.children("[class=active]").removeClass();
         $(this).addClass("active");
 
-        GUI.$messages.empty();
         chat.server.hubGetMessagesByGroup(group.Id);
     });
 };
 
 function addUser(userName) {
-    GUI.$users.append(`<a name='${userName}' href='#' class='list-group-item list-group-item-warning text-center'>${userName}</a>`);
+    GUI.$users.append(`<a name='${userName}' href='#' class='list-group-item list-group-item-warning text-center user'>${userName}</a>`);
+
+    GUI.$users.children(`[name='${userName}']`).bind('click', function () {
+        let thisUserName = $(this).attr("name");
+        let currUserName = GUI.$userId.attr("name");
+
+        if (thisUserName !== currUserName) {
+            chat.server.hubCreatePrivateGroup(currUserName, thisUserName);
+        }
+    });
 };
 
 function delUser(userName) {
     GUI.$users.children().remove(`[name='${userName}']`);
 }
 
-function connectedUserMessage(userName) {
-    GUI.$infoMessages.append(`<div class='alert alert-success alert-dismissible' role='alert'>\
-            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>\
-            Пользователь <strong>${userName}</strong> вошёл в чат...\
-            </div>`);
-};
-
-function disconnectedUserMessage(userName) {
-    GUI.$infoMessages.append(`<div class='alert alert-warning alert-dismissible' role='alert'>\
-            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>\
-            Пользователь <strong>${userName}</strong> вышел с чата...\
-            </div>`);
-};
-
-function errorMessage(text) {
-    GUI.$infoMessages.append(`<div class='alert alert-danger alert-dismissible' role='alert'>\
-            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>${text}\
-            </div>`);
-};
+function addNotification(text, colorClass) {
+    GUI.$notifications.append(`<div class='alert ${colorClass} alert-dismissible' role='alert'>
+                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>${text}
+                            </div>`);
+}
 
 function addMessage(groupId, message) {
+    //console.log("addMessage");
     let currSelectGroupId = GUI.$groups.children(".active").attr("id");
 
     if (currSelectGroupId === groupId) {
         let userId = GUI.$userId.val();
-        //let msgClass = "col-md-2 col-md-offset-2 message alert";
-        let msgClass = "message";
+        let msgClass = "message ";
         let date = new Date(message.Date);
         var options = {
             month: 'short',
@@ -167,10 +208,8 @@ function addMessage(groupId, message) {
         };
 
 
-        //if (message.Owner.Id == userId) msgClass = msgClass + " alert-success right";
-        //else msgClass = msgClass + " alert-info left";
-        if (message.Owner.Id == userId) msgClass = msgClass + " right";
-        else msgClass = msgClass + " left";
+        if (message.Owner.Id == userId) msgClass = msgClass + " right blue";
+        else msgClass = msgClass + " left green";
 
         GUI.$messages.append(`<div class="${msgClass}">
                                 <div class="message-owner">${message.Owner.Name}</div>

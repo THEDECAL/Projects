@@ -38,18 +38,34 @@ namespace week3_chat.Hubs
 
         public void HubCreateGroup(string groupName, string userId)
         {
-            groupName = Regex.Replace(groupName, "<.*?>", "").Trim();
+            groupName = Regex.Replace(groupName, "<.*?>", "").Trim(); //Удаляем html тэги
 
             var groupOwner = users.FirstOrDefault(u => u.Id == userId);
 
             if (groupOwner != null && groupName != "")
             {
-                groupName = char.ToUpper(groupName[0]) + groupName.Substring(1).ToLower();
-                var newGroup = new ChatGroup() { Name = groupName, Owner = groupOwner };
+                groupName = char.ToUpper(groupName[0]) + groupName.Substring(1).ToLower(); //Делаем первую букву заглавной остальные строчные
+                var newGroup = new ChatGroup() { Name = groupName, Owners = new List<ChatUser>() { groupOwner } };
                 groups.Add(newGroup);
-                Clients.All.createGroup(new { OwnerId = newGroup.Owner.Id, newGroup.Id, newGroup.Name });
+                Clients.All.createGroup(new { Owners = newGroup.Owners, newGroup.Id, newGroup.Name });
             }
             else Clients.Caller.errorMessage("Не верный формат имени группы...");
+        }
+        public void HubCreatePrivateGroup(string srcUserName, string dstUserName) {
+            var srcUser = users.FirstOrDefault(u => u.Name == srcUserName);
+            var dstUser = users.FirstOrDefault(u => u.Name == dstUserName);
+
+            if (srcUser != null && dstUser != null) {
+                var owners = new List<ChatUser>() { srcUser, dstUser };
+                var newGroupId = Guid.NewGuid().ToString();
+                var srcGroup = new ChatGroup() { Id = newGroupId, Name = dstUser.Name, Owners = owners };
+                var dstGroup = new ChatGroup() { Id = newGroupId, Name = srcUser.Name, Owners = owners };
+
+                groups.Add(srcGroup);
+
+                Clients.Caller.createGroup(srcGroup);
+                Clients.Client(dstUser.ConnectionId).createGroup(dstGroup);
+            }
         }
 
         public void HubRemoveGroup(string groupId)
@@ -57,8 +73,9 @@ namespace week3_chat.Hubs
             var userName = HttpContext.Current.User.Identity.Name;
             var user = users.FirstOrDefault(u => u.Name == userName);
             var group = groups.FirstOrDefault(g => g.Id == groupId);
+            var isOwner = group.Owners.Any(o => o.Id == user.Id);
 
-            if (user != null && group != null && group.Owner.Id == user.Id)
+            if (user != null && group != null && isOwner)
             {
                 groups.Remove(group);
                 Clients.All.removeGroup(groupId);
@@ -93,20 +110,19 @@ namespace week3_chat.Hubs
                     if (user != null)
                     {
                         user.ConnectionId = connectionId;
+                        Clients.All.removeUser(userName);
                     }
                     else
                     {
                         user = new ChatUser { Id = userId, ConnectionId = connectionId, Name = userName };
                         users.Add(user);
+                        Clients.Others.createEnterNotification(userName);
                     }
 
-                    Clients.Caller.initGroups(groups);
-
-                    var groupObjects = groups.Select(g => new { OwnerId = g.Owner.Id, g.Id, g.Name,  }).ToList();
+                    var groupObjects = groups.Select(g => new { g.Owners, g.Id, g.Name,  }).ToList();
                     var userNames = users.Select(u => u.Name).ToList();
-                    Clients.Caller.onConnected(user.Id, userNames, groupObjects, groups[0].Messages);
-
-                    Clients.Others.addNewUser(userName);
+                    Clients.Caller.onConnected(user, userNames, groupObjects, groups[0].Messages);
+                    Clients.Others.createUser(userName);
                 }
             }
 
@@ -123,6 +139,7 @@ namespace week3_chat.Hubs
 
                 var id = Context.ConnectionId;
                 Clients.Others.onDisconnected(currentConnectedUser.Name);
+                Clients.Others.createExitNotification(currentConnectedUser.Name);
             }
 
             return base.OnDisconnected(stopCalled);

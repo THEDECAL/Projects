@@ -9,7 +9,7 @@ namespace week3_chat.Models
     {
         public string Id { get; set; } = Guid.NewGuid().ToString();
         public string Name { get; set; } = "";
-        public ChatUser Owner { get; set; } = new ChatUser();
+        public List<ChatUser> Owners { get; set; } = new List<ChatUser>();
         public List<ChatMessage> Messages { get; set; } = new List<ChatMessage>();
     }
 }
