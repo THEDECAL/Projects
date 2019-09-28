@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "NetScan": {
+      "commandName": "Project",
+      "commandLineArgs": "checkport 127.0.0.1",
+      "workingDirectory": "E:\\Документы\\Visual Studio 2017\\Projects\\CSharp\\ConsoleApplications\\NetScan\\NetScan\\bin\\Debug"
+    }
+  }
+}

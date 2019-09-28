@@ -96,12 +96,24 @@ $(function () {
         addNotification(`Пользователь <strong>${userName}</strong> вошёл в чат.`, "alert-success");
     };
 
+    chat.client.createBlockedNotification = function (userName) {
+        addNotification(`Пользователь <strong>${userName}</strong> заблокирован.`, "alert-danger");
+    };
+
     chat.client.createExitNotification = function (userName) {
         addNotification(`Пользователь <strong>${userName}</strong> вышел из чата.`, "alert-warning");
     };
 
     chat.client.removeUser = function (userName) {
         delUser(userName);
+    };
+
+    chat.client.blockUser = function () {
+        GUI.$messages.empty();
+        //GUI.$groups.empty();
+        GUI.$groups.find("li").slice(1).remove();
+        GUI.$users.empty();
+        $userId.val("");
     };
 
     chat.client.errorMessage = function(text){

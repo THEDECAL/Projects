@@ -113,3 +113,6 @@ textarea {
     font-size: 10px;
     color: lightgray;
 }
+.block-users {
+    width: auto;
+}

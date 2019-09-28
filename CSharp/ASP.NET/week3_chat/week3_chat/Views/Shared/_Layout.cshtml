@@ -22,13 +22,25 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
-                    <li>@Html.ActionLink("О программе", "About", "Home")</li>
-                    <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Чат", "Index", "Chat")</li>
+                    <li>@Html.ActionLink("Домашняя страница", "Index", new { area = "", controller = "Home" })</li>
+                    <li>@Html.ActionLink("О программе", "About", new { area = "", controller = "Home" })</li>
+                    <li>@Html.ActionLink("Контакт", "Contact", new { area = "", controller = "Home" })</li>
+                    <li>@Html.ActionLink("Чат", "Index", new { area = "", controller = "Chat" })</li>
+                    @if (User != null && User.IsInRole("admins"))
+                    {
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Панель администратора
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Блокировка пользователей чата", "UserBlocker", new { area = "admin", controller = "Admin" })</li>
+                        </ul>
+                    </li>
+                    }
                 </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+                        @Html.Partial("_LoginPartial")
+</div>
         </div>
     </div>
     <div class="container body-content">

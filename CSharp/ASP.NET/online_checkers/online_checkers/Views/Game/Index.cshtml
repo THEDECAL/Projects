@@ -1,0 +1,31 @@
+﻿@using online_checkers.Models;
+@model Game
+@{
+    ViewData["Title"] = "Игра";
+}
+
+<table class="game">
+    <tr>
+        <td colspan="2" class="player inset-shadow">
+            Первый игрок
+        </td>
+        <td rowspan="2" class="panel inset-shadow">
+            Зрители
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="2" class="panel inset-shadow">
+            Время, журнал, счёт
+        </td>
+        <td class="board" border-size="@Convert.ToInt32(Model.Board.Size)"></td>
+    </tr>
+    <tr>
+        <td colspan="2" class="player inset-shadow">
+            Второй игрок
+        </td>
+    </tr>
+</table>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+<script src="~/js/game.js"></script>

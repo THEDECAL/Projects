@@ -7,19 +7,20 @@ using System.Web;
 using Microsoft.AspNet.SignalR;
 using week3_chat.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace week3_chat.Hubs
 {
     public class ChatHub : Hub
     {
-        static List<ChatUser> users = new List<ChatUser>();
-        static List<ChatGroup> groups = new List<ChatGroup>() { new ChatGroup() { Name = "Основная" } };
+        public static List<ChatUser> Users { get; set; } = new List<ChatUser>();
+        public static List<ChatGroup> Groups { get; set; } = new List<ChatGroup>() { new ChatGroup() { Name = "Основная" } };
 
         public void HubSendToGroup(string groupId, string textMessage)
         {
             var userName = HttpContext.Current.User.Identity.Name;
-            var user = users.FirstOrDefault(u => u.Name == userName);
-            var group = groups.FirstOrDefault(g => g.Id == groupId);
+            var user = Users.FirstOrDefault(u => u.Name == userName);
+            var group = Groups.FirstOrDefault(g => g.Id == groupId);
 
             if (user != null && group != null)
             {
@@ -40,20 +41,21 @@ namespace week3_chat.Hubs
         {
             groupName = Regex.Replace(groupName, "<.*?>", "").Trim(); //Удаляем html тэги
 
-            var groupOwner = users.FirstOrDefault(u => u.Id == userId);
+            var groupOwner = Users.FirstOrDefault(u => u.Id == userId);
 
             if (groupOwner != null && groupName != "")
             {
                 groupName = char.ToUpper(groupName[0]) + groupName.Substring(1).ToLower(); //Делаем первую букву заглавной остальные строчные
                 var newGroup = new ChatGroup() { Name = groupName, Owners = new List<ChatUser>() { groupOwner } };
-                groups.Add(newGroup);
+                Groups.Add(newGroup);
                 Clients.All.createGroup(new { Owners = newGroup.Owners, newGroup.Id, newGroup.Name });
             }
             else Clients.Caller.errorMessage("Не верный формат имени группы...");
         }
+
         public void HubCreatePrivateGroup(string srcUserName, string dstUserName) {
-            var srcUser = users.FirstOrDefault(u => u.Name == srcUserName);
-            var dstUser = users.FirstOrDefault(u => u.Name == dstUserName);
+            var srcUser = Users.FirstOrDefault(u => u.Name == srcUserName);
+            var dstUser = Users.FirstOrDefault(u => u.Name == dstUserName);
 
             if (srcUser != null && dstUser != null) {
                 var owners = new List<ChatUser>() { srcUser, dstUser };
@@ -61,7 +63,7 @@ namespace week3_chat.Hubs
                 var srcGroup = new ChatGroup() { Id = newGroupId, Name = dstUser.Name, Owners = owners };
                 var dstGroup = new ChatGroup() { Id = newGroupId, Name = srcUser.Name, Owners = owners };
 
-                groups.Add(srcGroup);
+                Groups.Add(srcGroup);
 
                 Clients.Caller.createGroup(srcGroup);
                 Clients.Client(dstUser.ConnectionId).createGroup(dstGroup);
@@ -71,20 +73,20 @@ namespace week3_chat.Hubs
         public void HubRemoveGroup(string groupId)
         {
             var userName = HttpContext.Current.User.Identity.Name;
-            var user = users.FirstOrDefault(u => u.Name == userName);
-            var group = groups.FirstOrDefault(g => g.Id == groupId);
+            var user = Users.FirstOrDefault(u => u.Name == userName);
+            var group = Groups.FirstOrDefault(g => g.Id == groupId);
             var isOwner = group.Owners.Any(o => o.Id == user.Id);
 
             if (user != null && group != null && isOwner)
             {
-                groups.Remove(group);
+                Groups.Remove(group);
                 Clients.All.removeGroup(groupId);
             }
         }
 
         public void HubGetMessagesByGroup(string groupId)
         {
-            var group = groups.FirstOrDefault(g => g.Id == groupId);
+            var group = Groups.FirstOrDefault(g => g.Id == groupId);
 
             if (group != null)
             {
@@ -96,17 +98,19 @@ namespace week3_chat.Hubs
         {
             return base.OnReconnected();
         }
+
         public override Task OnConnected()
-        {   
+        {
             if (HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                string userName = HttpContext.Current.User.Identity.Name;
+                var userIdentity = HttpContext.Current.User;
+                string userName = userIdentity.Identity.Name;
                 var connectionId = Context.ConnectionId;
-                var userId = HttpContext.Current.User.Identity.GetUserId();
+                var userId = userIdentity.Identity.GetUserId();
 
-                if (!users.Any(u => u.ConnectionId == connectionId))
+                if (!Users.Any(u => u.ConnectionId == connectionId))
                 {
-                    var user = users.FirstOrDefault(u => u.Name == userName);
+                    var user = Users.FirstOrDefault(u => u.Name == userName);
                     if (user != null)
                     {
                         user.ConnectionId = connectionId;
@@ -115,14 +119,24 @@ namespace week3_chat.Hubs
                     else
                     {
                         user = new ChatUser { Id = userId, ConnectionId = connectionId, Name = userName };
-                        users.Add(user);
-                        Clients.Others.createEnterNotification(userName);
+                        using (var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+                        {
+                            var currUser = userManager.FindById(userId);
+                            user.isBlocked = currUser.IsBlockedInChat;
+                        }
+                        Users.Add(user);
+
+                        if(!user.isBlocked)
+                            Clients.Others.createEnterNotification(userName);
                     }
 
-                    var groupObjects = groups.Select(g => new { g.Owners, g.Id, g.Name,  }).ToList();
-                    var userNames = users.Select(u => u.Name).ToList();
-                    Clients.Caller.onConnected(user, userNames, groupObjects, groups[0].Messages);
-                    Clients.Others.createUser(userName);
+                    if (!user.isBlocked)
+                    {
+                        var groupObjects = Groups.Select(g => new { g.Owners, g.Id, g.Name, }).ToList();
+                        var userNames = Users.Where(u => !u.isBlocked).Select(u => u.Name).ToList();
+                        Clients.Caller.onConnected(user, userNames, groupObjects, Groups[0].Messages);
+                        Clients.Others.createUser(userName);
+                    }
                 }
             }
 
@@ -131,11 +145,11 @@ namespace week3_chat.Hubs
 
         public override Task OnDisconnected(bool stopCalled)
         {
-            var currentConnectedUser = users.FirstOrDefault(u => u.ConnectionId == Context.ConnectionId);
+            var currentConnectedUser = Users.FirstOrDefault(u => u.ConnectionId == Context.ConnectionId);
 
             if (currentConnectedUser != null)
             {
-                users.Remove(currentConnectedUser);
+                Users.Remove(currentConnectedUser);
 
                 var id = Context.ConnectionId;
                 Clients.Others.onDisconnected(currentConnectedUser.Name);

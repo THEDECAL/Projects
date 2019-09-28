@@ -10,5 +10,6 @@ namespace week3_chat.Models
         public string Id { get; set; }
         public string ConnectionId { get; set; }
         public string Name { get; set; } = "";
+        public bool isBlocked { get; set; }
     }
 }

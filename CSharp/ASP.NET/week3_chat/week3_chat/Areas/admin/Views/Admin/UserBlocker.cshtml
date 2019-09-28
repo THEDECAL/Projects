@@ -1,0 +1,36 @@
+﻿
+@using week3_chat.Models
+@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.EntityFramework
+@model IEnumerable<ChatUser>
+@{
+    ViewBag.Title = "Блокировка пользователей чата";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="block-users">
+    <ul class="list-group">
+        @foreach (var user in Model)
+        {
+            string buttonColor = "btn-default";
+            string buttonText = "Заблокировать";
+            string buttonIcon = "glyphicon glyphicon-ban-circle";
+
+            if (user.isBlocked)
+            {
+                buttonColor = "btn-warning";
+                buttonText = "Разблокировать";
+                buttonIcon = "glyphicon glyphicon-ok-circle";
+            }
+
+            <li class="list-group-item">
+                @user.Name
+                <a href="@Url.Action("ChangeBlockStatus", "Admin", new { id = user.Id })" class="btn @buttonColor">
+                    <span class="@buttonIcon" aria-hidden="true"></span>
+                    @buttonText
+                </a>
+            </li>
+        }
+    </ul>
+</div>
