@@ -1,0 +1,13 @@
+﻿@model NetworkCheckers.Models.Game
+@{
+    ViewData["Title"] = "Игра";
+}
+
+@if (Model != null)
+{
+    <partial name="_Board" />
+}
+else
+{
+    <h3>У вас нет незавершённых игр.</h3>
+}

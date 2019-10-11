@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>aspnet-NetworkCheckers-DBB30E0D-8FAC-4F85-97E1-79C2480CE845</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\AccountController.cs" />
+    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.cs" />
+    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />
+    <Compile Remove="Migrations\20191001123327_first-migration.cs" />
+    <Compile Remove="Migrations\20191001123327_first-migration.Designer.cs" />
+    <Compile Remove="Migrations\20191002105328_first-migration.cs" />
+    <Compile Remove="Migrations\20191002105328_first-migration.Designer.cs" />
+    <Compile Remove="Migrations\20191002113645_first-migration.cs" />
+    <Compile Remove="Migrations\20191002113645_first-migration.Designer.cs" />
+    <Compile Remove="Migrations\20191002125158_second-migration.cs" />
+    <Compile Remove="Migrations\20191002125158_second-migration.Designer.cs" />
+    <Compile Remove="Migrations\20191004110502_first-migration.cs" />
+    <Compile Remove="Migrations\20191004110502_first-migration.Designer.cs" />
+    <Compile Remove="Migrations\20191004111118_first-migration.cs" />
+    <Compile Remove="Migrations\20191004111118_first-migration.Designer.cs" />
+    <Compile Remove="Migrations\20191004111920_first-migration.cs" />
+    <Compile Remove="Migrations\20191004111920_first-migration.Designer.cs" />
+    <Compile Remove="Migrations\20191004112022_first-migration.cs" />
+    <Compile Remove="Migrations\20191004112022_first-migration.Designer.cs" />
+    <Compile Remove="Migrations\20191004134729_first-migration.cs" />
+    <Compile Remove="Migrations\20191004134729_first-migration.Designer.cs" />
+    <Compile Remove="Migrations\20191005061508_first-migration.cs" />
+    <Compile Remove="Migrations\20191005061508_first-migration.Designer.cs" />
+    <Compile Remove="Migrations\20191005062938_first-migration.cs" />
+    <Compile Remove="Migrations\20191005062938_first-migration.Designer.cs" />
+    <Compile Remove="Migrations\20191007100240_first-migration.cs" />
+    <Compile Remove="Migrations\20191007100240_first-migration.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Services\" />
+  </ItemGroup>
+
+</Project>
