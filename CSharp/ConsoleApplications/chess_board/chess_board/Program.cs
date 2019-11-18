@@ -15,15 +15,13 @@ namespace chess_board
                 //Ширина
                 for (int j = 0; j < size; j++)
                 {
-                    int _shift = Convert.ToInt32(shift);
-                    string symbols = ((j + _shift) % 2 > 0) ? "o " : "  ";
-                    Console.Write(symbols);
+                    string symbols = ((j + shift) % 2 > 0) ? "o " : "  ";
+					cout << symbols + '\n';
                 }
-                Console.WriteLine();
+				cout << '\n';
                 
                 shift = !shift;
             }
-            Console.ReadKey();
         }
     }
 }
