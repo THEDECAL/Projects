@@ -1,0 +1,154 @@
+﻿<Controls:MetroWindow x:Class="FileBooter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:local="clr-namespace:FileBooter"
+        mc:Ignorable="d"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        Title="FileBooter" Height="450" Width="860">
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout Name="fcAdd" Position="Top" IsModal="True" Opacity="1" Background="SlateGray">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Введите ссылку на файл:" Margin="3"/>
+                    <TextBox x:Name="tbURI" Margin="3" Text="{Binding URI}"/>
+                    <TextBlock Text="Имя файла для сохранения:" Margin="3"/>
+                    <TextBox x:Name="tbName" Margin="3" Text="{Binding FileName}"/>
+                    <Button Content="Добавить" Click="AddFile" Margin="3"/>
+                </StackPanel>
+            </Controls:Flyout>
+            <Controls:Flyout Name="fcSettings" Position="Top" DataContext="{Binding Settings}" IsModal="True" Opacity="1" Background="SlateGray">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Место сохранения по умолчанию:" Margin="3"/>
+                    <TextBox Text="{Binding PathToSave}" IsReadOnly="True" Margin="3"/>
+                    <TextBlock Margin="3">
+                        <TextBlock.Text>
+                            <Binding Path="QueueLength">
+                                <Binding.StringFormat>
+                                    Количество одновременных закачек: {0}
+                                </Binding.StringFormat>
+                            </Binding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <Slider Minimum="1" Maximum="{Binding MaxQueueLength}" Value="{Binding QueueLength}"
+                                Margin="8" TickPlacement="Both" IsSnapToTickEnabled="True"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Начинать загрузку сразу после добавления: " Margin="3"/>
+                        <CheckBox IsChecked="{Binding IsStartDownloadingAfterAdding}" Margin="3"/>
+                    </StackPanel>
+                    <Button Content="Применить" Click="SettingsApply" Margin="3"/>
+                </StackPanel>
+            </Controls:Flyout>
+            <Controls:Flyout Name="fcRename" Position="Top" IsModal="True" Opacity="1" Background="SlateGray">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Введите новое имя файла:" Margin="3"/>
+                    <TextBox x:Name="tbNewName" Margin="3"/>
+                    <Button Content="Переименовать" Click="RenameFile" Margin="3"
+                                  DataContext="{Binding ElementName=dgDFiles, Path=SelectedItem}"/>
+                </StackPanel>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Click="OpenCloseAddFile">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconModern Width="15" Height="15" Kind="Add" />
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Добавить загрузку" />
+                </StackPanel>
+            </Button>
+            <Button Click="OpenCloseSettings">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconModern Width="15" Height="15" Kind="Settings" />
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Настройки" />
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+    <Grid>
+        <GroupBox Header="Список загрузок">
+            <DataGrid x:Name="dgDFiles" ItemsSource="{Binding Path=Files}" AutoGenerateColumns="False" CanUserAddRows="False">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Переименовать" Click="OpenCloseRenameFile"
+                                  DataContext="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
+                        <MenuItem Header="Удалить" Click="DelFile_Click"
+                                  DataContext="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
+                        <MenuItem Header="Переместить" Click="MoveFile_Click"
+                                  DataContext="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Имя файла" Width="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding FileName, Mode=TwoWay}" Margin="5 0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Путь сохранения" Width="130">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PathToSave, Mode=TwoWay}" Margin="5 0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Размер">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Size}" Margin="5 0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Загружено">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding AlreadyLoaded}" Margin="5 0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Состояние">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding State}" Margin="5 0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Прогресс" Width="200">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <ProgressBar Minimum="0" Maximum="{Binding Size}" Foreground="#FF62FF7F" Value="{Binding AlreadyLoaded, Mode=OneWay}"/>
+                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=DownloadProgressPercents, StringFormat={}{0}%}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Действия">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Grid.Column="0" Width="25px" Height="25px"
+                                            Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Click="Stop_Click">
+                                        <iconPacks:PackIconMaterial Kind="Stop" Width="10px" Height="10px" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </Button>
+                                    <Button Grid.Column="1" Width="25px" Height="25px"
+                                            Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Click="StartResume_Click">
+                                        <iconPacks:PackIconMaterial Kind="Play" Width="10px" Height="10px" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </Button>
+                                    <Button Grid.Column="1" Width="25px" Height="25px"
+                                            Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Click="Pause_Click">
+                                        <iconPacks:PackIconMaterial Kind="Pause" Width="10px" Height="10px" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+    </Grid>
+</Controls:MetroWindow>
