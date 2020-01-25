@@ -1,0 +1,16 @@
+0:0:0:0:0:0:0:1 - - [21/Jan/2020:16:13:12 +0200] "GET / HTTP/1.1" 200 1421 http-bio-8080-exec-1 266
+0:0:0:0:0:0:0:1 - - [21/Jan/2020:16:13:17 +0200] "GET /content/css/bootstrap.min.css HTTP/1.1" 200 16384 http-bio-8080-exec-2 31
+0:0:0:0:0:0:0:1 - - [21/Jan/2020:16:13:17 +0200] "GET /content/js/jquery.min.js HTTP/1.1" 304 - http-bio-8080-exec-3 140
+0:0:0:0:0:0:0:1 - - [21/Jan/2020:16:13:17 +0200] "GET /favicon.ico HTTP/1.1" 200 1421 http-bio-8080-exec-4 16
+0:0:0:0:0:0:0:1 - - [21/Jan/2020:16:13:19 +0200] "GET /phones HTTP/1.1" 200 4399 http-bio-8080-exec-6 125
+0:0:0:0:0:0:0:1 - - [21/Jan/2020:16:13:19 +0200] "GET /content/images/samsung_galaxy_s9_64gb_black_images_3249371727.jpg HTTP/1.1" 200 22346 http-bio-8080-exec-7 15
+0:0:0:0:0:0:0:1 - - [21/Jan/2020:16:13:19 +0200] "GET /content/images/copy_tecno_b1p_dual_gold_images_12852510276.jpg HTTP/1.1" 200 86975 http-bio-8080-exec-1 46
+0:0:0:0:0:0:0:1 - - [21/Jan/2020:16:13:19 +0200] "GET /content/images/blackview_6931548305781_images_13936944982.jpg HTTP/1.1" 200 33534 http-bio-8080-exec-9 46
+0:0:0:0:0:0:0:1 - - [21/Jan/2020:16:13:19 +0200] "GET /content/images/huawei_y7_2019_blue_images_10606920410.jpg HTTP/1.1" 200 60680 http-bio-8080-exec-10 46
+0:0:0:0:0:0:0:1 - - [21/Jan/2020:16:13:19 +0200] "GET /content/images/nokia_7_2_4_64gb_silver_images_13891308811.jpg HTTP/1.1" 200 58953 http-bio-8080-exec-8 62
+0:0:0:0:0:0:0:1 - - [21/Jan/2020:16:13:20 +0200] "GET /cart HTTP/1.1" 200 1922 http-bio-8080-exec-1 219
+0:0:0:0:0:0:0:1 - - [21/Jan/2020:16:13:21 +0200] "GET / HTTP/1.1" 200 1421 http-bio-8080-exec-2 0
+0:0:0:0:0:0:0:1 - - [21/Jan/2020:16:13:22 +0200] "GET /cart HTTP/1.1" 200 1922 http-bio-8080-exec-2 15
+0:0:0:0:0:0:0:1 - - [21/Jan/2020:16:13:23 +0200] "GET /cart?delId=0 HTTP/1.1" 302 - http-bio-8080-exec-2 0
+0:0:0:0:0:0:0:1 - - [21/Jan/2020:16:13:23 +0200] "GET /cart HTTP/1.1" 200 1258 http-bio-8080-exec-5 0
+0:0:0:0:0:0:0:1 - - [21/Jan/2020:16:13:25 +0200] "GET / HTTP/1.1" 200 1421 http-bio-8080-exec-5 0
