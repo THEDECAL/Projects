@@ -13,14 +13,15 @@
                 </div>
                 <div>
                     <form class="m-3" action="/login" method="post">
+                        <input type="hidden" name="_csrf" value="${_csrf.token}">
                         <div class="form-group">
                             <label for="exampleInputLogin1">Логин</label>
-                            <input name="Login" type="text" class="form-control" id="exampleInputLogin1"
+                            <input name="login" type="text" class="form-control" id="exampleInputLogin1"
                                    placeholder="Введите логин">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Пароль</label>
-                            <input name="Password" type="password" class="form-control" id="exampleInputPassword1"
+                            <input name="password" type="password" class="form-control" id="exampleInputPassword1"
                                    placeholder="Введите пароль">
                         </div>
                         <button type="submit" class="btn btn-primary">Войти</button>

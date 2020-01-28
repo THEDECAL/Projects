@@ -13,11 +13,20 @@
                 </div>
                 <div>
                     <form class="m-3" action="/add-edit" method="post">
+                        <input type="hidden" name="_csrf" value="${_csrf.token}">
                         <div class="form-group">
                             <label for="exampleInputText1">Описание задания</label>
-                            <input type="text" class="form-control" id="exampleInputText1" placeholder="Введите текст задания">
+                            <input type="text" name="text" class="form-control" id="exampleInputText1"
+                                   placeholder="Введите текст задания" value="${task.getText()}">
+                            <input type="hidden" name="id" value="${(task.getId())!""}">
                         </div>
-                        <button type="submit" class="btn btn-primary">Добавить</button>
+                        <button type="submit" class="btn btn-primary">
+                            <#if mode == "add">
+                                Добавить
+                            <#elseif mode == "edit">
+                                Изменить
+                            </#if>
+                        </button>
                     </form>
                 </div>
             </div>

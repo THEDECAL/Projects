@@ -169,3 +169,7 @@ i {
 .card-footer {
     background-color: #fff
 }
+
+.diactivated {
+    text-decoration: line-through;
+}

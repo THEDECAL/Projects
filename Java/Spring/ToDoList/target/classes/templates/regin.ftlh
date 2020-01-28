@@ -1,4 +1,4 @@
-a<#import "default/template.ftlh" as c>
+<#import "default/template.ftlh" as c>
 
 <@c.page>
     <div class="row d-flex justify-content-center container m-5">
@@ -13,17 +13,21 @@ a<#import "default/template.ftlh" as c>
                 </div>
                 <div>
                     <form class="m-3" action="/regin" method="post">
+                        <input type="hidden" name="_csrf" value="${_csrf.token}">
                         <div class="form-group">
                             <label for="exampleInputLogin1">Логин</label>
-                            <input type="text" class="form-control" id="exampleInputLogin1" placeholder="Введите логин">
+                            <input name="login" type="text" class="form-control" id="exampleInputLogin1"
+                                   placeholder="Введите логин">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Пароль</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Введите пароль">
+                            <input name="password1" type="password" class="form-control" id="exampleInputPassword1"
+                                   placeholder="Введите пароль">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword2">Проверка пароля</label>
-                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Введите повторно пароль">
+                            <input name="password2" type="password" class="form-control" id="exampleInputPassword2"
+                                   placeholder="Введите повторно пароль">
                         </div>
                         <button type="submit" class="btn btn-primary">Зарегестрироватся</button>
                     </form>
