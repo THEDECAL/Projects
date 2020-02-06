@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Calculator</string>
+    <string name="Button0">0</string>
+    <string name="ButtonComma">.</string>
+    <string name="ButtonDivision">/</string>
+    <string name="ButtonPlusMinus">+/-</string>
+    <string name="ButtomMultiple">*</string>
+    <string name="Button3">3</string>
+    <string name="Button2">2</string>
+    <string name="Button1">1</string>
+    <string name="Button4">4</string>
+    <string name="Button5">5</string>
+    <string name="Button6">6</string>
+    <string name="ButtonMinus">-</string>
+    <string name="Button7">7</string>
+    <string name="Button8">8</string>
+    <string name="Button9">9</string>
+    <string name="ButtonPlus">+</string>
+    <string name="ButtonCancel">C</string>
+    <string name="ButtonErase"><![CDATA[<-]]></string>
+    <string name="ButtonAnswer">=</string>
+    <string name="DefaultTextOnDisplay">0</string>
+    <string name="ButtonClear">CA</string>
+</resources>
