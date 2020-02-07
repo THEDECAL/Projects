@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingDefaultResource">
+
+    <TextView
+        android:id="@id/tvEnteredNumbers"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center|right"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:paddingTop="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text=""
+        android:textSize="12dp"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@id/tvDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center|right"
+        android:paddingBottom="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="@string/DefaultTextOnDisplay"
+        android:textSize="22sp"
+        tools:layout_editor_absoluteX="8dp"
+        app:layout_constraintTop_toTopOf="@id/tvEnteredNumbers"/>
+
+    <TableLayout
+        android:id="@id/tButtons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDisplay">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4">
+
+            <Button
+                android:id="@id/btn7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/Button7"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:onClick="onButtonNumberClick"/>
+
+            <Button
+                android:id="@id/btn8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/Button8"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:onClick="onButtonNumberClick"/>
+
+            <Button
+                android:id="@id/btn9"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/Button9"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:onClick="onButtonNumberClick"/>
+
+            <Button
+                android:id="@id/btnPlus"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/ButtonPlus"
+                android:textSize="20sp"
+                android:onClick="onButtonActionClick"/>
+
+            <Button
+                android:id="@id/btnClearAll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/ButtonClear"
+                android:textSize="20sp"
+                android:onClick="onButtonClearAllClick"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4">
+
+            <Button
+                android:id="@id/btn4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/Button4"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:onClick="onButtonNumberClick"/>
+
+
+            <Button
+                android:id="@id/btn5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/Button5"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:onClick="onButtonNumberClick"/>
+
+            <Button
+                android:id="@id/btn6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/Button6"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:onClick="onButtonNumberClick"/>
+
+            <Button
+                android:id="@id/btnMinus"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/ButtonMinus"
+                android:textSize="20sp"
+                android:onClick="onButtonActionClick"/>
+
+            <Button
+                android:id="@id/btnCancel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/ButtonCancel"
+                android:textSize="20sp"
+                android:onClick="onButtonCancelClick"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4">
+
+            <Button
+                android:id="@id/btn1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/Button1"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:onClick="onButtonNumberClick"/>
+
+            <Button
+                android:id="@id/btn2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/Button2"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:onClick="onButtonNumberClick"/>
+
+            <Button
+                android:id="@id/btn3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/Button3"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:onClick="onButtonNumberClick"/>
+
+            <Button
+                android:id="@id/btnMult"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/ButtomMultiple"
+                android:textSize="20sp"
+                android:onClick="onButtonActionClick"/>
+
+            <Button
+                android:id="@id/btnErase"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/ButtonErase"
+                android:textSize="20sp"
+                android:onClick="onButtonEraseClick"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4">
+
+            <Button
+                android:id="@id/btnPlusMinus"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/ButtonPlusMinus"
+                android:textSize="20sp"
+                android:onClick="onButtonPlusMinusClick"/>
+
+            <Button
+                android:id="@id/btn0"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/Button0"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@id/btnComma"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/ButtonComma"
+                android:textSize="20sp"
+                android:onClick="onButtonCommaClick"/>
+
+            <Button
+                android:id="@id/btnDiv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/ButtonDivision"
+                android:textSize="20sp"
+                android:onClick="onButtonActionClick"/>
+
+            <Button
+                android:id="@id/btnAnswer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/ButtonAnswer"
+                android:textSize="20sp"
+                android:onClick="onButtonAnswerClick"/>
+        </TableRow>
+
+    </TableLayout>
+</LinearLayout>

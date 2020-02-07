@@ -32,6 +32,7 @@
         <option value="CSS File" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -51,8 +52,11 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/localhost/configs" />
+    <property name="last_opened_file_path" value="D:/Downloads/Lesson_07_1578741926/Lesson 07" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
@@ -118,6 +122,10 @@
       <workItem from="1579779280189" duration="18068000" />
       <workItem from="1579871720947" duration="5260000" />
       <workItem from="1579877434803" duration="3393000" />
+      <workItem from="1580052238265" duration="9000" />
+      <workItem from="1580056553707" duration="37535000" />
+      <workItem from="1580203345417" duration="101000" />
+      <workItem from="1580320468967" duration="15000" />
     </task>
     <servers />
   </component>

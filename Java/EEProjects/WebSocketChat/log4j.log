@@ -1,0 +1,44 @@
+2020-02-01 18:45:01 DEBUG ChatServer:31 - session 0 openned
+2020-02-01 18:45:08 DEBUG ChatServer:43 - user "THE DECAL!" entered
+2020-02-01 18:45:40 DEBUG ChatServer:31 - session 1 openned
+2020-02-01 18:45:48 DEBUG ChatServer:43 - user "TESTIK" entered
+2020-02-01 18:46:38 DEBUG ChatServer:67 - user "TESTIK" exited
+2020-02-01 18:46:38 DEBUG ChatServer:68 - session 1 closed
+2020-02-01 18:46:56 DEBUG ChatServer:31 - session 2 openned
+2020-02-01 18:47:37 DEBUG ChatServer:43 - user "TESTIK" entered
+2020-02-01 19:02:25 DEBUG ChatServer:67 - user "THE DECAL!" exited
+2020-02-01 19:02:25 DEBUG ChatServer:68 - session 0 closed
+2020-02-01 19:02:26 DEBUG ChatServer:31 - session 3 openned
+2020-02-01 19:02:27 DEBUG ChatServer:43 - user "THE DECAL!" entered
+2020-02-01 19:09:01 DEBUG ChatServer:31 - session 0 openned
+2020-02-01 19:10:49 DEBUG ChatServer:43 - user "THE DECAL!" entered
+2020-02-01 19:11:38 DEBUG ChatServer:68 - user "THE DECAL!" exited
+2020-02-01 19:11:38 DEBUG ChatServer:69 - session 0 closed
+2020-02-01 19:11:39 DEBUG ChatServer:31 - session 1 openned
+2020-02-01 19:11:44 DEBUG ChatServer:43 - user "THE DECAL!" entered
+2020-02-01 19:11:58 DEBUG ChatServer:31 - session 2 openned
+2020-02-01 19:12:04 DEBUG ChatServer:43 - user "TESTIK" entered
+2020-02-01 19:12:45 DEBUG ChatServer:68 - user "THE DECAL!" exited
+2020-02-01 19:12:45 DEBUG ChatServer:69 - session 1 closed
+2020-02-01 19:12:45 DEBUG ChatServer:31 - session 3 openned
+2020-02-01 19:12:50 DEBUG ChatServer:43 - user "THE DECAL!" entered
+2020-02-01 19:12:59 DEBUG ChatServer:68 - user "TESTIK" exited
+2020-02-01 19:12:59 DEBUG ChatServer:69 - session 2 closed
+2020-02-01 19:12:59 DEBUG ChatServer:31 - session 4 openned
+2020-02-01 19:13:05 DEBUG ChatServer:43 - user "TESTIK" entered
+2020-02-01 19:15:04 DEBUG ChatServer:68 - user "THE DECAL!" exited
+2020-02-01 19:15:04 DEBUG ChatServer:69 - session 3 closed
+2020-02-01 19:15:05 DEBUG ChatServer:31 - session 5 openned
+2020-02-01 19:15:07 DEBUG ChatServer:43 - user "THE DECAL!" entered
+2020-02-01 19:15:15 DEBUG ChatServer:68 - user "TESTIK" exited
+2020-02-01 19:15:15 DEBUG ChatServer:69 - session 4 closed
+2020-02-01 19:15:16 DEBUG ChatServer:31 - session 6 openned
+2020-02-01 19:15:19 DEBUG ChatServer:43 - user "123" entered
+2020-02-01 19:46:42 DEBUG ChatServer:23 - session 0 openned
+2020-02-01 19:46:44 DEBUG ChatServer:41 - user "THE DECAL!" entered
+2020-02-01 19:46:58 DEBUG ChatServer:23 - session 1 openned
+2020-02-01 19:47:05 DEBUG ChatServer:41 - user "TESTIK" entered
+2020-02-01 19:48:43 DEBUG ChatServer:66 - user "TESTIK" exited
+2020-02-01 19:48:43 DEBUG ChatServer:67 - session 1 closed
+2020-02-01 19:48:46 DEBUG ChatServer:66 - user "THE DECAL!" exited
+2020-02-01 19:48:46 DEBUG ChatServer:67 - session 0 closed

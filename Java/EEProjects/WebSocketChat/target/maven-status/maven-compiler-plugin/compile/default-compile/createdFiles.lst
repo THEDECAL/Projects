@@ -1,1 +1,3 @@
+models\Message$Type.class
+models\Message.class
 servlets\MainServlet.class

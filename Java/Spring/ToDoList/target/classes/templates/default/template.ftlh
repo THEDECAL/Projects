@@ -1,6 +1,6 @@
 <#macro page>
     <!doctype html>
-    <html lang="ru">
+    <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport"
@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="/content/css/font-awesome.min.css">
         <script src="/content/js/jquery.min.js"></script>
         <script src="/content/js/bootstrap.min.js"></script>
+        <script src="/content/js/script.js"></script>
         <title>Список Заданий</title>
     </head>
     <body>
@@ -23,12 +24,16 @@
                     </svg>
                     &nbsp;Список Заданий
                 </a>
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <div class="btn-group btn-group-toggle">
                     <a href="/regin" class="btn btn-primary my-2 my-sm-0">Регистрация</a>
-                    <a href="/login" class="btn btn-outline-primary my-2 my-sm-0">Войти</a>
+                    <#if login == "anonymousUser">
+                        <a href="/login" class="btn btn-outline-primary my-2 my-sm-0">Войти</a>
+                    <#else>
+                        <a href="/logout" class="btn btn-outline-primary my-2 my-sm-0">(${login}) Выйти</a>
+                    </#if>
                 </div>
             </nav>
-            <#nested >
+            <#nested>
         </div>
     </body>
     </html>

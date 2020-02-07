@@ -20,7 +20,7 @@ public class Account {
     private Boolean active;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "acc_roles", joinColumns = @JoinColumn(name = "acc_id"))
+    @CollectionTable(name = "accounts_roles", joinColumns = @JoinColumn(name = "account_id"))
     @Enumerated(EnumType.STRING)
     Set<Role> roles;
 }
