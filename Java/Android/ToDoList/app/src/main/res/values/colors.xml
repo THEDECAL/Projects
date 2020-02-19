@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="NORMAL_PRIO">#CDDC39</color>
+    <color name="LOW_PRIO">#03A9F4</color>
+    <color name="VERY_LOW_PRIO">#9C27B0</color>
+    <color name="VERY_HIGH_PRIO">#FF5722</color>
+    <color name="HIGH_PRIO">#FFEB3B</color>
+    <color name="EXPIRE_COLOR">#FF5722</color>
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PhonesList</string>
+    <string name="contentDescription">...</string>
+    <string name="tvPriceText">Цена</string>
+    <string name="tvModelText">Модель</string>
+    <string name="tvBrandText">Брэнд</string>
+</resources>
