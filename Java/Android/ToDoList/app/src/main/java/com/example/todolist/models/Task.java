@@ -12,11 +12,17 @@ public class Task implements Serializable {
         NORMAL(R.color.NORMAL_PRIO),
         HIGH(R.color.HIGH_PRIO),
         VERY_HIGH(R.color.VERY_HIGH_PRIO);
+        private int value;
 
-        private Integer color;
-
-        Prio(Integer color){ this.color = color; }
-        public Integer getColor(){ return color; }
+        Prio(Integer color){ this.value = color; }
+        public Integer getValue(){ return value; }
+        static public Prio getPrio(int value){
+            for (Prio p: Prio.values()) {
+                if(p.getValue() == value)
+                    return p;
+            }
+            return null;
+        }
     }
 
     private String title;
@@ -52,4 +58,14 @@ public class Task implements Serializable {
     public void setEndDate(Date endDate) { this.endDate = endDate; }
     public String getOwner() { return owner; }
     public void setOwner(String owner) { this.owner = owner; }
+
+    public void copy(Task task){
+        this.title = task.getTitle();
+        this.description = task.getDescription();
+        this.owner = task.getOwner();
+        this.prio = task.getPrio();
+        this.startDate = task.getStartDate();
+        this.endDate = task.getEndDate();
+        this.isActive = task.getIsActive();
+    }
 }

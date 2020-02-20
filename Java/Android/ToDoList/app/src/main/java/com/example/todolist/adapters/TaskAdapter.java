@@ -2,11 +2,12 @@ package com.example.todolist.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.util.Log;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.todolist.R;
 import com.example.todolist.TaskManagerActivity;
 import com.example.todolist.models.Task;
+
+import java.util.Date;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
@@ -47,26 +50,30 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     @NonNull
     @Override
-    public TaskAdapter.TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.task_item, parent, false);
         return new TaskViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TaskAdapter.TaskViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull TaskViewHolder holder, final int position) {
         Task task = taskList.get(position);
         holder.tvItemTitle.setText(task.getTitle());
-        holder.cbComplete.setChecked(task.getIsActive());
-        holder.vColorPrio.setBackgroundColor(task.getPrio().getColor());
+        holder.cbComplete.setChecked(!task.getIsActive());
+        int color = inflater.getContext().getResources().getColor(task.getPrio().getValue());
+        holder.vColorPrio.setBackgroundColor(color);
         holder.ibDel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { taskList.remove(position); }
+            public void onClick(View v) {
+                taskList.remove(position);
+                notifyItemRemoved(position);
+            }
         });
         holder.ibShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(inflater.getContext(), TaskManagerActivity.class);
-                intent.putExtra("mode", TaskManagerActivity.MODE.SHOW);
+                intent.putExtra("mode", TaskManagerActivity.MODE.SHOW.getValue());
                 intent.putExtra("task", taskList.get(position));
                 inflater.getContext().startActivity(intent);
             }
@@ -75,21 +82,25 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             @Override
             public boolean onLongClick(View v) {
                 Intent intent = new Intent(inflater.getContext(), TaskManagerActivity.class);
+                intent.putExtra("mode", TaskManagerActivity.MODE.EDIT.getValue());
                 intent.putExtra("task", taskList.get(position));
+                intent.putExtra("index", position);
                 inflater.getContext().startActivity(intent);
                 return false;
             }
         });
-
-        //Если задание просрочено
-        if(task.getStartDate().compareTo(task.getEndDate()) >= 0) {
-            holder.cbComplete.setEnabled(false);
-            holder.cbComplete.setButtonTintList(new ColorStateList(
-                    new int[][]{new int[]{android.R.attr.state_pressed}},
-                    new int[]{inflater.getContext().getResources().getColor(R.color.EXPIRE_COLOR)}
-            ));
+        holder.cbComplete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox cb = (CheckBox)v;
+                Task task = taskList.get(position);
+                task.setIsActive(cb.isChecked());
+            }
+        });
+        //Если задание просрочено не показывать чекбокс
+        if(task.getEndDate().compareTo(new Date()) < 0) {
+            holder.cbComplete.setVisibility(View.INVISIBLE);
         }
-        Log.d("MY_LOG", "onBindViewHolder() runned");
     }
 
     @Override

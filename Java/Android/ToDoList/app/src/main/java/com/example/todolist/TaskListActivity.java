@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -14,13 +13,16 @@ import com.example.todolist.adapters.TaskAdapter;
 import com.example.todolist.models.Task;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class TaskListActivity extends AppCompatActivity {
-    final private List<Task> taskList = new ArrayList();
+    static final private List<Task> taskList = new ArrayList();
+    static boolean isTaskListInit = false;
     private ImageButton ibAddTask;
     private RecyclerView rcTasks;
+    private ConstraintLayout clTasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,35 +34,63 @@ public class TaskListActivity extends AppCompatActivity {
         initTasks();
 
         rcTasks.setHasFixedSize(true);
-        //rcTasks.setLayoutManager(new LinearLayoutManager(this));
-        rcTasks.setAdapter(new TaskAdapter(this, taskList));
+        TaskAdapter taskAdapter = new TaskAdapter(this, taskList);
+        rcTasks.setLayoutManager(new LinearLayoutManager(clTasks.getContext()));
+        rcTasks.setAdapter(taskAdapter);
+        ibAddTask.bringToFront();
 
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
             final Task task = (Task)bundle.getSerializable("task");
+            final TaskManagerActivity.MODE mode =
+                    TaskManagerActivity.MODE.getMode(bundle.getInt("mode"));
 
-            if(task != null) {
-                taskList.add(task);
-                Log.d("MY_LOG", "Task #" + (taskList.indexOf(task) + 1) + " added");
+            if(task != null ) {
+                switch (mode){
+                    case ADD:
+                        taskList.add(task);
+                        taskAdapter.notifyDataSetChanged();
+                        break;
+                    case EDIT:
+                        int index = bundle.getInt("index");
+                        Task taskInList = taskList.get(index);
+                        taskInList.copy(task);
+                        taskAdapter.notifyItemChanged(index);
+                        break;
+                }
             }
         }
     }
 
     public void addTask(View view){
-        startActivity(new Intent(this, TaskManagerActivity.class));
+        Intent intent = new Intent(this, TaskManagerActivity.class);
+        intent.putExtra("mode", TaskManagerActivity.MODE.ADD.getValue());
+        startActivity(intent);
     }
 
     protected void initViews(){
         ibAddTask = findViewById(R.id.ibAddTask);
         rcTasks = findViewById(R.id.rcTasks);
+        clTasks = findViewById(R.id.clTasks);
     }
 
     protected void initTasks(){
-        taskList.add(new Task("Исправить ошибку с раздачей карт",
-                "Изменить направление броска карты",
-                "Никита" ,
-                Task.Prio.HIGH,
-                new Date(),
-                new Date()));
+        if(!isTaskListInit) {
+            final Calendar c = Calendar.getInstance();
+            c.add(Calendar.DAY_OF_MONTH, 1);
+            taskList.add(new Task("Установить Apache",
+                    "Установить Apache и Tomcat для spring`а",
+                    "Никита",
+                    Task.Prio.VERY_HIGH,
+                    new Date(),
+                    c.getTime()));
+            taskList.add(new Task("Исправить ошибку с раздачей карт",
+                    "Изменить направление броска карты",
+                    "Никита",
+                    Task.Prio.HIGH,
+                    new Date(),
+                    new Date()));
+        }
+        isTaskListInit = true;
     }
 }
