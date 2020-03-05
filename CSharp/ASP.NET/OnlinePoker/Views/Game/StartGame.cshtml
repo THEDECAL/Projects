@@ -1,0 +1,116 @@
+﻿@model string
+
+<link rel="stylesheet" href="~/css/poker.css" />
+
+<div id="modal-wins"></div>
+<div id="alerts" class="alerts my-5"></div>
+<div id="poker-table" class="poker-table">
+    <input type="hidden" id="game-id" value="@Model" />
+    <table>
+        <tr>
+            <td></td>
+            <td>
+                <div class="player" id="player2">
+                    <div class="player-title"></div>
+                    <div class="player-cards"></div>
+                </div>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td style="left: 100px">
+                <div class="player" id="player5">
+                    <div class="player-title"></div>
+                    <div class="player-cards"></div>
+
+                </div>
+            </td>
+            <td>
+                <div id="combination" style="display: none" class="combination"></div>
+            </td>
+            <td style="left: -100px">
+                <div class="player" id="player7">
+                    <div class="player-title"></div>
+                    <div class="player-cards"></div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="left: -70px">
+                <div class="player" id="player3">
+                    <div class="player-title"></div>
+                    <div class="player-cards"></div>
+
+                </div>
+            </td>
+            <td>
+                <div>
+                    <div class='game-card' id="deck" style="display: none">
+                        <img src='/images/cards/v1/0.png' alt='...' style='position: absolute'>
+                        <img src='/images/cards/v1/0.png' alt='...' style='z-index: 7'>
+                    </div>
+                    <div id="bank" class="bank" style="display: none">
+                        <img src='/images/poker-chips.png' alt='...' height=80>
+                        <span id='bank-count'>0</span>
+                    </div>
+                </div>
+            </td>
+            <td style="left: 70px">
+                <div class="player" id="player4">
+                    <div class="player-title"></div>
+                    <div class="player-cards"></div>
+
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="left: 100px">
+                <div class="player" id="player6">
+                    <div class="player-title"></div>
+                    <div class="player-cards"></div>
+
+                </div>
+            </td>
+            <td>
+                <div class="combination" id="player-actions" style="margin: 0 65px; display: none">
+                    <div style="height: 22px;" class="input-group">
+                        <input id="amount-bet" type="number" class="form-control" min="1" max="1000" value="10" style="height: 28px;">
+                        <div class="input-group-append" style="height: 28px;">
+                            <button class="btn btn-success btn-sm" type="button" onclick="btnBet()">Поставить</button>
+                        </div>
+                    </div>
+                    <div class="btn-group" data-toggle="buttons" style="height: 32px;margin-top: 5px; width: 100%">
+                        <button type="button" class="btn btn-danger btn-sm" onclick="btnFold()" aria-pressed="false" style="width: 100%;">
+                            Завершить
+                        </button>
+                        <button type="button" class="btn btn-outline-danger btn-sm" onclick="btnShowdown()" aria-pressed="false" style="width: 100%;">
+                            Вскрытся
+                        </button>
+                    </div>
+                </div>
+            </td>
+            <td style="left: -100px">
+                <div class="player" id="player8">
+                    <div class="player-title"></div>
+                    <div class="player-cards"></div>
+
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <div class="player" id="player1">
+                    <div class="player-title"></div>
+                    <div class="player-cards"></div>
+
+                </div>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+
+<script src="/lib/jquery/dist/jquery.min.js"></script>
+<script src="/lib/signalr/dist/browser/signalr.js"></script>
+<script src="/js/poker.js"></script>

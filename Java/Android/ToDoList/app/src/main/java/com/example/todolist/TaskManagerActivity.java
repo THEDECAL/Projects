@@ -2,6 +2,7 @@ package com.example.todolist;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.Fragment;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
@@ -23,6 +24,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import lombok.var;
 
 public class TaskManagerActivity extends AppCompatActivity implements View.OnClickListener
 {
@@ -46,10 +49,8 @@ public class TaskManagerActivity extends AppCompatActivity implements View.OnCli
 
     private EditText etTitle, etDesc, etOwner;
     private RadioGroup rgPrio;
-    private TextView tvStartTime, tvStartDate;
-    private TextView tvEndTime, tvEndDate;
-    private Button bSelectStartTime, bSelectStartDate;
-    private Button bSelectEndTime, bSelectEndDate;
+    private SetDateTimeFragment startDateTime;
+    private SetDateTimeFragment endDateTime;
     private ImageButton ibBack, ibAddEditTask;
     private RadioButton rbVeryLow, rbLow, rbNormal, rbHigh, rbVeryHigh;
 
@@ -60,13 +61,10 @@ public class TaskManagerActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_task_manager);
 
         initViews();
+        initFragments();
         initForm();
 
         ibBack.setOnClickListener(this);
-        bSelectStartDate.setOnClickListener(this);
-        bSelectStartTime.setOnClickListener(this);
-        bSelectEndDate.setOnClickListener(this);
-        bSelectEndTime.setOnClickListener(this);
         ibAddEditTask.setOnClickListener(this);
     }
 
@@ -78,14 +76,6 @@ public class TaskManagerActivity extends AppCompatActivity implements View.OnCli
         etDesc = findViewById(R.id.etDesc);
         etOwner = findViewById(R.id.etOwner);
         rgPrio = findViewById(R.id.rgPrio);
-        tvStartTime = findViewById(R.id.tvStartTime);
-        tvStartDate = findViewById(R.id.tvStartDate);
-        tvEndTime = findViewById(R.id.tvEndTime);
-        tvEndDate = findViewById(R.id.tvEndDate);
-        bSelectStartTime = findViewById(R.id.bSelectStartTime);
-        bSelectStartDate = findViewById(R.id.bSelectStartDate);
-        bSelectEndTime = findViewById(R.id.bSelectEndTime);
-        bSelectEndDate = findViewById(R.id.bSelectEndDate);
         ibAddEditTask = findViewById(R.id.ibAddEditTask);
         ibBack = findViewById(R.id.ibBack);
         rbVeryLow = findViewById(R.id.rbVeryLow);
@@ -93,6 +83,18 @@ public class TaskManagerActivity extends AppCompatActivity implements View.OnCli
         rbNormal = findViewById(R.id.rbNormal);
         rbHigh = findViewById(R.id.rbHigh);
         rbVeryHigh = findViewById(R.id.rbVeryHigh);
+    }
+
+    /**
+     * Инициализация фрагментов
+     */
+    protected void initFragments(){
+        startDateTime = (SetDateTimeFragment) getFragmentManager().
+                findFragmentById(R.id.fSetStartDateTime);
+        startDateTime.setTitle("Начало задания");
+        endDateTime = (SetDateTimeFragment) getFragmentManager().
+                findFragmentById(R.id.fSetEndDateTime);
+        endDateTime.setTitle("Конец задания");
     }
 
     /**
@@ -140,10 +142,8 @@ public class TaskManagerActivity extends AppCompatActivity implements View.OnCli
         etTitle.setText(title);
         etDesc.setText(desc);
         etOwner.setText(owner);
-        tvStartTime.setText(timeFormat.format(startDate));
-        tvStartDate.setText(dateFormat.format(startDate));
-        tvEndTime.setText(timeFormat.format(endDate));
-        tvEndDate.setText(dateFormat.format(endDate));
+        startDateTime.setDate(startDate);
+        endDateTime.setDate(endDate);
 
         switch(prio){
             case VERY_LOW: rgPrio.check(R.id.rbVeryLow); break;
@@ -158,15 +158,13 @@ public class TaskManagerActivity extends AppCompatActivity implements View.OnCli
      * Включает или выключает элементы управления
      * @param isEnable
      */
-    protected void editOnOff(Boolean isEnable){
+    protected void editOnOff(boolean isEnable){
         etTitle.setEnabled(isEnable);
         etDesc.setEnabled(isEnable);
         etOwner.setEnabled(isEnable);
         rgPrio.setEnabled(isEnable);
-        bSelectStartDate.setEnabled(isEnable);
-        bSelectStartTime.setEnabled(isEnable);
-        bSelectEndDate.setEnabled(isEnable);
-        bSelectEndTime.setEnabled(isEnable);
+        startDateTime.onOffButtons(isEnable);
+        endDateTime.onOffButtons(isEnable);
         ibAddEditTask.setVisibility((isEnable)?View.VISIBLE:View.INVISIBLE);
         rbVeryLow.setEnabled(isEnable);
         rbLow.setEnabled(isEnable);
@@ -177,44 +175,7 @@ public class TaskManagerActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(final View v) {
-        if(v == bSelectStartDate || v == bSelectEndDate){
-            final Calendar c = Calendar.getInstance();
-            DatePickerDialog dpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    try {
-                        Date date = dateFormat.parse(String.valueOf(dayOfMonth) + '.'
-                                + String.valueOf(month) + '.'
-                                + String.valueOf(year));
-
-                        if(v == bSelectStartDate)
-                            tvStartDate.setText(dateFormat.format(date));
-                        else if(v == bSelectEndDate)
-                            tvEndDate.setText(dateFormat.format(date));
-                    } catch (ParseException e) { }
-                }
-            }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-            dpd.show();
-        }
-        else if(v == bSelectStartTime || v == bSelectEndTime){
-            final Calendar c = Calendar.getInstance();
-            TimePickerDialog tpd = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    try {
-                        Date time = timeFormat.parse(String.valueOf(hourOfDay) + ':'
-                                + String.valueOf(minute));
-
-                        if(v == bSelectStartTime)
-                            tvStartTime.setText(timeFormat.format(time));
-                        else if(v == bSelectEndTime)
-                            tvEndTime.setText(timeFormat.format(time));
-                    } catch (ParseException e) {}
-                }
-            }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE) , true);
-            tpd.show();
-        }
-        else if(v == ibAddEditTask){
+        if(v == ibAddEditTask){
             try {
                 final Bundle bundle = getIntent().getExtras();
                 final MODE mode = MODE.getMode(bundle.getInt("mode"));
@@ -223,10 +184,9 @@ public class TaskManagerActivity extends AppCompatActivity implements View.OnCli
                 final String title = etTitle.getText().toString().trim();
                 final String desc = etDesc.getText().toString().trim();
                 final String owner = etOwner.getText().toString().trim();
-                final Date startDate = dateTimeFormat.parse(tvStartDate.getText().toString() + ' ' + tvStartTime.getText().toString());
-                final Date endDate = dateTimeFormat.parse(tvEndDate.getText().toString() + ' ' + tvEndTime.getText().toString());
+                final Date startDate = startDateTime.getDate();
+                final Date endDate = endDateTime.getDate();
                 final RadioButton rb = findViewById(rgPrio.getCheckedRadioButtonId());
-//                Task.Prio prio = Task.Prio.getPrio(rb.getButtonTintList().getDefaultColor());
                 Task.Prio prio = Task.Prio.NORMAL;
 
                 switch (rgPrio.getCheckedRadioButtonId()) {
@@ -253,6 +213,7 @@ public class TaskManagerActivity extends AppCompatActivity implements View.OnCli
                 intent.putExtra("task", task);
                 if(mode == MODE.EDIT)
                     intent.putExtra("index", bundle.getInt("index"));
+
                 startActivity(intent);
             } catch (Exception e) { Log.d("MY_LOG", e.getMessage()); }
         }

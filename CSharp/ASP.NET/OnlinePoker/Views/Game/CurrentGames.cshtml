@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model List<OnlinePoker.Models.Game>
+@inject UserManager<User> UserManager
+@{
+    ViewBag.Title = "Текущие игры";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="card-columns">
+    @if (Model.Count > 0)
+    {
+        @foreach (Game game in Model)
+        {
+            <div class="card" style="width: 18rem; margin: 10px;">
+                <div class="card-body">
+                    <h5 class="card-title">Игра на @game.PlayersCapacity человека</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Текущие игроки:</h6>
+                    @foreach (Player player in game.Players)
+                    {
+                        <p class="card-text">@player.NickName</p>
+                    }
+                    @if (game.Players.Exists(p => p.NickName == UserManager.FindByNameAsync(User.Identity.Name).Result.NickName) || game.IsPlacePlayer)
+                    {
+                        <a href="/Game/StartGame/@game.Id" class="card-link">Подключится</a>
+                    }
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Нет ни одной созданной игры.</p>
+    }
+</div>

@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">ToDoList</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="SetTIme_TimeText">Время:</string>
+    <string name="SelectText">Выбрать</string>
+    <string name="SetTIme_DateText">Дата:</string>
+    <string name="TitleText">Название</string>
+    <string name="OwnText">Ваше имя</string>
+    <string name="DescText">Описание</string>
+    <string name="PrioTitleText">Приоритет:</string>
+    <string name="PrioVeryLowText">-2</string>
+    <string name="PrioLowText">-1</string>
+    <string name="PrioNormalText">Нормальный</string>
+    <string name="PrioHighText">+1</string>
+    <string name="PrioVeryHighText">+2</string>
+    <string name="StartDateTimeText">Начало задания</string>
+    <string name="EndDateTimeText">Конец задания</string>
+    <string name="AddEditTaskDescText">Кнопка добавления или изменения задания</string>
+    <string name="BackText">Кнопка назад</string>
 </resources>
