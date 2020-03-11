@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PhoneBook</string>
+    <string name="ButtonAddText">+</string>
+    <string name="PhotoDesc">Фото контакта</string>
+    <string name="ButtonBackText">Назад</string>
+    <string name="SNameHintText">Фамилия*</string>
+    <string name="FNameHintText">Имя*</string>
+    <string name="PhoneNumberHintText">Номер телефона</string>
+</resources>
