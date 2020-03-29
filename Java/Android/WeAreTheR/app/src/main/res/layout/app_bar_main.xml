@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/ablTopBar"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:elevation="5dp"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="5dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/holo_purple"
+                android:elevation="5dp"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/svSearchPlace"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:defaultQueryHint="Введите населённый пункт..."
+                    app:iconifiedByDefault="false">
+
+                </androidx.appcompat.widget.SearchView>
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <include
+            layout="@layout/content_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="55dp"
+            android:elevation="1dp" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
