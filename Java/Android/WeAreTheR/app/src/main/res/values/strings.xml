@@ -14,5 +14,15 @@
 
     <string name="home_second">Home Second</string>
     <string name="default_search_text">Результат поиска...</string>
+    <string name="default_favorites_message">Записей нет...</string>
+    <string name="default_weather_place_text">Название места</string>
     <string name="null_search_result">Поиск не дал результата...</string>
+    <string name="weather_day_text">День</string>
+    <string name="weather_night_text">Ночь</string>
+    <string name="weather_temperature_text">Температура</string>
+    <string name="weather_temperature_min_text">Мин.</string>
+    <string name="weather_temperature_max_text">Макс.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

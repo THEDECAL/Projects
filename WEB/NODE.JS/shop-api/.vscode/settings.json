@@ -1,0 +1,8 @@
+{
+    "git.ignoreLimitWarning": true,
+    "workbench.colorTheme": "Default Light+",
+    "files.autoSave": "onFocusChange",
+    "files.autoSaveDelay": 5000,
+    "editor.fontSize": 12,
+    "editor.cursorStyle": "block"
+}

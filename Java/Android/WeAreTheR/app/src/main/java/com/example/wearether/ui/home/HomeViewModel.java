@@ -1,11 +1,16 @@
 package com.example.wearether.ui.home;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.wearether.models.pojo.Place;
+import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import lombok.val;
 
 public class HomeViewModel extends ViewModel {
     private MutableLiveData<String> mText;
@@ -13,7 +18,7 @@ public class HomeViewModel extends ViewModel {
 
     public HomeViewModel() {
         mText = new MutableLiveData<>();
-        mPlacesList = new MutableLiveData<>();
+        mPlacesList = new MutableLiveData<>(new ArrayList<>());
     }
 
     public LiveData<String> getText() {
@@ -25,12 +30,8 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void setPlacesList(List<Place> placesList) {
-        //mPlacesList.getValue().clear();
         mPlacesList.setValue(placesList);
     }
 
-    public LiveData<List<Place>> getPlacesList() {
-        mPlacesList.setValue(HomeFragment.getPlacesList());
-        return mPlacesList;
-    }
+    public LiveData<List<Place>> getLivePlacesList() { return mPlacesList; }
 }

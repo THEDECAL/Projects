@@ -2,21 +2,22 @@ package com.example.wearether.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.wearether.R;
 import com.example.wearether.data.DbHelper;
 import com.example.wearether.databinding.PlaceItemBinding;
 import com.example.wearether.models.pojo.Place;
-import com.example.wearether.ui.favorites.FavoritesFragment;
-import com.example.wearether.ui.home.HomeFragment;
+import com.example.wearether.ui.forecasts.ForecastsFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.val;
@@ -35,16 +36,15 @@ public class ListPlacesAdapter extends RecyclerView.Adapter<ListPlacesAdapter.Pl
             binding.executePendingBindings();
         }
     }
-
-    static protected DbHelper dbHelper;
-
+    private final DbHelper dbHelper = DbHelper.getInstance();
+    static private List<Place> placesList;
+    private boolean isFavoritesFragment;
     private LayoutInflater inflater;
-    private List<Place> placesList = new ArrayList<>();
 
-    public ListPlacesAdapter(Context context, DbHelper dbHelper, List<Place> placesList){
-        this.dbHelper = dbHelper;
+    public ListPlacesAdapter(Context context, List<Place> placesList, boolean isFavoritesFragment){
         inflater = LayoutInflater.from(context);
         setPlacesList(placesList);
+        this.isFavoritesFragment = isFavoritesFragment;
     }
 
     @NonNull
@@ -60,35 +60,50 @@ public class ListPlacesAdapter extends RecyclerView.Adapter<ListPlacesAdapter.Pl
         val place = placesList.get(position);
         holder.bind(place);
 
-        val isExistCity = dbHelper.isExistPlaceId(place.key);
+        if(!isFavoritesFragment) {
+            val isExistCity = dbHelper.isExistPlaceId(place.key);
 
-        setImageIbToAddDelToFavorites(holder, (isExistCity)
-                        ? android.R.drawable.star_big_on
-                        : android.R.drawable.star_big_off);
+            setImageIbToAddDelToFavorites(holder, (isExistCity)
+                    ? android.R.drawable.star_big_on
+                    : android.R.drawable.star_big_off);
+        }
+        else{
+            setImageIbToAddDelToFavorites(holder, android.R.drawable.ic_delete);
+        }
 
+        holder.binding.llPlace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                val bundle = new Bundle();
+                bundle.putString(ForecastsFragment.PLACE_ID, place.key);
+                bundle.putString(ForecastsFragment.PLACE_NAME, place.localizedName);
+                val nCtrl = Navigation.findNavController(v);
+                nCtrl.navigate(R.id.nav_forecasts, bundle);
+            }
+        });
         holder.binding.ibAddDelToFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Integer icon = null;
 
-                if(isExistCity) {
-                    icon = android.R.drawable.star_big_off;
+                if(!isFavoritesFragment) {
+                    val isExCity = dbHelper.isExistPlaceId(place.key);
+
+                    if (isExCity) {
+                        icon = android.R.drawable.star_big_off;
+                        dbHelper.delCity(place.key);
+                    } else {
+                        icon = android.R.drawable.star_big_on;
+                        dbHelper.addCity(place);
+                    }
+
+                    setImageIbToAddDelToFavorites(holder, icon);
+                }
+                else{
+                    notifyItemRemoved(placesList.indexOf(place));
+                    placesList.remove(place);
                     dbHelper.delCity(place.key);
                 }
-                else {
-                    icon = android.R.drawable.star_big_on;
-                    dbHelper.addCity(place);
-                }
-
-                setImageIbToAddDelToFavorites(holder, icon);
-            }
-        });
-        holder.binding.llPlace.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                val context = inflater.getContext();
-                val intent = new Intent(context, FavoritesFragment.class);
-                context.startActivity(intent);
             }
         });
     }
@@ -102,13 +117,7 @@ public class ListPlacesAdapter extends RecyclerView.Adapter<ListPlacesAdapter.Pl
     public int getItemCount() { return placesList.size(); }
 
     public void setPlacesList(List<Place> placesList){
-        this.placesList.clear();
-        this.placesList.addAll(placesList);
+        this.placesList = placesList;
         notifyDataSetChanged();
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return R.layout.place_item;
     }
 }

@@ -1,0 +1,33 @@
+<table class="table user-list">
+    <thead>
+    <tr>
+        <th><span>User Name</span></th>
+        <th><span>Created</span></th>
+        <th class="text-center"><span>Age</span></th>
+        <th><span>Email</span></th>
+        <th><span>Actions</span></th>
+        <th>&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each list}}
+        <tr>
+            <td>
+                <img src="{{this.urlImage}}" alt="">
+                <a href="#" class="user-link">{{this.fname}} {{this.pname}}</a>
+                <span class="user-subhead">{{this.sname}}</span>
+            </td>
+            <td>{{this.createDate}}</td>
+            <td class="text-center">
+                <span class="label label-default">{{this.age}}</span>
+            </td>
+            <td>
+                <a href="#">{{this.email}}</a>
+            </td>
+            <td style="width: 20%;">
+                <a href="/details/{{this.id}}" class="table-link"> Details </a>
+            </td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>

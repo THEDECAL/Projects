@@ -3,6 +3,7 @@ package com.example.wearether;
 import android.os.Bundle;
 import android.view.Menu;
 
+import com.example.wearether.data.DbHelper;
 import com.example.wearether.databinding.ActivityMainBinding;
 import com.example.wearether.models.pojo.Place;
 
@@ -22,6 +23,7 @@ import lombok.val;
 
 public class MainActivity extends AppCompatActivity {
     static private final List<Place> placesList = new ArrayList<>();
+    private final DbHelper dbHelper = DbHelper.init(this);
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding activityMainBinding;
 
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_favorites)
+                R.id.nav_home, R.id.nav_favorites, R.id.nav_forecasts)
                 .setDrawerLayout(activityMainBinding.drawerLayout)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -59,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -69,5 +70,13 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if(dbHelper != null && dbHelper.isOpen())
+            dbHelper.close();
     }
 }

@@ -22,8 +22,15 @@
         tools:layout="@layout/fragment_favorites" />
 
     <fragment
-        android:id="@+id/nav_weather"
-        android:name="com.example.wearether.ui.weatherByCity.WeatherByCityFragment"
-        android:label="fragment_weather_by_selected_city"
-        tools:layout="@layout/fragment_weather" />
+        android:id="@+id/nav_forecasts"
+        android:name="com.example.wearether.ui.forecasts.ForecastsFragment"
+        android:label="fragment_forecasts"
+        tools:layout="@layout/fragment_forecasts">
+        <argument
+            android:name="PlaceId"
+            app:argType="string" />
+        <argument
+            android:name="PlaceName"
+            app:argType="string" />
+    </fragment>
 </navigation>

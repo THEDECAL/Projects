@@ -1,0 +1,25 @@
+{
+  "name": "people-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js",
+    "start": "npm app.js"
+  },
+  "author": "THE DECAL!",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "express": "4.17.1",
+    "express-handlebars": "^4.0.3",
+    "hbs": "^4.1.1",
+    "jquery": "^3.5.0",
+    "uuid": "^7.0.3"
+  },
+  "devDependencies": {
+    "install": "^0.13.0",
+    "nodemon": "^2.0.3"
+  }
+}

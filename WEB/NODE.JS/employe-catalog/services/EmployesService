@@ -1,0 +1,73 @@
+const posts = require("../data/posts")
+const data = require("../data/data")
+const fs = require("fs")
+
+class EmployesService{
+    getAll(){ return data; }
+
+    add(emp) {
+        if (emp != undefined) {
+            const empls = this.getAll()
+            empls.push(emp)
+
+            this.writeArray(empls)
+        }
+    }
+
+    getPosts(){ return posts; }
+
+    edit(emp){
+        const empls = this.getAll()
+
+        for(var index in empls){
+            const empl = empls[index]
+
+            if(empl.id === emp.id){
+                //console.log(empl)
+                empl.fname = emp.fname
+                empl.sname = emp.sname
+                empl.pname = emp.pname
+                empl.age = emp.age
+                empl.email = emp.email
+                empl.post = emp.post
+
+                break;
+            }
+        }
+        //console.log(empls)
+
+        this.writeArray(empls)
+    }
+
+    remove(id){
+        if(id != undefined){
+            const empls = this.getAll()
+
+            for (var index in empls){
+                var empl = empls[index]
+
+                if(empl.id === id){
+                    empls.splice(index, 1)
+                    break;
+                }
+            }
+
+            this.writeArray(empls)
+        }
+    }
+
+    writeArray(array){
+        if(array != undefined) {
+            setTimeout(() => {
+                const fileName = __dirname + "/../data/data.json"
+                const json = JSON.stringify(array)
+
+                fs.writeFile(fileName, json, (err) => {
+                    if (err) throw err
+                })
+            }, 500)
+        }
+    }
+}
+
+module.exports = new EmployesService()

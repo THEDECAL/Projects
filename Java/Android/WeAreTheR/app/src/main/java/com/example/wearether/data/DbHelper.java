@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -16,34 +17,51 @@ import java.util.List;
 import lombok.val;
 
 public class DbHelper extends SQLiteOpenHelper {
+    static private DbHelper instance;
+
     static private class DB_FIELDS{
         static public final String ID = "id";
-        static public final String PLACE_ID = "city_id";
+        static public final String PLACE_ID = "place_id";
         static public final String JSON_OBJECT = "json_obj";
     }
-    static private final int DB_VERSION = 2;
+    static private final int DB_VERSION = 3;
     static private final String DB_NAME = "we_are_the_r.db";
     static private final String DB_TABLE_FAV_PLACES = "tb_favorites_cities";
     private SQLiteDatabase database;
 
-    public DbHelper(@NonNull Context context) {
+    private DbHelper(@NonNull Context context){
         super(context, DB_NAME, null, DB_VERSION);
+    }
+
+    static public DbHelper getInstance(){ return instance; }
+    static public DbHelper init(Context context){
+        return instance = (instance == null)
+                ? new DbHelper(context)
+                : instance;
     }
 
     /**
      * Открытие соединения с БД
      */
     public void open(){
-        database = getWritableDatabase();
-        onCreate(database);
+        instance.database = getWritableDatabase();
     }
 
     /**
      * Закрытие соединения с БД
      */
     public void close(){
-        if(database != null && database.isOpen())
-            database.close();
+        if(instance.database != null && instance.database.isOpen())
+            instance.database.close();
+    }
+
+    /**
+     * Проверка состояния соединения с БД
+     */
+    public boolean isOpen(){
+        return (instance.database != null)
+                ? instance.database.isOpen()
+                : false;
     }
 
     @Override
@@ -52,7 +70,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 "(" +
                     DB_FIELDS.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     DB_FIELDS.PLACE_ID + " TEXT NOT NULL, " +
-                    DB_FIELDS.JSON_OBJECT + " TEXT NOT NULL " +
+                    DB_FIELDS.JSON_OBJECT + " TEXT NOT NULL" +
                 ")");
     }
 
@@ -67,16 +85,25 @@ public class DbHelper extends SQLiteOpenHelper {
      * @return Возвращает true, если такое место в базе есть
      */
     public boolean isExistPlaceId(@NonNull String placeId){
+        //if(!isOpen()) open();
+
         Cursor cursor = null;
         try {
-            cursor = database.rawQuery("SELECT * FROM " + DB_TABLE_FAV_PLACES +
-                    " WHERE " + DB_FIELDS.PLACE_ID + "='" + placeId + "'", null);
+            cursor = instance.database.rawQuery(
+                    String.format("SELECT * FROM %s WHERE %s=?",
+                    DB_TABLE_FAV_PLACES, DB_FIELDS.PLACE_ID),
+                    new String[]{placeId});
 
             if (cursor.moveToFirst())
                 return true;
         }
         catch (Exception ex){}
-        finally { if(cursor != null) cursor.close(); }
+        finally {
+            if(cursor != null)
+                cursor.close();
+//            if(instance.database != null)
+//                instance.database.close();
+        }
         return false;
     }
 
@@ -101,13 +128,14 @@ public class DbHelper extends SQLiteOpenHelper {
      * @return Возвращает список мест
      */
     public List<Place> getPlaces(){
+        val listPlaces = new ArrayList<Place>();
         Cursor cursor = null;
         try {
-            cursor = database.rawQuery("SELECT * FROM " + DB_TABLE_FAV_PLACES,
-                    null);
+            cursor = instance.database.rawQuery(
+                    String.format("SELECT * FROM %s",
+                    DB_TABLE_FAV_PLACES),null);
 
             if (cursor.moveToFirst()){
-                val listPlaces = new ArrayList<Place>();
                 do {
                     val jsonObject = cursor.getString(2);
                     listPlaces.add(new Gson().fromJson(jsonObject, Place.class));
@@ -117,8 +145,11 @@ public class DbHelper extends SQLiteOpenHelper {
             }
         }
         catch (Exception ex){}
-        finally { if(cursor != null) cursor.close(); }
-        return null;
+        finally {
+            if(cursor != null)
+                cursor.close();
+        }
+        return listPlaces;
     }
 
     /**
@@ -131,7 +162,8 @@ public class DbHelper extends SQLiteOpenHelper {
         contentValues.put(DB_FIELDS.JSON_OBJECT, new Gson().toJson(place));
 
         if (!isExistPlaceId(place.key)) {
-            database.insert(DB_TABLE_FAV_PLACES, null, contentValues);
+            val id = instance.database.insert(DB_TABLE_FAV_PLACES, null, contentValues);
+            Log.d("MY_LOG", "Row inserted result: " + String.valueOf(id));
         }
     }
 
@@ -140,7 +172,8 @@ public class DbHelper extends SQLiteOpenHelper {
      * @param placeId Идентификатор места
      */
     public void delCity(@NonNull String placeId){
-        database.delete(DB_TABLE_FAV_PLACES,
+        val isDel = instance.database.delete(DB_TABLE_FAV_PLACES,
                 DB_FIELDS.PLACE_ID + "=?", new String[]{placeId});
+        Log.d("MY_LOG", "Row delete result: " + String.valueOf(isDel));
     }
 }
