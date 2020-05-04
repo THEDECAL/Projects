@@ -4,7 +4,7 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const { host, port } = require('./config/index')
-const sqlzSrv = require('./services/sequelizeService')
+const sequelizeService = require('./services/sequelizeService')
 const exp = express()
 
 const indexRoute = require('./routes/indexRoute')
@@ -20,11 +20,11 @@ exp.use(express.static(path.join(__dirname, 'public')))
 exp.use('/api', apiRoute)
 exp.use(['/index', '/'], indexRoute)
 
-exp.use(function(req, res, next) {
+exp.use(function (req, res, next) {
   next(createError(404));
 });
 
-exp.use(function(err, req, res, next) {
+exp.use(function (err, req, res, next) {
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
 
@@ -32,7 +32,6 @@ exp.use(function(err, req, res, next) {
   res.render('error')
 })
 
-sqlzSrv.sync().then(() => {
-  //sqlzSrv.init()
-  exp.listen(port, host, console.log("Server has started..."))
-})
+sequelizeService.sync().then(() => { sequelizeService.init() })
+
+exp.listen(port, host, console.log("Server has started..."))

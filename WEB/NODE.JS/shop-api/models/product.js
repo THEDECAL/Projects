@@ -1,9 +1,8 @@
 const { DataTypes } = require('sequelize')
-const sqlz = require('../config/sequealize')
-const { Category } = require('./category')
-const CrudService = require('../services/crudService')
+const sequelize = require('../config/sequelize')
+const Category = require('../models/category')
 
-const Product = sqlz.define('Product', {
+const Product = sequelize.define('Product', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -27,6 +26,4 @@ const Product = sqlz.define('Product', {
 Category.hasOne(Product)
 Product.belongsTo(Category, { foreignKey: 'CategoryId' })
 
-const Crud = new CrudService(Product)
-console.log("Crud:"); console.log(Crud)
-module.exports = { Product, Crud }
+module.exports = Product

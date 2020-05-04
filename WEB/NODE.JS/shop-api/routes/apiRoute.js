@@ -1,10 +1,10 @@
 const express = require('express');
-const ApiCntrl = require('../controller/apiController')
+const ApiController = require('../controller/apiController')
 const router = express.Router();
 
-router.get('/:key/:obj/:act', ApiCntrl.reqHandler)
-router.get('/:key/:obj/:act/:id', ApiCntrl.reqHandler)
+router.get('/:key/:model/:act', ApiController.reqHandler)
+router.get('/:key/:model/:act/:id', ApiController.reqHandler)
 
-router.post('/:key/:obj/:act', ApiCntrl.reqHandler)
+router.post('/:key/:model/:act', ApiController.reqHandler)
 
 module.exports = router;

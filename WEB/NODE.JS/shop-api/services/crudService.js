@@ -15,16 +15,18 @@ const MSG_NULL = " is a null."
 
 module.exports = class CrudService {
     constructor(model) {
-        var message = this.getModelName()
+        if (model) {
+            //message = model.prototype.constructor.name
+            //console.log(model)
 
-        console.log(model.build() instanceof Model)
-        if (model.build() instanceof Model) {
-            this.CurrentModel = model
-            console.log(message += MSG_SUCCESS_ADD)
+            if (model instanceof Model) {
+                this.CurrentModel = model
+                console.log("CrudService" += MSG_SUCCESS_ADD)
+                return
+            }
         }
-        else throw console.log(message += MSG_WRONG_TYPE)
+        throw console.log("CrudService" + MSG_WRONG_TYPE)
     }
-
     /**
      * Получение объекта по ID
      * @param {*} id идентификатор объекта
@@ -36,12 +38,10 @@ module.exports = class CrudService {
             throw console.log(this.getTypeName(id) += MSG_WRONG_TYPE)
         }
 
-        await this.CurrentModel.findByPk(id).then((res) => {
+        return await this.CurrentModel.findByPk(id).then((res) => {
             if (!res) throw message += MSG_NOT_FND
             console.log(message += MSG_SUCCESS_FND)
             console.debug(res)
-
-            return JSON.stringify(res)
         }).catch(err => console.error(err))
     }
 
@@ -72,21 +72,21 @@ module.exports = class CrudService {
     /**
      * Возвращает название типа текущей модели
      */
-    getModelName() { return this.CurrentModel.prototype.constructor.name }
+    getModelName() { return this.CurrentModel.name }
 
     /**
      * Возвращает имена всех методов в классе
      */
     getMethods() {
-        const props = Object.getOwnPropertyNames(this)
-        console.log(props)
+        const props = Object.getOwnPropertyNames(CrudService.prototype)
+        // console.log("props:"); console.log(props)
 
         if (props) {
             return props.sort().filter((el, index, arr) => {
-
+                console.log(el)
                 if (el != arr[index + 1] && typeof el === 'function') {
-                    console.log(el)
-                    console.log(arr[index])
+                    //console.log(el)
+                    //console.log(arr[index])
 
                     return true
                 }
@@ -94,21 +94,6 @@ module.exports = class CrudService {
             })
         }
         throw console.debug("Properties" + MSG_NULL)
-    }
-
-    /**
-     * Возвращает массив всех моделей Sequelize
-     */
-    static getModels() {
-        const { Key, CrudKey } = require('../models/key')
-        const { Category, CrudCategory } = require('../models/category')
-        const { Product, CrudProduct } = require('../models/product')
-
-        return {
-            [Key.name.toLowerCase()]: { Key, Crud: CrudKey },
-            [Category.name.toLowerCase()]: { Category, Crud: CrudCategory },
-            [Product.name.toLowerCase()]: { Product, Crud: CrudProduct }
-        }
     }
 
     /**

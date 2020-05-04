@@ -1,8 +1,7 @@
 const { DataTypes } = require('sequelize')
-const sqlz = require('../config/sequealize')
-const CrudService = require('../services/crudService')
+const sequelize = require('../config/sequelize')
 
-const Category = sqlz.define('Category', {
+module.exports = sequelize.define('Category', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -16,8 +15,3 @@ const Category = sqlz.define('Category', {
 }, {
     timestamps: false
 })
-
-
-const Crud = new CrudService(Category)
-
-module.exports = { Category, Crud }
