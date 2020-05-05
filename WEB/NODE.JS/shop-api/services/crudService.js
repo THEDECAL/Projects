@@ -1,5 +1,5 @@
-const { Model } = require('sequelize')
-//const sqlz = require('../config/sequealize')
+const { Model, Sequelize } = require('sequelize')
+const Category = require('../models/category')
 const MSG_NOT = " don`t"
 const MSG_SUCCESS = " success"
 const MSG_SUCCESS_ADD = `${MSG_SUCCESS} added.`
@@ -14,14 +14,15 @@ const MSG_WRONG_TYPE = " has wrong type."
 const MSG_NULL = " is a null."
 
 module.exports = class CrudService {
-    constructor(model) {
+    constructor(modelName) {
+        const model = require(`../models/${modelName}`)
         if (model) {
             //message = model.prototype.constructor.name
-            //console.log(model)
+            // console.log("model:"); console.log(model)
 
-            if (model instanceof Model) {
+            if (model.build() instanceof Model) {
                 this.CurrentModel = model
-                console.log("CrudService" += MSG_SUCCESS_ADD)
+                console.log("CrudService" + MSG_SUCCESS_ADD)
                 return
             }
         }
@@ -33,18 +34,46 @@ module.exports = class CrudService {
      */
     async get(id) {
         var message = `${this.getModelName()} id=${id}`
+        var result = null
+        var incAttrs = await this.getIncludeAttributes()
 
         if (!this.getTypeName(id) === Number.name) {
             throw console.log(this.getTypeName(id) += MSG_WRONG_TYPE)
         }
 
-        return await this.CurrentModel.findByPk(id).then((res) => {
+        await this.CurrentModel.findOne({
+            where: { id: id },
+            raw: true,
+            include: incAttrs
+        }).then((res) => {
             if (!res) throw message += MSG_NOT_FND
             console.log(message += MSG_SUCCESS_FND)
-            console.debug(res)
+            // console.debug(res)
+            const Pr = require("../models/product")
+            Pr.getTableName()
+            result = res
         }).catch(err => console.error(err))
+
+        return result
     }
 
+    /**
+     * Получение атрибутов для моделей
+     */
+    async getIncludeAttributes() {
+        const model = this.CurrentModel.name
+
+        switch (model) {
+            case "Product":
+                // return "Category"
+                return {
+                    model: require("../models/category"),
+                    attributes: ['name']
+                }
+            default:
+                return null;
+        }
+    }
     /**
      * Получение объекта по условию
      * @param {*} conditions условие поиска пример: {where: {name: "Example"}}
@@ -99,18 +128,22 @@ module.exports = class CrudService {
     /**
      * Получение всех объектов модели
      */
-    async getAll() {
+    async get_all() {
         var message = this.getModelName()
+        var result = null;
+        var incAttr = await this.getIncludeAttributes()
 
         await this.CurrentModel.findAll({
-            raw: true
+            raw: true,
+            include: incAttr
         }).then((res) => {
             if (!res) throw message += MSG_NOT_FND
             console.log(message += MSG_SUCCESS_FND)
-            console.debug(res)
+            // console.debug(res)
 
-            return JSON.stringify(res)
+            result = res
         }).catch(err => console.error(err))
+        return result
     }
 
     /**
@@ -118,16 +151,13 @@ module.exports = class CrudService {
      * @param {*} model объект унаследованный от Model
      */
     async add(model) {
-        var message = model.prototype.constructor.name
-
-        if (!model.build() instanceof this.CurrentModel) {
-            throw console.log(message += MSG_NOT_ADD)
-        }
+        console.log("add: model"); console.log(model)
+        var message = this.CurrentModel.name
         await this.CurrentModel.create(model).then((res) => {
             if (!res) throw message += MSG_NOT_ADD
             console.log(message += MSG_SUCCESS_ADD)
             console.debug(res)
-        }).catch(err => console.error(err))
+        })//.catch(err => console.error(err))
     }
 
     /**
@@ -146,9 +176,7 @@ module.exports = class CrudService {
         }).then((res) => {
             if (!res) throw message += MSG_NOT_DEL
             console.log(message += MSG_SUCCESS_DEL)
-            console.debug(res)
-
-            return JSON.stringify(res)
+            // console.debug(res)
         }).catch(err => console.debug(err))
     }
 
@@ -159,19 +187,26 @@ module.exports = class CrudService {
     async update(model) {
         var message = `${this.getModelName()} ${model.prototype} `
 
-        if (!model.build() instanceof this.CurrentModel) {
-            throw console.log(message += MSG_NOT_UPD)
-        }
+        // if (!model.build() instanceof this.CurrentModel) {
+        //     throw console.log(message += MSG_NOT_UPD)
+        // }
         await this.CurrentModel.update({ model }, {
             where: { id: model.id }
         }).then((res) => {
             if (!res) throw message += MSG_NOT_UPD
             console.log(message += MSG_SUCCESS_UPD)
             console.debug(res)
-        }).catch(err => console.debug(err))
+        })//.catch(err => console.debug(err))
     }
-
+    /**
+     * Запуск метода по имени
+     * @param {*} methodName Название метода
+     * @param {*} args Аргументы
+     */
     async run(methodName, args) {
-        this[methodName](args)
+        // console.log("methodName:"); console.log(methodName)
+        const data = await this[methodName](args)
+        // console.log("data:"); console.log(data)
+        return data
     }
 }

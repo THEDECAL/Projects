@@ -1,77 +1,108 @@
 const PRM_KEY = 'key'
-const PRM_MDL = 'model'
+const PRM_MDL = 'mod'
 const PRM_ACT = 'act'
 const PRM_ID = 'id'
 const createError = require('http-errors')
 const CrudService = require('../services/crudService')
 const { Model } = require('sequelize')
 
-class ApiController {
-    getCrud(req) {
+module.exports = class ApiController {
+    static getCrud(req) {
         try {
-            const prmModel = String(req.params[PRM_MDL]).toLowerCase().trim()
-            // const prmAct = String(req.params[PRM_ACT]).toLowerCase().trim()
-            // const prmId = String(req.params[PRM_ID]).toLowerCase().trim()
-            const Model = require(`../models/${prmModel}`)
-            // console.log("Model:"); console.log(Model)
+            // console.log("req.body:");console.log(req.body)
+            // console.log("req.params:");console.log(req.params)
+            var prmModel = null;
+            console.log(Object.keys(req.body))
+            if(!req.body){ console.log("GET"); prmModel = String(req.params[PRM_MDL]) }
+            else{ console.log("POST"); prmModel = String(req.body[PRM_MDL]) }
+            console.log("prmModel: " + prmModel)
 
-            if (Model) {
-                //const obj = new Model()
-                // console.log("obj:"); console.log(obj)
-                this.Crud = new CrudService(Model)
-
-                return true
+            if (prmModel) {
+                return new CrudService(prmModel.toLowerCase())
             }
             throw console.log("Wrong params.")
         } catch (err) { console.error(err) }
-        return false
+        return null
     }
 
-    async keyCheck(req) {
-        const key = String(req.params[PRM_KEY]).toLowerCase().trim()
-        //console.log(key)
+    static async keyCheck(req) {
+        var key = null
+        if(!req.body){ key = req.params[PRM_KEY] }
+        else{ key = req.body[PRM_KEY] }
+        // console.log("key:"); console.log(key)
 
         if (key) {
-            // console.log("this.Crud:"); console.log(this.Crud)
-            // console.log("Object.keys(this.Crud):"); console.log(Object.keys(this.Crud))
-            //console.log("this.Crud.getMethods():"); console.log(this.Crud.getMethods())
-            // console.log("Object.getOwnPropertyNames(this.Crud.CurrentModel):")
-            // console.log(Object.getOwnPropertyNames(this.Crud.CurrentModel))
             const Key = require("../models/key")
 
             var result = null;
-            await Key.findOne(
-                { where: { key: key }, raw: true }).then((res) => {
-                    result = res;
-                })/*.catch(err => console.error(err))*/
-            console.log("result:"); console.log(result)
+            try {
+                await Key.findOne(
+                    {
+                        where: { key: key },
+                        raw: true
+                    })
+                    .then((res) => {
+                        if (!res) return
+                        // console.log("res:"); console.log(res)
+                        result = res;
+                    })
+                // console.log("result:"); console.log(result)
 
-            // const result = await this.Crud.filter({
-            //     where: { key: key }
-            // }).catch(err => console.error(err))
-            // console.log("result:"); console.log(result)
+                if (result.id > 0) {
+                    return true
+                }
+            } catch (err) { return false }
 
-            if (result.id > 0) {
-                return true
-            }
+            return false
         }
-
-        return false
     }
 
-    reqHandler(req, resp, next) {
-        const api = new ApiController()
-        const isGetCrud = api.getCrud(req)
-        console.log("isGetCrud:"); console.log(isGetCrud)
+    static async reqHandler(req, resp, next) {
+        try{
+            const Crud = ApiController.getCrud(req)
+            console.log("Crud:"); console.log(Crud)
 
-        if (isGetCrud) {
-            const isKeyValid = api.keyCheck(req)
-            console.log("isKeyValid:"); console.log(isKeyValid)
+            if (Crud) {
+                const isKeyValid = await ApiController.keyCheck(req)
+                console.log("isKeyValid:"); console.log(isKeyValid)
 
-            if (isKeyValid) { resp.json("Yes!") }
+                if (isKeyValid) {
+                    if(!req.body){ //Для GET
+                        const prmAct = req.params[PRM_ACT]
+                        const prmId = req.params[PRM_ID]
+                        const data = await Crud.run(prmAct, prmId)
+                        return resp.json(data)
+                    }
+                    else { //Для POST
+                        const prmAct = req.body[PRM_ACT]
+                        const data = ApiController.getData(req)
+                        await Crud.run(prmAct, data)
+                        return resp.json("The POST request success complete.")
+                    }
+                }
+            }
         }
-        next(createError(401))
+        catch(err){ console.log(err)}
+        next(createError(400))
+    }
+
+    static getData(req){
+        const prmModel = String(req.body[PRM_MDL]).toLowerCase()
+
+        switch (prmModel) {
+           case "product":
+                return {
+                    id: req.body.id,
+                    brand: req.body.brand,
+                    model: req.body.model,
+                    price: req.body.price,
+                    urlImage: req.body.urlImage,
+                    CategoryId: req.body.CategoryId
+                }
+            default:
+                return null
+        }
     }
 }
 
-module.exports = new ApiController()
+// module.exports = new ApiController()

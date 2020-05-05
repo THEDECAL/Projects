@@ -1,7 +1,8 @@
 const { DataTypes } = require('sequelize')
 const sequelize = require('../config/sequelize')
+const Product = require('../models/product')
 
-module.exports = sequelize.define('Category', {
+const Category = sequelize.define('Category', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -15,3 +16,8 @@ module.exports = sequelize.define('Category', {
 }, {
     timestamps: false
 })
+
+Category.hasOne(Product)
+Product.belongsTo(Category)
+
+module.exports = Category

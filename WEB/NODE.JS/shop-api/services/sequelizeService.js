@@ -6,9 +6,9 @@ const Key = require('../models/key')
 const Crypto = require('crypto')
 
 class SequelizeService {
-    async sync() {
+    async sync(isForce) {
         await sequelize
-            .sync({ force: true })
+            .sync({ force: isForce })
             .catch(err => console.error(err))
     }
 
@@ -76,6 +76,7 @@ class SequelizeService {
             brand: "Samsung",
             model: "A100",
             price: 54.99,
+            urlImage: "",
             CategoryId: cats[0].id
         }, { raw: true }).then((res) => {
             if (res) {
@@ -87,6 +88,7 @@ class SequelizeService {
             brand: "Hp",
             model: "8460p",
             price: 93.99,
+            urlImage: "",
             CategoryId: cats[1].id
         }, { raw: true }).then((res) => {
             if (res) {
@@ -98,6 +100,7 @@ class SequelizeService {
             brand: "Apple",
             model: "4G",
             price: 103.99,
+            urlImage: "",
             CategoryId: cats[2].id
         }, { raw: true }).then((res) => {
             if (res) {

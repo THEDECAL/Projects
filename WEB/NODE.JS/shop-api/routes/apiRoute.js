@@ -5,6 +5,6 @@ const router = express.Router();
 router.get('/:key/:model/:act', ApiController.reqHandler)
 router.get('/:key/:model/:act/:id', ApiController.reqHandler)
 
-router.post('/:key/:model/:act', ApiController.reqHandler)
+router.post('/', ApiController.reqHandler)
 
 module.exports = router;

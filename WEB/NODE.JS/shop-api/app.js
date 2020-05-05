@@ -32,6 +32,6 @@ exp.use(function (err, req, res, next) {
   res.render('error')
 })
 
-sequelizeService.sync().then(() => { sequelizeService.init() })
+sequelizeService.sync(false)/*.then(() => { sequelizeService.init() })*/
 
 exp.listen(port, host, console.log("Server has started..."))
