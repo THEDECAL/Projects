@@ -6,10 +6,9 @@ const Key = require('../models/key')
 const Crypto = require('crypto')
 
 class SequelizeService {
-    async sync(isForce) {
-        await sequelize
-            .sync({ force: isForce })
-            .catch(err => console.error(err))
+    async sync(isForce, isInit) {
+        await sequelize.sync({ force: isForce })
+        if (isInit) { await this.init() }
     }
 
     async checkConnect() {
@@ -34,37 +33,55 @@ class SequelizeService {
 
         await Category.create({ name: 'Smartphone' })
             .then((cat) => {
-                cat.setProduct()
+                Product.create({
+                    brand: "Samsung",
+                    model: "A100",
+                    price: 54.99,
+                    urlImage: "/images/iphone.png",
+                    CategoryId: cat.id
+                })
+                Product.create({
+                    brand: "Lenovo",
+                    model: "C300",
+                    price: 58.39,
+                    urlImage: "/images/iphone.png",
+                    CategoryId: cat.id
+                })
             })
         await Category.create({ name: 'Notebook' })
-        await Category.create({ name: 'Tablet' })
-
-        //Продукты
-        const prods = [
-            await Product.create({
-                brand: "Samsung",
-                model: "A100",
-                price: 54.99,
-                urlImage: "",
-                CategoryId: cats[0].id
-            }),
-            await Product.create({
-                brand: "Hp",
-                model: "8460p",
-                price: 93.99,
-                urlImage: "",
-                CategoryId: cats[1].id
-            }),
-            await Product.create({
-                brand: "Apple",
-                model: "4G",
-                price: 103.99,
-                urlImage: "",
-                CategoryId: cats[2].id
+            .then((cat) => {
+                Product.create({
+                    brand: "Sony",
+                    model: "PoweBook p9089",
+                    price: 64.29,
+                    urlImage: "/images/laptop.png",
+                    CategoryId: cat.id
+                })
+                Product.create({
+                    brand: "Hp",
+                    model: "EliteBook 8460p",
+                    price: 62.39,
+                    urlImage: "/images/laptop.png",
+                    CategoryId: cat.id
+                })
             })
-        ]
-
-        //prods[0].getDataValue().setCategory()
+        await Category.create({ name: 'Web Camera' })
+            .then((cat) => {
+                Product.create({
+                    brand: "SeliconPower",
+                    model: "Bp900",
+                    price: 14.99,
+                    urlImage: "/images/camera.png",
+                    CategoryId: cat.id
+                })
+                Product.create({
+                    brand: "Genius",
+                    model: "Y5490",
+                    price: 38.39,
+                    urlImage: "/images/camera.png",
+                    CategoryId: cat.id
+                })
+            })
     }
 
     /**

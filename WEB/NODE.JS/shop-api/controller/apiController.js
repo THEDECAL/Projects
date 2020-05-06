@@ -25,35 +25,24 @@ module.exports = class ApiController {
     }
 
     static async keyCheck(req) {
-        var key = null
-        const bodyLength = Object.keys(req.body).length
+        try {
+            var key = null
+            const bodyLength = Object.keys(req.body).length
 
-        if (bodyLength === 0) { key = req.params[PRM_KEY] }
-        else { key = req.body[PRM_KEY] }
-        // console.log("key:"); console.log(key)
+            if (bodyLength === 0) { key = req.params[PRM_KEY] }
+            else { key = req.body[PRM_KEY] }
+            // console.log("key:"); console.log(key)
 
-        if (key) {
             const Key = require("../models/key")
+            var result = await Key.findOne(
+                {
+                    where: { key },
+                    raw: true
+                })
 
-            var result = null;
-            try {
-                await Key.findOne(
-                    {
-                        where: { key: key },
-                        raw: true
-                    })
-                    .then((res) => {
-                        if (!res) return
-                        result = res;
-                    })
-
-                if (result.id > 0) {
-                    return true
-                }
-            } catch (err) { return false }
-
-            return false
-        }
+            if (result.id > 0) { return true }
+        } catch (err) { console.debug(err); return false }
+        return false
     }
 
     static async reqHandler(req, resp, next) {

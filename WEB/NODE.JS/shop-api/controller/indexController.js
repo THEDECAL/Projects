@@ -7,7 +7,7 @@ const CrudProduct = new CrudService(Product.name.toLowerCase())
 class IndexController {
     async index(req, resp) {
         const products = await CrudProduct.get_all()
-        console.log("products: " + products)
+        // console.log("products: " + products)
 
         resp.render('index', {
             title: 'Shop',
@@ -26,7 +26,6 @@ class IndexController {
                 product
             })
         }
-        next(CreateError(400))
     }
 
     contacts(req, resp) {

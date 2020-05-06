@@ -18,6 +18,6 @@ const Category = sequelize.define('Category', {
 })
 
 Category.hasMany(Product)
-//Product.belongsTo(Category)
+Product.belongsTo(Category)
 
 module.exports = Category
