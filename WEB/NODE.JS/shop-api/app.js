@@ -20,11 +20,11 @@ exp.use(express.static(path.join(__dirname, 'public')))
 exp.use('/api', apiRoute)
 exp.use(['/index', '/'], indexRoute)
 
-exp.use(function (req, res, next) {
+exp.use((req, res, next) => {
   next(createError(404));
 });
 
-exp.use(function (err, req, res, next) {
+exp.use((err, req, res, next) => {
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
 

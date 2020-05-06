@@ -151,13 +151,12 @@ module.exports = class CrudService {
      * @param {*} model объект унаследованный от Model
      */
     async add(model) {
-        console.log("add: model"); console.log(model)
         var message = this.CurrentModel.name
         await this.CurrentModel.create(model).then((res) => {
             if (!res) throw message += MSG_NOT_ADD
             console.log(message += MSG_SUCCESS_ADD)
-            console.debug(res)
-        })//.catch(err => console.error(err))
+            // console.debug(res)
+        })
     }
 
     /**
@@ -185,18 +184,20 @@ module.exports = class CrudService {
      * @param {*} model объект унаследованный от Model
      */
     async update(model) {
-        var message = `${this.getModelName()} ${model.prototype} `
+        var message = this.CurrentModel.name
+        // console.log("model keys: " + Object.keys(model))
 
-        // if (!model.build() instanceof this.CurrentModel) {
-        //     throw console.log(message += MSG_NOT_UPD)
-        // }
-        await this.CurrentModel.update({ model }, {
+        if (!model.id) {
+            throw message + " field 'id'" + MSG_NULL
+        }
+
+        await this.CurrentModel.update(model, {
             where: { id: model.id }
         }).then((res) => {
             if (!res) throw message += MSG_NOT_UPD
             console.log(message += MSG_SUCCESS_UPD)
-            console.debug(res)
-        })//.catch(err => console.debug(err))
+            // console.debug(res)
+        })
     }
     /**
      * Запуск метода по имени
