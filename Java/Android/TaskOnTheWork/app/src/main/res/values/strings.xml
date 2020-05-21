@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">TestTask</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dotes">...</string>
+    <string name="default_current_page">1</string>
+    <string name="default_last_page">15</string>
+    <string name="DefaultTitle">Title</string>
+    <string name="DefaultCommentscount">CommentsCount</string>
+    <string name="DefaultAthor">Author</string>
+    <string name="DefaultCreatedate">CreateDate</string>
+    <string name="default_loading_text">News is downloading...</string>
+</resources>

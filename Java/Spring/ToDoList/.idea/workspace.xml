@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="26791d07-39d2-4f06-8094-b495faab3939" name="Default Changelist" comment="" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <list default="true" id="26791d07-39d2-4f06-8094-b495faab3939" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../Android/WeAreTheR/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Android/WeAreTheR/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Android/WeAreTheR/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../Android/WeAreTheR/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/app/app-routing.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/app/app.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/app/app.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/app/config/sequelize.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/app/menu/menu.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/app/menu/menu.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/app/menu/menu.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/app/menu/menu.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/app/models/task.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/app/todo-list/todo-list.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/app/todo-list/todo-list.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/app/todo-list/todo-list.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/app/todo-list/todo-list.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../../WEB/ANGULAR/todo-list/src/styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/NODE.JS/employe-catalog/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../WEB/NODE.JS/employe-catalog/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WEB/NODE.JS/shop-api/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../WEB/NODE.JS/shop-api/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,28 +60,57 @@
       </list>
     </option>
   </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
-      </MavenImportingSettings>
-    </option>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="JsBowerSettings">
+    <node-interpreter value="project" />
+    <bower-package value="" />
+    <bower.json value="" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
   </component>
   <component name="ProjectId" id="1WnJA5Pmdk4gsKzmPLGuYcXPIe3" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="HbShouldOpenHtmlAsHb" value="disabled" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="D:/Downloads/Lesson_07_1578741926/Lesson 07" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.jscs" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.jscs" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.jscs" value="" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path" value="/usr/bin/node" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -76,18 +129,6 @@
       <recent name="E:\Projects\Java\Spring\ToDoList\src\main\resources\templates" />
       <recent name="E:\Projects\Java\Spring\ToDoList\src\main\resources" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager">
     <configuration name="ServingWebContentApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
@@ -126,10 +167,30 @@
       <workItem from="1580056553707" duration="37535000" />
       <workItem from="1580203345417" duration="101000" />
       <workItem from="1580320468967" duration="15000" />
+      <workItem from="1589565968037" duration="38000" />
+      <workItem from="1589592635656" duration="3995000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="602" y="228" width="561" height="447" key="#com.intellij.tools.ToolEditorDialog" timestamp="1589595945608">
+      <screen x="0" y="0" width="1600" height="899" />
+    </state>
+    <state x="602" y="228" width="561" height="447" key="#com.intellij.tools.ToolEditorDialog/0.0.1600.899@0.0.1600.899" timestamp="1589595945608" />
+    <state x="666" y="191" key="FileChooserDialogImpl" timestamp="1589596617551">
+      <screen x="0" y="0" width="1600" height="899" />
+    </state>
+    <state x="666" y="191" key="FileChooserDialogImpl/0.0.1600.899@0.0.1600.899" timestamp="1589596617551" />
+    <state x="274" y="85" width="1225" height="731" key="SettingsEditor" timestamp="1589615300696">
+      <screen x="0" y="0" width="1600" height="899" />
+    </state>
+    <state x="274" y="85" width="1225" height="731" key="SettingsEditor/0.0.1600.899@0.0.1600.899" timestamp="1589615300696" />
+    <state x="606" y="261" width="552" height="381" key="jetbrains.nodejs.interpreters-dialog" timestamp="1589595802677">
+      <screen x="0" y="0" width="1600" height="899" />
+    </state>
+    <state x="606" y="261" width="552" height="381" key="jetbrains.nodejs.interpreters-dialog/0.0.1600.899@0.0.1600.899" timestamp="1589595802677" />
   </component>
 </project>

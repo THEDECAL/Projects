@@ -1,21 +1,33 @@
-<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark default-color ie-nav fixed-top" [containerInside]="false">
-  <mdb-navbar-brand>
-    <a class="logo navbar-brand" href="/"><strong>{{ title }}</strong></a>
-  </mdb-navbar-brand>
-  <links>
+<!-- <nav class="navbar navbar-expand-lg navbar-dark primary-color">
+  <a class="navbar-brand" href="#">ToDoList</a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="basicExampleNav">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active waves-light" mdbWavesEffect>
-        <a class="nav-link">Главная <span class="sr-only">(current)</span></a>
+      <li class="nav-item">
+        <a class="nav-link" href="#">+</a>
       </li>
-      <!--<li class="nav-item waves-light" mdbWavesEffect>-->
-        <!--<a class="nav-link">Features</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item waves-light" mdbWavesEffect>-->
-        <!--<a class="nav-link">Pricing</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item waves-light" mdbWavesEffect>-->
-        <!--<a class="nav-link">Opinions</a>-->
-      <!--</li>-->
     </ul>
-  </links>
-</mdb-navbar>
+  </div>
+
+</nav> -->
+<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+
+<mat-menu #appMenu="matMenu">
+  <button mat-menu-item>Settings</button>
+  <button mat-menu-item>Help</button>
+</mat-menu>
+
+<!-- <div class="example-button-container">
+  <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" [matMenuTriggerFor]="appMenu">
+    <mat-icon>control_point</mat-icon>
+  </button>
+</div> -->
+
+<button mat-icon-button aria-label="Example icon button with a vertical three dot icon" [matMenuTriggerFor]="appMenu">
+  <mat-icon>control_point</mat-icon>
+</button>
