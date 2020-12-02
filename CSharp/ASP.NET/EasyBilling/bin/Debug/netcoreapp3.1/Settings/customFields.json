@@ -1,0 +1,16 @@
+{
+  "ProfileCustomFieldsNames": [
+    "Коммутатор",
+    "Порт",
+    "FieldName3",
+    "FieldName4",
+    "FieldName5"
+  ],
+  "DeviceCustomFieldsNames": [
+    "Количество портов",
+    "FieldName2",
+    "FieldName3",
+    "FieldName4",
+    "FieldName5"
+  ]
+}
