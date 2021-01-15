@@ -1,9 +1,6 @@
 package com.example.taskonthework.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +18,7 @@ import com.example.taskonthework.models.pojo.Child;
 import com.example.taskonthework.models.pojo.Data_;
 import com.example.taskonthework.tools.GetImageTask;
 
-import java.io.InputStream;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,7 +50,7 @@ public class NewsAdapter extends ArrayAdapter<Child> implements Serializable {
         Data_ newsItem =  currentNewsList.get(position).getData();
 
         try{
-            final TextView tvTitle = view.findViewById(R.id.tvTitle);
+            final TextView tvTitle = ((View) view).findViewById(R.id.tvTitle);
             final TextView tvAuthor = view.findViewById(R.id.tvAuthor);
             final TextView tvCommentsCount = view.findViewById(R.id.tvCommentsCount);
             final TextView tvCreateDate = view.findViewById(R.id.tvCreateDate);
